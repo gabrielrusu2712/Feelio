@@ -1,16 +1,12 @@
 import js from '@eslint/js'
 import { defineConfig } from 'eslint/config'
 import globals from 'globals'
-import path from 'path'
-import { fileURLToPath } from 'url'
 import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefresh from 'eslint-plugin-react-refresh'
 import reactPlugin from 'eslint-plugin-react'
 import tseslint from 'typescript-eslint'
 import noRelativeImportPaths from 'eslint-plugin-no-relative-import-paths'
 import prettier from 'eslint-plugin-prettier/recommended'
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 export default defineConfig(
   { ignores: ['dist'] },
@@ -41,7 +37,7 @@ export default defineConfig(
       parser: tseslint.parser,
       parserOptions: {
         projectService: true,
-        tsconfigRootDir: __dirname,
+        tsconfigRootDir: process.cwd(),
         ecmaFeatures: { jsx: true },
       },
     },
