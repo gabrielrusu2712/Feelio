@@ -1,4 +1,3 @@
 yarn prettier
 yarn lint
-
-# yarn knip:required
+yarn knip:required

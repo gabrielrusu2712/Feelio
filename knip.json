@@ -1,0 +1,7 @@
+{
+  "paths": {
+    "@/*": ["src/*"]
+  },
+  "ignoreDependencies": ["postinstall-postinstall"],
+  "ignore": []
+}
