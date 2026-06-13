@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import reactLogo from '@/assets/react.svg'
-import viteLogo from '@/assets/vite.svg'
-import heroImg from '@/assets/hero.png'
+import reactLogo from '@/core/assets/react.svg'
+import viteLogo from '@/core/assets/vite.svg'
+import heroImg from '@/core/assets/hero.png'
 import { GlobalStyle } from '@/global-style'
 import { Center, Counter, Docs, Hero, NextSteps, NextStepsList, Spacer, Ticks } from '@/app.styled'
 
