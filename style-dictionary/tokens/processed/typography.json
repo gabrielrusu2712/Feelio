@@ -1,0 +1,168 @@
+{
+  "typography": {
+    "fontFamily": {
+      "body": {
+        "$type": "string",
+        "$value": "DM Sans"
+      },
+      "display": {
+        "$type": "string",
+        "$value": "DM Sans"
+      }
+    },
+    "fontSize": {
+      "text": {
+        "xs": {
+          "$type": "number",
+          "$value": 12
+        },
+        "sm": {
+          "$type": "number",
+          "$value": 14
+        },
+        "md": {
+          "$type": "number",
+          "$value": 16
+        },
+        "lg": {
+          "$type": "number",
+          "$value": 18
+        },
+        "xl": {
+          "$type": "number",
+          "$value": 20
+        }
+      },
+      "display": {
+        "xs": {
+          "$type": "number",
+          "$value": 24
+        },
+        "sm": {
+          "$type": "number",
+          "$value": 30
+        },
+        "md": {
+          "$type": "number",
+          "$value": 36
+        },
+        "lg": {
+          "$type": "number",
+          "$value": 48
+        },
+        "xl": {
+          "$type": "number",
+          "$value": 60
+        },
+        "2xl": {
+          "$type": "number",
+          "$value": 72
+        },
+        "3xl": {
+          "$type": "number",
+          "$value": 96
+        },
+        "4xl": {
+          "$type": "number",
+          "$value": 128
+        }
+      },
+      "weight": {
+        "regular": {
+          "$type": "string",
+          "$value": "regular"
+        },
+        "regularItalic": {
+          "$type": "string",
+          "$value": "regularItalic"
+        },
+        "medium": {
+          "$type": "string",
+          "$value": "medium"
+        },
+        "mediumItalic": {
+          "$type": "string",
+          "$value": "mediumItalic"
+        },
+        "semibold": {
+          "$type": "string",
+          "$value": "semibold"
+        },
+        "semiboldItalic": {
+          "$type": "string",
+          "$value": "semiboldItalic"
+        },
+        "bold": {
+          "$type": "string",
+          "$value": "bold"
+        },
+        "boldItalic": {
+          "$type": "string",
+          "$value": "boldItalic"
+        },
+        "black": {
+          "$type": "string",
+          "$value": "black"
+        }
+      }
+    },
+    "lineHeight": {
+      "text": {
+        "xs": {
+          "$type": "number",
+          "$value": 18
+        },
+        "sm": {
+          "$type": "number",
+          "$value": 20
+        },
+        "md": {
+          "$type": "number",
+          "$value": 24
+        },
+        "lg": {
+          "$type": "number",
+          "$value": 28
+        },
+        "xl": {
+          "$type": "number",
+          "$value": 30
+        }
+      },
+      "display": {
+        "xs": {
+          "$type": "number",
+          "$value": 32
+        },
+        "sm": {
+          "$type": "number",
+          "$value": 38
+        },
+        "md": {
+          "$type": "number",
+          "$value": 44
+        },
+        "lg": {
+          "$type": "number",
+          "$value": 60
+        },
+        "xl": {
+          "$type": "number",
+          "$value": 72
+        },
+        "2xl": {
+          "$type": "number",
+          "$value": 90
+        },
+        "3xl": {
+          "$type": "number",
+          "$value": 112
+        },
+        "4xl": {
+          "$type": "number",
+          "$value": 140
+        }
+      }
+    }
+  }
+}

@@ -3,5 +3,5 @@
     "@/*": ["src/*"]
   },
   "ignoreDependencies": ["postinstall-postinstall"],
-  "ignore": []
+  "ignore": ["src/core/theme/styled.d.ts"]
 }

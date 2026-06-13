@@ -3,14 +3,43 @@ import reactLogo from '@/core/assets/react.svg'
 import viteLogo from '@/core/assets/vite.svg'
 import heroImg from '@/core/assets/hero.png'
 import { GlobalStyle } from '@/global-style'
-import { Center, Counter, Docs, Hero, NextSteps, NextStepsList, Spacer, Ticks } from '@/app.styled'
+import {
+  Center,
+  Counter,
+  Docs,
+  Hero,
+  NextSteps,
+  NextStepsList,
+  Spacer,
+  ThemeModeButton,
+  Ticks,
+} from '@/app.styled'
+import { ThemeProvider } from '@/core/providers/theme-provider/theme-provider'
+import { useColorMode } from '@/core/providers/theme-provider/color-mode-context'
+import type { ThemeMode } from '@/core/providers/theme-provider/color-mode-context'
+
+const ThemeLabels: Record<ThemeMode, string> = {
+  auto: '🌗 Auto',
+  light: '☀️ Light',
+  dark: '🌙 Dark',
+}
+
+const NextMode: Record<ThemeMode, ThemeMode> = {
+  auto: 'light',
+  light: 'dark',
+  dark: 'auto',
+}
 
 const AppContent = () => {
   const [count, setCount] = useState(0)
+  const { themeMode, setThemeMode } = useColorMode()
 
   return (
     <>
       <Center>
+        <ThemeModeButton type="button" onClick={() => setThemeMode(NextMode[themeMode])}>
+          {ThemeLabels[themeMode]}
+        </ThemeModeButton>
         <Hero>
           <img src={heroImg} className="base" width="170" height="179" alt="" />
           <img src={reactLogo} className="framework" alt="React logo" />
@@ -102,10 +131,10 @@ const AppContent = () => {
 
 const App = () => {
   return (
-    <>
+    <ThemeProvider>
       <GlobalStyle />
       <AppContent />
-    </>
+    </ThemeProvider>
   )
 }
 

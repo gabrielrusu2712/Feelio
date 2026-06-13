@@ -1,0 +1,122 @@
+/**
+ * Do not edit directly, this file was auto-generated.
+ */
+
+:root,
+[data-color-mode='light'] {
+  --layouts-default-enabled-border-secondary-alt: rgba(0, 0, 0, 0.1);
+  --effects-shadow-2: rgba(0, 0, 0, 0.03);
+  --effects-shadow-xs: rgba(0, 0, 0, 0.05);
+  --effects-shadow-sm: rgba(0, 0, 0, 0.1);
+  --effects-shadow-xs-2: rgba(0, 0, 0, 0.05);
+  --effects-shadow-sm2: rgba(0, 0, 0, 0.1);
+  --effects-shadow-md: rgba(0, 0, 0, 0.1);
+  --effects-shadow-md2: rgba(0, 0, 0, 0.06);
+  --effects-shadow-lg: rgba(0, 0, 0, 0.08);
+  --effects-shadow-lg1: rgba(0, 0, 0, 0.03);
+  --effects-shadow-lg3: rgba(0, 0, 0, 0.04);
+  --effects-shadow-xl: rgba(0, 0, 0, 0.08);
+  --effects-shadow-xl3: rgba(0, 0, 0, 0.04);
+  --effects-shadow-2xl: rgba(0, 0, 0, 0.18);
+  --effects-shadow-2xl2: rgba(0, 0, 0, 0.04);
+  --effects-shadow-3xl: rgba(0, 0, 0, 0.14);
+  --effects-shadow-3xl2: rgba(0, 0, 0, 0.04);
+  --effects-shadow-skeumorphic-inner: rgba(0, 0, 0, 0.05);
+  --effects-shadow-skeumorphic-inner-border: rgba(0, 0, 0, 0.18);
+  --layouts-default-enabled-surface-primary: var(--primitives-palette-base-white);
+  --layouts-default-enabled-surface-secondary: var(--primitives-palette-grey-neutral-50);
+  --layouts-default-enabled-surface-tertiary: var(--primitives-palette-grey-neutral-100);
+  --layouts-default-enabled-surface-quaternary: var(--primitives-palette-grey-neutral-200);
+  --layouts-default-enabled-surface-solid: var(--primitives-palette-grey-neutral-950);
+  --layouts-default-enabled-on-surface-primary: var(--primitives-palette-grey-neutral-900);
+  --layouts-default-enabled-on-surface-secondary: var(--primitives-palette-grey-neutral-700);
+  --layouts-default-enabled-on-surface-tertiary: var(--primitives-palette-grey-neutral-600);
+  --layouts-default-enabled-on-surface-quaternary: var(--primitives-palette-grey-neutral-400);
+  --layouts-default-enabled-on-surface-placeholder: var(--primitives-palette-grey-neutral-600);
+  --layouts-default-enabled-border-primary: var(--primitives-palette-grey-neutral-300);
+  --layouts-default-enabled-border-secondary: var(--primitives-palette-grey-neutral-500);
+  --layouts-default-enabled-border-tertiary: var(--primitives-palette-grey-neutral-200);
+  --layouts-default-hover-surface-primary: var(--primitives-palette-grey-neutral-50);
+  --layouts-default-hover-surface-secondary: var(--primitives-palette-grey-neutral-100);
+  --layouts-default-hover-on-surface-secondary: var(--primitives-palette-grey-neutral-700);
+  --layouts-default-hover-on-surface-tertiary: var(--primitives-palette-grey-neutral-600);
+  --layouts-default-focused-border-primary: var(--primitives-palette-grey-neutral-50);
+  --layouts-brand-enabled-surface-primary: var(--primitives-palette-brand-50);
+  --layouts-brand-enabled-surface-secondary: var(--primitives-palette-brand-100);
+  --layouts-brand-enabled-surface-tertiary: var(--primitives-palette-grey-neutral-100);
+  --layouts-brand-enabled-surface-section: var(--primitives-palette-brand-800);
+  --layouts-brand-enabled-surface-solid: var(--primitives-palette-brand-700);
+  --layouts-brand-enabled-on-surface-primary: var(--primitives-palette-grey-neutral-900);
+  --layouts-brand-enabled-on-surface-secondary: var(--primitives-palette-grey-neutral-700);
+  --layouts-brand-enabled-on-surface-tertiary: var(--primitives-palette-grey-neutral-600);
+  --layouts-brand-enabled-on-surface-quaternary: var(--primitives-palette-grey-neutral-400);
+  --layouts-brand-enabled-on-surface-placeholder: var(--primitives-palette-grey-neutral-600);
+  --layouts-brand-enabled-border-primary: var(--primitives-palette-brand-500);
+  --layouts-brand-enabled-border-primary-alt: var(--primitives-palette-brand-600);
+  --layouts-inverted-enabled-surface-primary: var(--primitives-palette-base-white);
+  --layouts-inverted-enabled-on-surface-primary: var(--primitives-palette-base-white);
+  --layouts-inverted-enabled-border-primary: var(--primitives-palette-base-white);
+  --functional-action-primary-enabled-surface-primary: var(--primitives-palette-brand-700);
+  --functional-action-primary-enabled-on-surface-white: var(--primitives-palette-base-white);
+  --functional-action-primary-enabled-on-surface-primary: var(--primitives-palette-brand-900);
+  --functional-action-primary-enabled-on-surface-secondary: var(--primitives-palette-brand-800);
+  --functional-action-primary-enabled-on-surface-tertiary: var(--primitives-palette-brand-800);
+  --functional-action-primary-enabled-on-surface-tertiary-alt: var(--primitives-palette-brand-800);
+  --functional-action-primary-enabled-on-layout-primary: var(--primitives-palette-brand-700);
+  --functional-action-primary-enabled-border-primary: var(--primitives-palette-brand-500);
+  --functional-action-primary-hover-surface-primary: var(--primitives-palette-brand-800);
+  --functional-action-primary-hover-on-layout-primary: var(--primitives-palette-brand-800);
+  --functional-action-primary-hover-border-primary: var(--primitives-palette-brand-500);
+  --functional-action-primary-pressed-surface-primary: var(--primitives-palette-brand-800);
+  --functional-action-primary-pressed-on-layout-primary: var(--primitives-palette-brand-800);
+  --functional-action-primary-focused-ring-primary: var(--primitives-palette-brand-500);
+  --functional-action-secondary-enabled-surface-primary: var(--primitives-palette-base-transparent);
+  --functional-action-secondary-enabled-on-surface-primary: var(
+    --primitives-palette-grey-neutral-700
+  );
+  --functional-action-secondary-enabled-on-layout-primary: var(--primitives-palette-base-white);
+  --functional-action-secondary-enabled-border-primary: var(--primitives-palette-grey-neutral-300);
+  --functional-action-secondary-enabled-border-secondary: var(
+    --primitives-palette-grey-neutral-500
+  );
+  --functional-action-secondary-hover-surface-primary: var(--primitives-palette-green-50);
+  --functional-action-secondary-hover-on-layout-primary: var(--primitives-palette-base-white);
+  --functional-action-secondary-pressed-surface-priamry: var(--primitives-palette-brand-100);
+  --functional-danger-enabled-surface-primary: var(--primitives-palette-red-50);
+  --functional-danger-enabled-surface-secondary: var(--primitives-palette-red-100);
+  --functional-danger-enabled-surface-solid: var(--primitives-palette-red-600);
+  --functional-danger-enabled-on-surface-white: var(--primitives-palette-base-white);
+  --functional-danger-enabled-on-surface-primary: var(--primitives-palette-red-600);
+  --functional-danger-enabled-on-layout-primary: var(--primitives-palette-red-50);
+  --functional-danger-enabled-on-layout-secondary: var(--primitives-palette-red-500);
+  --functional-danger-enabled-border-primary: var(--primitives-palette-red-500);
+  --functional-danger-enabled-border-subtle: var(--primitives-palette-red-300);
+  --functional-danger-hover-surface-primary: var(--primitives-palette-red-50);
+  --functional-danger-hover-surface-secondary: var(--primitives-palette-red-100);
+  --functional-danger-hover-on-layout-primary: var(--primitives-palette-red-600);
+  --functional-danger-focused-ring-primary: var(--primitives-palette-red-500);
+  --functional-success-enabled-surface-primary: var(--primitives-palette-green-50);
+  --functional-success-enabled-surface-secondary: var(--primitives-palette-green-100);
+  --functional-success-enabled-surface-solid: var(--primitives-palette-green-600);
+  --functional-success-enabled-on-surface-primary: var(--primitives-palette-green-600);
+  --functional-success-enabled-on-surface-secondary: var(--primitives-palette-green-500);
+  --functional-success-enabled-on-surface-white: var(--primitives-palette-base-white);
+  --functional-success-enabled-on-layout-primary: var(--primitives-palette-green-50);
+  --functional-success-enabled-border-primary: var(--primitives-palette-brand-200);
+  --functional-success-hover-surface-base: var(--primitives-palette-green-900);
+  --functional-success-hover-surface-secondary: var(--primitives-palette-brand-100);
+  --functional-warning-enabled-surface-primary: var(--primitives-palette-orange-50);
+  --functional-warning-enabled-surface-secondary: var(--primitives-palette-orange-100);
+  --functional-warning-enabled-surface-solid: var(--primitives-palette-orange-600);
+  --functional-warning-enabled-on-surface-base: var(--primitives-palette-base-white);
+  --functional-warning-enabled-on-surface-primary: var(--primitives-palette-orange-600);
+  --functional-warning-enabled-on-surface-secondary: var(--primitives-palette-orange-500);
+  --functional-warning-enabled-on-layout-base: var(--primitives-palette-orange-600);
+  --functional-warning-enabled-border-primary: var(--primitives-palette-orange-200);
+  --functional-disabled-enabled-surface-primary: var(--primitives-palette-grey-neutral-200);
+  --functional-disabled-enabled-on-surface-primary: var(--primitives-palette-grey-neutral-600);
+  --functional-disabled-enabled-border-primary: var(--primitives-palette-grey-neutral-500);
+  --effects-focus-ring-default: var(--primitives-palette-brand-500);
+  --effects-focus-ring-error: var(--primitives-palette-red-500);
+  --effects-overlay-base: var(--primitives-palette-grey-neutral-950);
+}

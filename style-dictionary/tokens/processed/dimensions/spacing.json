@@ -1,0 +1,72 @@
+{
+  "spacing": {
+    "none": {
+      "$type": "number",
+      "$value": "{primitives.spacing.0}"
+    },
+    "xxs": {
+      "$type": "number",
+      "$value": "{primitives.spacing.0.5}"
+    },
+    "xs": {
+      "$type": "number",
+      "$value": "{primitives.spacing.1}"
+    },
+    "sm": {
+      "$type": "number",
+      "$value": "{primitives.spacing.1.5}"
+    },
+    "md": {
+      "$type": "number",
+      "$value": "{primitives.spacing.2}"
+    },
+    "lg": {
+      "$type": "number",
+      "$value": "{primitives.spacing.3}"
+    },
+    "xl": {
+      "$type": "number",
+      "$value": "{primitives.spacing.4}"
+    },
+    "2xl": {
+      "$type": "number",
+      "$value": "{primitives.spacing.5}"
+    },
+    "3xl": {
+      "$type": "number",
+      "$value": "{primitives.spacing.6}"
+    },
+    "4xl": {
+      "$type": "number",
+      "$value": "{primitives.spacing.8}"
+    },
+    "5xl": {
+      "$type": "number",
+      "$value": "{primitives.spacing.10}"
+    },
+    "6xl": {
+      "$type": "number",
+      "$value": "{primitives.spacing.12}"
+    },
+    "7xl": {
+      "$type": "number",
+      "$value": "{primitives.spacing.16}"
+    },
+    "8xl": {
+      "$type": "number",
+      "$value": "{primitives.spacing.20}"
+    },
+    "9xl": {
+      "$type": "number",
+      "$value": "{primitives.spacing.24}"
+    },
+    "10xl": {
+      "$type": "number",
+      "$value": "{primitives.spacing.32}"
+    },
+    "11xl": {
+      "$type": "number",
+      "$value": "{primitives.spacing.40}"
+    }
+  }
+}
