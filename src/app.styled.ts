@@ -1,4 +1,6 @@
-.counter {
+import styled from 'styled-components'
+
+export const Counter = styled.button`
   font-size: 16px;
   padding: 5px 10px;
   border-radius: 5px;
@@ -11,13 +13,14 @@
   &:hover {
     border-color: var(--accent-border);
   }
+
   &:focus-visible {
     outline: 2px solid var(--accent);
     outline-offset: 2px;
   }
-}
+`
 
-.hero {
+export const Hero = styled.div`
   position: relative;
 
   .base,
@@ -52,9 +55,9 @@
     width: auto;
     transform: perspective(2000px) rotateZ(300deg) rotateX(40deg) rotateY(39deg) scale(0.8);
   }
-}
+`
 
-#center {
+export const Center = styled.section`
   display: flex;
   flex-direction: column;
   gap: 25px;
@@ -62,13 +65,17 @@
   place-items: center;
   flex-grow: 1;
 
+  .get-started {
+    color: blue;
+  }
+
   @media (max-width: 1024px) {
     padding: 32px 20px 24px;
     gap: 18px;
   }
-}
+`
 
-#next-steps {
+export const NextSteps = styled.section`
   display: flex;
   border-top: 1px solid var(--border);
   text-align: left;
@@ -76,6 +83,7 @@
   & > div {
     flex: 1 1 0;
     padding: 32px;
+
     @media (max-width: 1024px) {
       padding: 24px 20px;
     }
@@ -91,18 +99,18 @@
     flex-direction: column;
     text-align: center;
   }
-}
+`
 
-#docs {
+export const Docs = styled.div`
   border-right: 1px solid var(--border);
 
   @media (max-width: 1024px) {
     border-right: none;
     border-bottom: 1px solid var(--border);
   }
-}
+`
 
-#next-steps ul {
+export const NextStepsList = styled.ul`
   list-style: none;
   padding: 0;
   display: flex;
@@ -128,6 +136,7 @@
     &:hover {
       box-shadow: var(--shadow);
     }
+
     .button-icon {
       height: 18px;
       width: 18px;
@@ -149,17 +158,18 @@
       box-sizing: border-box;
     }
   }
-}
+`
 
-#spacer {
+export const Spacer = styled.section`
   height: 88px;
   border-top: 1px solid var(--border);
+
   @media (max-width: 1024px) {
     height: 48px;
   }
-}
+`
 
-.ticks {
+export const Ticks = styled.div`
   position: relative;
   width: 100%;
 
@@ -175,8 +185,9 @@
     left: 0;
     border-left-color: var(--border);
   }
+
   &::after {
     right: 0;
     border-right-color: var(--border);
   }
-}
+`

@@ -2,40 +2,41 @@ import { useState } from 'react'
 import reactLogo from '@/assets/react.svg'
 import viteLogo from '@/assets/vite.svg'
 import heroImg from '@/assets/hero.png'
-import '@/app.css'
+import { GlobalStyle } from '@/global-style'
+import { Center, Counter, Docs, Hero, NextSteps, NextStepsList, Spacer, Ticks } from '@/app.styled'
 
-const App = () => {
+const AppContent = () => {
   const [count, setCount] = useState(0)
 
   return (
     <>
-      <section id="center">
-        <div className="hero">
+      <Center>
+        <Hero>
           <img src={heroImg} className="base" width="170" height="179" alt="" />
           <img src={reactLogo} className="framework" alt="React logo" />
           <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
+        </Hero>
         <div>
           <h1>Get started</h1>
           <p>
             Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
           </p>
         </div>
-        <button type="button" className="counter" onClick={() => setCount((count) => count + 1)}>
+        <Counter type="button" onClick={() => setCount((count) => count + 1)}>
           Count is {count}
-        </button>
-      </section>
+        </Counter>
+      </Center>
 
-      <div className="ticks"></div>
+      <Ticks />
 
-      <section id="next-steps">
-        <div id="docs">
+      <NextSteps>
+        <Docs>
           <svg className="icon" role="presentation" aria-hidden="true">
             <use href="/icons.svg#documentation-icon"></use>
           </svg>
           <h2>Documentation</h2>
           <p>Your questions, answered</p>
-          <ul>
+          <NextStepsList>
             <li>
               <a href="https://vite.dev/" target="_blank" rel="noreferrer">
                 <img className="logo" src={viteLogo} alt="" />
@@ -48,15 +49,15 @@ const App = () => {
                 Learn more
               </a>
             </li>
-          </ul>
-        </div>
+          </NextStepsList>
+        </Docs>
         <div id="social">
           <svg className="icon" role="presentation" aria-hidden="true">
             <use href="/icons.svg#social-icon"></use>
           </svg>
           <h2>Connect with us</h2>
           <p>Join the Vite community</p>
-          <ul>
+          <NextStepsList>
             <li>
               <a href="https://github.com/vitejs/vite" target="_blank" rel="noreferrer">
                 <svg className="button-icon" role="presentation" aria-hidden="true">
@@ -89,12 +90,21 @@ const App = () => {
                 Bluesky
               </a>
             </li>
-          </ul>
+          </NextStepsList>
         </div>
-      </section>
+      </NextSteps>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
+      <Ticks />
+      <Spacer />
+    </>
+  )
+}
+
+const App = () => {
+  return (
+    <>
+      <GlobalStyle />
+      <AppContent />
     </>
   )
 }

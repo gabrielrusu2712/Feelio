@@ -9,3 +9,4 @@ Guidelines and considerations for migrating Feelio to React.
 - **ESLint 9** is used for linting (`eslint-plugin-react`, `eslint-plugin-react-hooks`, `eslint-plugin-react-refresh`, `eslint-plugin-no-relative-import-paths`).
 - **Husky** for pre-commit checks
 - **Knip** for file cleanup
+- **styled-components** for CSS-in-JS component styling
