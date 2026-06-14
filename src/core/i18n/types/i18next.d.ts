@@ -1,10 +1,7 @@
-import type en from '@/core/i18n/locales/en/translation.json'
+import type Resources from '@/core/i18n/types/resources'
 
 declare module 'i18next' {
   interface CustomTypeOptions {
-    defaultNS: 'translation'
-    resources: {
-      translation: typeof en
-    }
+    resources: Resources
   }
 }
