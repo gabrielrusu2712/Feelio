@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router'
+import { useTranslation } from 'react-i18next'
 import reactLogo from '@/core/assets/react.svg'
 import viteLogo from '@/core/assets/vite.svg'
 import heroImg from '@/core/assets/hero.png'
@@ -16,6 +17,7 @@ import {
 } from '@/landing/ui/landing-page/landing-page.styled'
 import { useColorMode } from '@/core/providers/theme-provider/color-mode-context'
 import type { ThemeMode } from '@/core/providers/theme-provider/color-mode-context'
+import LanguageSwitcher from '@/shared/features/language-switcher/language-switcher'
 
 const ThemeLabels: Record<ThemeMode, string> = {
   auto: '🌗 Auto',
@@ -32,6 +34,7 @@ const NextMode: Record<ThemeMode, ThemeMode> = {
 const LandingPage = () => {
   const [count, setCount] = useState(0)
   const { themeMode, setThemeMode } = useColorMode()
+  const { t } = useTranslation()
 
   return (
     <>
@@ -39,8 +42,9 @@ const LandingPage = () => {
         <ThemeModeButton type="button" onClick={() => setThemeMode(NextMode[themeMode])}>
           {ThemeLabels[themeMode]}
         </ThemeModeButton>
+        <LanguageSwitcher />
         <ThemeModeButton as={Link} to="/auth">
-          🔑 Login
+          🔑 {t('common.login')}
         </ThemeModeButton>
         <Hero>
           <img src={heroImg} className="base" width="170" height="179" alt="" />
@@ -48,10 +52,8 @@ const LandingPage = () => {
           <img src={viteLogo} className="vite" alt="Vite logo" />
         </Hero>
         <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-          </p>
+          <h1>{t('landing.title')}</h1>
+          <p>{t('landing.subtitle')}</p>
         </div>
         <Counter type="button" onClick={() => setCount((count) => count + 1)}>
           Count is {count}

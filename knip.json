@@ -3,5 +3,10 @@
     "@/*": ["src/*"]
   },
   "ignoreDependencies": ["postinstall-postinstall"],
-  "ignore": ["src/core/theme/styled.d.ts"]
+  "ignore": [
+    "src/core/theme/styled.d.ts",
+    "src/core/i18n/types/i18next.d.ts",
+    "src/core/i18n/types/resources.d.ts"
+  ],
+  "ignoreExportsUsedInFile": true
 }

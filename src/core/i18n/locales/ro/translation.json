@@ -1,0 +1,9 @@
+{
+  "common.loading": "Se încarcă...",
+  "common.logout": "Deconectare",
+  "common.login": "Autentificare",
+  "landing.title": "Începe aici",
+  "landing.subtitle": "Editează src/App.tsx și salvează pentru a testa HMR",
+  "home.title": "Pagina principală",
+  "auth.title": "Pagina de autentificare"
+}

@@ -1,0 +1,9 @@
+{
+  "common.loading": "Loading...",
+  "common.logout": "Logout",
+  "common.login": "Login",
+  "landing.title": "Get started",
+  "landing.subtitle": "Edit src/App.tsx and save to test HMR",
+  "home.title": "Home Page",
+  "auth.title": "Auth Page"
+}
