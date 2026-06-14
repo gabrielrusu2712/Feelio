@@ -4,6 +4,4 @@
  */
 const ColorModes = { light: 'light', dark: 'dark' } as const
 
-const colorModesArr = Object.values(ColorModes)
-
-export type ColorMode = (typeof colorModesArr)[number]
+export type ColorMode = (typeof ColorModes)[keyof typeof ColorModes]
