@@ -3,8 +3,11 @@ import { ThemeProvider } from '@/core/providers/theme-provider/theme-provider'
 import AppRoutes from '@/core/routes/routes'
 import { Provider } from 'react-redux'
 import { store } from '@/core/store'
+import { useAuthListener } from '@/core/hooks/use-auth-listener'
 
 const AppContent = () => {
+  useAuthListener()
+
   return <AppRoutes />
 }
 
