@@ -1,3 +1,4 @@
 yarn prettier
 yarn lint
 yarn knip:required
+yarn test
