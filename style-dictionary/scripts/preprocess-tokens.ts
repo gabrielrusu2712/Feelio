@@ -1,6 +1,5 @@
 /**
- * Preprocesses raw Figma token exports (light.tokens.json + dark.tokens.json)
- * into Style Dictionary v5 compatible source files.
+ * Preprocesses raw Figma token exports into Style Dictionary v5 compatible source files.
  *
  * Transformations:
  * - Strips $extensions (Figma metadata)
@@ -10,11 +9,15 @@
  * - Fixes references to match transformed key names
  * - Splits into categorized source files for SD consumption
  *
- * Input: style-dictionary/tokens/raw/light.tokens.json + dark.tokens.json
+ * Input:
+ *   style-dictionary/tokens/raw/base.tokens.json
+ *   style-dictionary/tokens/raw/feelioColorModes/light.tokens.json
+ *   style-dictionary/tokens/raw/feelioColorModes/dark.tokens.json
+ *
  * Output: style-dictionary/tokens/processed/
  *
- * Only colors differ between light/dark. Spacing, radius, typography, primitives
- * are identical in both files — we extract them once from light.
+ * base.tokens.json contains primitives, spacing, radius, typography (mode-agnostic).
+ * feelioColorModes contains layouts, functional, effects (per color mode).
  */
 
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs'
@@ -72,10 +75,11 @@ const isSDLeaf = (obj: unknown): obj is { $value: unknown; $type?: string } =>
 
 /**
  * Recursively processes a token tree:
- * - Strips $extensions
+ * - Strips $extensions (after extracting aliasData references)
  * - Normalizes color objects to hex strings
  * - Transforms keys (strip parens, normalize)
  * - Fixes reference strings in $value
+ * - Converts aliasData references to proper SD {reference} format
  */
 const processTree = (node: unknown): unknown => {
   if (node === null || typeof node !== 'object') return node
@@ -84,13 +88,31 @@ const processTree = (node: unknown): unknown => {
     const result: Record<string, unknown> = {}
     if (node.$type != null) result.$type = node.$type
 
-    const val = node.$value
-    if (isFigmaColor(val)) {
-      result.$value = normalizeColorValue(val)
-    } else if (typeof val === 'string' && val.includes('{')) {
-      result.$value = fixReference(val)
+    // Check for alias reference in $extensions before stripping
+    const extensions = (node as Record<string, unknown>)['$extensions'] as
+      | Record<string, unknown>
+      | undefined
+    const aliasData = extensions?.['com.figma.aliasData'] as
+      | { targetVariableName?: string }
+      | undefined
+    const aliasRef = aliasData?.targetVariableName
+
+    if (aliasRef) {
+      // Convert "primitives/palette/greyNeutral/100" → "{primitives.palette.greyNeutral.100}"
+      const refPath = aliasRef
+        .split('/')
+        .map((seg) => normalizeKey(seg))
+        .join('.')
+      result.$value = `{${refPath}}`
     } else {
-      result.$value = val
+      const val = node.$value
+      if (isFigmaColor(val)) {
+        result.$value = normalizeColorValue(val)
+      } else if (typeof val === 'string' && val.includes('{')) {
+        result.$value = fixReference(val)
+      } else {
+        result.$value = val
+      }
     }
     return result
   }
@@ -114,13 +136,16 @@ const writeJson = (filePath: string, data: unknown): void => {
 // ─── Main ───────────────────────────────────────────────────────────────────
 
 console.log('Reading raw token files...')
-const light = JSON.parse(readFileSync(resolve(RAW_DIR, 'light.tokens.json'), 'utf8'))
-const dark = JSON.parse(readFileSync(resolve(RAW_DIR, 'dark.tokens.json'), 'utf8'))
+const base = JSON.parse(readFileSync(resolve(RAW_DIR, 'base.tokens.json'), 'utf8'))
+const light = JSON.parse(
+  readFileSync(resolve(RAW_DIR, 'feelioColorModes/light.tokens.json'), 'utf8'),
+)
+const dark = JSON.parse(readFileSync(resolve(RAW_DIR, 'feelioColorModes/dark.tokens.json'), 'utf8'))
 
 console.log('Processing tokens...\n')
 
-// 1. Primitives (shared — from light file, same in both)
-const primitives = light['primitives']
+// 1. Primitives (palette + spacing scale)
+const primitives = base['primitives']
 writeJson(
   resolve(OUTPUT_DIR, 'primitives/colors.json'),
   processTree({ primitives: { palette: primitives.palette } }),
@@ -130,18 +155,15 @@ writeJson(
   processTree({ primitives: { spacing: primitives.spacing } }),
 )
 
-// 2. Semantic colors — light & dark (only colors differ between modes)
-writeJson(resolve(OUTPUT_DIR, 'semantic/colors-light.json'), processTree(light['colors']))
-writeJson(resolve(OUTPUT_DIR, 'semantic/colors-dark.json'), processTree(dark['colors']))
+// 2. Semantic colors — light & dark (layouts, functional, effects)
+writeJson(resolve(OUTPUT_DIR, 'semantic/colors-light.json'), processTree(light))
+writeJson(resolve(OUTPUT_DIR, 'semantic/colors-dark.json'), processTree(dark))
 
-// 3. Dimensions — spacing, radius (shared — from light file)
-writeJson(
-  resolve(OUTPUT_DIR, 'dimensions/spacing.json'),
-  processTree({ spacing: light['spacing'] }),
-)
-writeJson(resolve(OUTPUT_DIR, 'dimensions/radius.json'), processTree({ radius: light['radius'] }))
+// 3. Dimensions — spacing, radius (from base)
+writeJson(resolve(OUTPUT_DIR, 'dimensions/spacing.json'), processTree({ spacing: base['spacing'] }))
+writeJson(resolve(OUTPUT_DIR, 'dimensions/radius.json'), processTree({ radius: base['radius'] }))
 
-// 4. Typography (shared — from light file)
-writeJson(resolve(OUTPUT_DIR, 'typography.json'), processTree({ typography: light['typography'] }))
+// 4. Typography (from base)
+writeJson(resolve(OUTPUT_DIR, 'typography.json'), processTree({ typography: base['typography'] }))
 
 console.log('\n✅ Done! Processed tokens written to style-dictionary/tokens/processed/')

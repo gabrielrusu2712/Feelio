@@ -1,12 +1,12 @@
 import { Navigate, Outlet } from 'react-router'
-
-// TODO: Replace with real auth state (e.g., from context, store, or hook)
-const useIsAuthenticated = (): boolean => {
-  return Boolean(localStorage.getItem('auth-token'))
-}
+import { useAppSelector } from '@/core/store'
+import { selectAuthInitialized, selectIsAuthenticated } from '@/core/store/auth'
 
 export const AuthGuard = () => {
-  const isAuthenticated = useIsAuthenticated()
+  const initialized = useAppSelector(selectAuthInitialized)
+  const isAuthenticated = useAppSelector(selectIsAuthenticated)
+
+  if (!initialized) return null
 
   if (!isAuthenticated) {
     return <Navigate to="/auth" replace />
@@ -16,7 +16,10 @@ export const AuthGuard = () => {
 }
 
 export const GuestGuard = () => {
-  const isAuthenticated = useIsAuthenticated()
+  const initialized = useAppSelector(selectAuthInitialized)
+  const isAuthenticated = useAppSelector(selectIsAuthenticated)
+
+  if (!initialized) return null
 
   if (isAuthenticated) {
     return <Navigate to="/home" replace />

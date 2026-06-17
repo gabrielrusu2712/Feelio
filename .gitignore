@@ -29,3 +29,7 @@ test-results
 *.njsproj
 *.sln
 *.sw?
+
+# Environment variables
+.env
+.env.local
