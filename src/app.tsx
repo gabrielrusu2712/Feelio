@@ -2,7 +2,8 @@ import { GlobalStyle } from '@/global-style'
 import { ThemeProvider } from '@/core/providers/theme-provider/theme-provider'
 import AppRoutes from '@/core/routes/routes'
 import { Provider } from 'react-redux'
-import { store } from '@/core/store'
+import { PersistGate } from 'redux-persist/integration/react'
+import { persistor, store } from '@/core/store'
 import { useAuthListener } from '@/auth/data-access/hooks/use-auth-listener'
 
 const AppContent = () => {
@@ -14,10 +15,12 @@ const AppContent = () => {
 const App = () => {
   return (
     <Provider store={store}>
-      <ThemeProvider>
-        <GlobalStyle />
-        <AppContent />
-      </ThemeProvider>
+      <PersistGate loading={null} persistor={persistor}>
+        <ThemeProvider>
+          <GlobalStyle />
+          <AppContent />
+        </ThemeProvider>
+      </PersistGate>
     </Provider>
   )
 }
