@@ -1,28 +1,34 @@
 import { useState } from 'react'
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth'
-import { auth } from '@/core/services/firebase'
 import { useTranslation } from 'react-i18next'
+import { useAppDispatch, useAppSelector } from '@/core/store'
+import {
+  clearAuthError,
+  loginThunk,
+  registerThunk,
+  selectAuthError,
+  selectAuthStatus,
+} from '@/auth/data-access/store'
 
 const AuthPage = () => {
   const { t } = useTranslation()
+  const dispatch = useAppDispatch()
+  const error = useAppSelector(selectAuthError)
+  const status = useAppSelector(selectAuthStatus)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [error, setError] = useState<string | null>(null)
   const [isRegistering, setIsRegistering] = useState(false)
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setError(null)
+  const isSubmitting = status === 'pending'
 
-    try {
-      if (isRegistering) {
-        await createUserWithEmailAndPassword(auth, email, password)
-      } else {
-        await signInWithEmailAndPassword(auth, email, password)
-      }
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Authentication failed')
-    }
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault()
+    const thunk = isRegistering ? registerThunk : loginThunk
+    void dispatch(thunk({ email, password }))
+  }
+
+  const toggleMode = () => {
+    setIsRegistering((previous) => !previous)
+    dispatch(clearAuthError())
   }
 
   return (
@@ -32,26 +38,28 @@ const AuthPage = () => {
         <div>
           <input
             type="email"
-            placeholder="Email"
+            placeholder={t('auth.emailPlaceholder')}
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(event) => setEmail(event.target.value)}
             required
           />
         </div>
         <div>
           <input
             type="password"
-            placeholder="Password"
+            placeholder={t('auth.passwordPlaceholder')}
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(event) => setPassword(event.target.value)}
             required
           />
         </div>
-        {error && <p style={{ color: 'red' }}>{error}</p>}
-        <button type="submit">{isRegistering ? '📝 Register' : `🔑 ${t('common.login')}`}</button>
+        {error && <p style={{ color: 'red' }}>{t(error, { defaultValue: error })}</p>}
+        <button type="submit" disabled={isSubmitting}>
+          {isRegistering ? t('auth.register') : t('auth.login')}
+        </button>
       </form>
-      <button type="button" onClick={() => setIsRegistering(!isRegistering)}>
-        {isRegistering ? 'Already have an account? Login' : "Don't have an account? Register"}
+      <button type="button" onClick={toggleMode}>
+        {isRegistering ? t('auth.toggleToLogin') : t('auth.toggleToRegister')}
       </button>
     </div>
   )

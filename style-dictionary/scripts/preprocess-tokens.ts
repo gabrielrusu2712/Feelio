@@ -133,6 +133,123 @@ const writeJson = (filePath: string, data: unknown): void => {
   console.log(`  ✓ ${filePath.replace(ROOT + '/', '')}`)
 }
 
+// ─── Brand Palette Generation (anchor-driven ramps) ──────────────────────────
+//
+// Each brand anchor (one hex value) is expanded into a full 50–950 tint/shade
+// ramp here, so the palette has a single human-editable source of truth
+// (raw/brand-anchors.tokens.json). Stops < 500 mix the anchor toward white;
+// stops > 500 mix it toward a warm near-black so darks stay in the brand family.
+// `pins` let an anchor (e.g. the source's exact dark-red) override a stop.
+
+const RAMP_MIX: Record<number, { toward: 'light' | 'dark'; amount: number }> = {
+  50: { toward: 'light', amount: 0.94 },
+  100: { toward: 'light', amount: 0.86 },
+  200: { toward: 'light', amount: 0.72 },
+  300: { toward: 'light', amount: 0.52 },
+  400: { toward: 'light', amount: 0.28 },
+  500: { toward: 'light', amount: 0 },
+  600: { toward: 'dark', amount: 0.16 },
+  700: { toward: 'dark', amount: 0.34 },
+  800: { toward: 'dark', amount: 0.52 },
+  900: { toward: 'dark', amount: 0.68 },
+  950: { toward: 'dark', amount: 0.82 },
+}
+
+const LIGHT_END = '#FFFFFF'
+const DARK_END = '#1A0E07' // warm near-black keeps brand shades from going muddy
+
+interface ColorLeaf {
+  $type: 'color'
+  $value: string
+}
+
+const hexToRgb = (hex: string): [number, number, number] => {
+  const h = hex.replace('#', '')
+  return [parseInt(h.slice(0, 2), 16), parseInt(h.slice(2, 4), 16), parseInt(h.slice(4, 6), 16)]
+}
+
+const rgbToHex = (rgb: [number, number, number]): string =>
+  '#' +
+  rgb
+    .map((channel) => Math.round(channel).toString(16).padStart(2, '0'))
+    .join('')
+    .toUpperCase()
+
+const mix = (from: string, to: string, ratio: number): string => {
+  const a = hexToRgb(from)
+  const b = hexToRgb(to)
+  return rgbToHex([
+    a[0] + (b[0] - a[0]) * ratio,
+    a[1] + (b[1] - a[1]) * ratio,
+    a[2] + (b[2] - a[2]) * ratio,
+  ])
+}
+
+/** Expands one anchor hex into a 50–950 ramp; `pins` override specific stops. */
+const buildRamp = (
+  anchor: string,
+  pins: Record<number, string> = {},
+): Record<string, ColorLeaf> => {
+  const ramp: Record<string, ColorLeaf> = {}
+  for (const [stop, { toward, amount }] of Object.entries(RAMP_MIX)) {
+    const pinned = pins[Number(stop)]
+    const value =
+      pinned ??
+      (amount === 0 ? anchor : mix(anchor, toward === 'light' ? LIGHT_END : DARK_END, amount))
+    ramp[stop] = { $type: 'color', $value: value.toUpperCase() }
+  }
+  return ramp
+}
+
+/** Sets a nested token's $value by dotted path; warns (no-op) if the path is absent. */
+const setTokenRef = (tree: Record<string, unknown>, path: string, ref: string): void => {
+  const segments = path.split('.')
+  let node: Record<string, unknown> | undefined = tree
+  for (const segment of segments.slice(0, -1)) {
+    const next: unknown = node?.[segment]
+    node = next && typeof next === 'object' ? (next as Record<string, unknown>) : undefined
+  }
+  const leaf = node?.[segments[segments.length - 1]]
+  if (leaf && typeof leaf === 'object') {
+    ;(leaf as Record<string, unknown>).$value = ref
+  } else {
+    console.warn(`  ⚠ brand overlay path not found: ${path}`)
+  }
+}
+
+const applyOverlay = (tree: unknown, overlay: Record<string, string>): void => {
+  for (const [path, ref] of Object.entries(overlay)) {
+    setTokenRef(tree as Record<string, unknown>, path, ref)
+  }
+}
+
+// Repoints the core semantic layout roles onto the warm brand palette. Add paths
+// here as more components need brand-coloured surfaces/text/borders.
+const ref = (path: string) => `{primitives.palette.${path}}`
+
+const BRAND_OVERLAY_LIGHT: Record<string, string> = {
+  'layouts.default.enabled.surface.primary': ref('cream.500'),
+  'layouts.default.enabled.surface.secondary': ref('cream.200'),
+  'layouts.default.enabled.surface.tertiary': ref('cream.100'),
+  'layouts.default.enabled.onSurface.primary': ref('brand.500'),
+  'layouts.default.enabled.onSurface.secondary': ref('brand.700'),
+  'layouts.default.enabled.onSurface.tertiary': ref('brand.600'),
+  'layouts.default.enabled.border.primary': ref('peach.500'),
+  'layouts.default.enabled.border.secondary': ref('peach.600'),
+  'layouts.default.enabled.border.tertiary': ref('peach.300'),
+}
+
+const BRAND_OVERLAY_DARK: Record<string, string> = {
+  'layouts.default.enabled.surface.primary': ref('brand.950'),
+  'layouts.default.enabled.surface.secondary': ref('brand.900'),
+  'layouts.default.enabled.surface.tertiary': ref('brand.800'),
+  'layouts.default.enabled.onSurface.primary': ref('cream.200'),
+  'layouts.default.enabled.onSurface.secondary': ref('cream.400'),
+  'layouts.default.enabled.onSurface.tertiary': ref('peach.300'),
+  'layouts.default.enabled.border.primary': ref('brand.700'),
+  'layouts.default.enabled.border.secondary': ref('brand.600'),
+}
+
 // ─── Main ───────────────────────────────────────────────────────────────────
 
 console.log('Reading raw token files...')
@@ -144,20 +261,34 @@ const dark = JSON.parse(readFileSync(resolve(RAW_DIR, 'feelioColorModes/dark.tok
 
 console.log('Processing tokens...\n')
 
-// 1. Primitives (palette + spacing scale)
+// 1. Primitives (palette + spacing scale).
+//    The brand/cream/peach families are generated from brand-anchors.tokens.json
+//    and merged over the Figma-exported palette (brand replaces the placeholder).
+const anchors = JSON.parse(readFileSync(resolve(RAW_DIR, 'brand-anchors.tokens.json'), 'utf8'))
+  .brandAnchors as Record<string, string>
+
+const brandFamilies = {
+  brand: buildRamp(anchors.terracotta, { 900: anchors.darkRed }),
+  cream: buildRamp(anchors.cream, { 200: anchors.creamAlt }),
+  peach: buildRamp(anchors.peach),
+}
+
 const primitives = base['primitives']
-writeJson(
-  resolve(OUTPUT_DIR, 'primitives/colors.json'),
-  processTree({ primitives: { palette: primitives.palette } }),
-)
+const palette = { ...primitives.palette, ...brandFamilies }
+writeJson(resolve(OUTPUT_DIR, 'primitives/colors.json'), processTree({ primitives: { palette } }))
 writeJson(
   resolve(OUTPUT_DIR, 'primitives/spacing.json'),
   processTree({ primitives: { spacing: primitives.spacing } }),
 )
 
-// 2. Semantic colors — light & dark (layouts, functional, effects)
-writeJson(resolve(OUTPUT_DIR, 'semantic/colors-light.json'), processTree(light))
-writeJson(resolve(OUTPUT_DIR, 'semantic/colors-dark.json'), processTree(dark))
+// 2. Semantic colors — light & dark (layouts, functional, effects).
+//    The brand overlay repoints the core layout roles onto the warm palette.
+const lightProcessed = processTree(light)
+const darkProcessed = processTree(dark)
+applyOverlay(lightProcessed, BRAND_OVERLAY_LIGHT)
+applyOverlay(darkProcessed, BRAND_OVERLAY_DARK)
+writeJson(resolve(OUTPUT_DIR, 'semantic/colors-light.json'), lightProcessed)
+writeJson(resolve(OUTPUT_DIR, 'semantic/colors-dark.json'), darkProcessed)
 
 // 3. Dimensions — spacing, radius (from base)
 writeJson(resolve(OUTPUT_DIR, 'dimensions/spacing.json'), processTree({ spacing: base['spacing'] }))

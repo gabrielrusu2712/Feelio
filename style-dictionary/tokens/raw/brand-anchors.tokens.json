@@ -1,0 +1,10 @@
+{
+  "$comment": "Feelio brand palette — THE single source of truth for brand colours. Edit these few hex values and run `yarn design-tokens` to regenerate the brand/cream/peach 50–950 ramps, all CSS custom properties, and the typed theme. Nothing else needs editing to retune the palette.",
+  "brandAnchors": {
+    "terracotta": "#C44A3A",
+    "darkRed": "#9B0F06",
+    "cream": "#FFF0BE",
+    "creamAlt": "#FFF9D2",
+    "peach": "#FFB38E"
+  }
+}

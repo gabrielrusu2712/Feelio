@@ -28,57 +28,57 @@ export const themeDefaultLight: AppTheme = {
         '50': {
           cssVar: 'var(--primitives-palette-brand-50)',
           cssVarName: '--primitives-palette-brand-50',
-          value: '#EBF5F1',
+          value: '#FBF4F3',
         },
         '100': {
           cssVar: 'var(--primitives-palette-brand-100)',
           cssVarName: '--primitives-palette-brand-100',
-          value: '#D7ECE3',
+          value: '#F7E6E3',
         },
         '200': {
           cssVar: 'var(--primitives-palette-brand-200)',
           cssVarName: '--primitives-palette-brand-200',
-          value: '#AED8C7',
+          value: '#EECCC8',
         },
         '300': {
           cssVar: 'var(--primitives-palette-brand-300)',
           cssVarName: '--primitives-palette-brand-300',
-          value: '#86C5AC',
+          value: '#E3A8A0',
         },
         '400': {
           cssVar: 'var(--primitives-palette-brand-400)',
           cssVarName: '--primitives-palette-brand-400',
-          value: '#5DB190',
+          value: '#D57D71',
         },
         '500': {
           cssVar: 'var(--primitives-palette-brand-500)',
           cssVarName: '--primitives-palette-brand-500',
-          value: '#359E74',
+          value: '#C44A3A',
         },
         '600': {
           cssVar: 'var(--primitives-palette-brand-600)',
           cssVarName: '--primitives-palette-brand-600',
-          value: '#2D8A65',
+          value: '#A94032',
         },
         '700': {
           cssVar: 'var(--primitives-palette-brand-700)',
           cssVarName: '--primitives-palette-brand-700',
-          value: '#247656',
+          value: '#8A3629',
         },
         '800': {
           cssVar: 'var(--primitives-palette-brand-800)',
           cssVarName: '--primitives-palette-brand-800',
-          value: '#144E38',
+          value: '#6C2B1F',
         },
         '900': {
           cssVar: 'var(--primitives-palette-brand-900)',
           cssVarName: '--primitives-palette-brand-900',
-          value: '#0D3A29',
+          value: '#9B0F06',
         },
         '950': {
           cssVar: 'var(--primitives-palette-brand-950)',
           cssVarName: '--primitives-palette-brand-950',
-          value: '#08261B',
+          value: '#391910',
         },
       },
       red: {
@@ -1278,6 +1278,120 @@ export const themeDefaultLight: AppTheme = {
           value: '#0C090C',
         },
       },
+      cream: {
+        '50': {
+          cssVar: 'var(--primitives-palette-cream-50)',
+          cssVarName: '--primitives-palette-cream-50',
+          value: '#FFFEFB',
+        },
+        '100': {
+          cssVar: 'var(--primitives-palette-cream-100)',
+          cssVarName: '--primitives-palette-cream-100',
+          value: '#FFFDF6',
+        },
+        '200': {
+          cssVar: 'var(--primitives-palette-cream-200)',
+          cssVarName: '--primitives-palette-cream-200',
+          value: '#FFF9D2',
+        },
+        '300': {
+          cssVar: 'var(--primitives-palette-cream-300)',
+          cssVarName: '--primitives-palette-cream-300',
+          value: '#FFF8E0',
+        },
+        '400': {
+          cssVar: 'var(--primitives-palette-cream-400)',
+          cssVarName: '--primitives-palette-cream-400',
+          value: '#FFF4D0',
+        },
+        '500': {
+          cssVar: 'var(--primitives-palette-cream-500)',
+          cssVarName: '--primitives-palette-cream-500',
+          value: '#FFF0BE',
+        },
+        '600': {
+          cssVar: 'var(--primitives-palette-cream-600)',
+          cssVarName: '--primitives-palette-cream-600',
+          value: '#DACCA1',
+        },
+        '700': {
+          cssVar: 'var(--primitives-palette-cream-700)',
+          cssVarName: '--primitives-palette-cream-700',
+          value: '#B1A380',
+        },
+        '800': {
+          cssVar: 'var(--primitives-palette-cream-800)',
+          cssVarName: '--primitives-palette-cream-800',
+          value: '#887A5F',
+        },
+        '900': {
+          cssVar: 'var(--primitives-palette-cream-900)',
+          cssVarName: '--primitives-palette-cream-900',
+          value: '#635642',
+        },
+        '950': {
+          cssVar: 'var(--primitives-palette-cream-950)',
+          cssVarName: '--primitives-palette-cream-950',
+          value: '#433728',
+        },
+      },
+      peach: {
+        '50': {
+          cssVar: 'var(--primitives-palette-peach-50)',
+          cssVarName: '--primitives-palette-peach-50',
+          value: '#FFFAF8',
+        },
+        '100': {
+          cssVar: 'var(--primitives-palette-peach-100)',
+          cssVarName: '--primitives-palette-peach-100',
+          value: '#FFF4EF',
+        },
+        '200': {
+          cssVar: 'var(--primitives-palette-peach-200)',
+          cssVarName: '--primitives-palette-peach-200',
+          value: '#FFEADF',
+        },
+        '300': {
+          cssVar: 'var(--primitives-palette-peach-300)',
+          cssVarName: '--primitives-palette-peach-300',
+          value: '#FFDBC9',
+        },
+        '400': {
+          cssVar: 'var(--primitives-palette-peach-400)',
+          cssVarName: '--primitives-palette-peach-400',
+          value: '#FFC8AE',
+        },
+        '500': {
+          cssVar: 'var(--primitives-palette-peach-500)',
+          cssVarName: '--primitives-palette-peach-500',
+          value: '#FFB38E',
+        },
+        '600': {
+          cssVar: 'var(--primitives-palette-peach-600)',
+          cssVarName: '--primitives-palette-peach-600',
+          value: '#DA9978',
+        },
+        '700': {
+          cssVar: 'var(--primitives-palette-peach-700)',
+          cssVarName: '--primitives-palette-peach-700',
+          value: '#B17B60',
+        },
+        '800': {
+          cssVar: 'var(--primitives-palette-peach-800)',
+          cssVarName: '--primitives-palette-peach-800',
+          value: '#885D48',
+        },
+        '900': {
+          cssVar: 'var(--primitives-palette-peach-900)',
+          cssVarName: '--primitives-palette-peach-900',
+          value: '#634332',
+        },
+        '950': {
+          cssVar: 'var(--primitives-palette-peach-950)',
+          cssVarName: '--primitives-palette-peach-950',
+          value: '#432C1F',
+        },
+      },
     },
     spacing: {
       '0': {
@@ -1685,17 +1799,17 @@ export const themeDefaultLight: AppTheme = {
             primary: {
               cssVar: 'var(--layouts-default-enabled-surface-primary)',
               cssVarName: '--layouts-default-enabled-surface-primary',
-              value: '#FFFFFF',
+              value: '#FFF0BE',
             },
             secondary: {
               cssVar: 'var(--layouts-default-enabled-surface-secondary)',
               cssVarName: '--layouts-default-enabled-surface-secondary',
-              value: '#FAFAFA',
+              value: '#FFF9D2',
             },
             tertiary: {
               cssVar: 'var(--layouts-default-enabled-surface-tertiary)',
               cssVarName: '--layouts-default-enabled-surface-tertiary',
-              value: '#F5F5F5',
+              value: '#FFFDF6',
             },
             quaternary: {
               cssVar: 'var(--layouts-default-enabled-surface-quaternary)',
@@ -1712,17 +1826,17 @@ export const themeDefaultLight: AppTheme = {
             primary: {
               cssVar: 'var(--layouts-default-enabled-on-surface-primary)',
               cssVarName: '--layouts-default-enabled-on-surface-primary',
-              value: '#171717',
+              value: '#C44A3A',
             },
             secondary: {
               cssVar: 'var(--layouts-default-enabled-on-surface-secondary)',
               cssVarName: '--layouts-default-enabled-on-surface-secondary',
-              value: '#404040',
+              value: '#8A3629',
             },
             tertiary: {
               cssVar: 'var(--layouts-default-enabled-on-surface-tertiary)',
               cssVarName: '--layouts-default-enabled-on-surface-tertiary',
-              value: '#525252',
+              value: '#A94032',
             },
             quaternary: {
               cssVar: 'var(--layouts-default-enabled-on-surface-quaternary)',
@@ -1739,12 +1853,12 @@ export const themeDefaultLight: AppTheme = {
             primary: {
               cssVar: 'var(--layouts-default-enabled-border-primary)',
               cssVarName: '--layouts-default-enabled-border-primary',
-              value: '#D4D4D4',
+              value: '#FFB38E',
             },
             secondary: {
               cssVar: 'var(--layouts-default-enabled-border-secondary)',
               cssVarName: '--layouts-default-enabled-border-secondary',
-              value: '#737373',
+              value: '#DA9978',
             },
             secondaryAlt: {
               cssVar: 'var(--layouts-default-enabled-border-secondary-alt)',
@@ -1754,7 +1868,7 @@ export const themeDefaultLight: AppTheme = {
             tertiary: {
               cssVar: 'var(--layouts-default-enabled-border-tertiary)',
               cssVarName: '--layouts-default-enabled-border-tertiary',
-              value: '#E5E5E5',
+              value: '#FFDBC9',
             },
           },
         },
@@ -1800,12 +1914,12 @@ export const themeDefaultLight: AppTheme = {
             primary: {
               cssVar: 'var(--layouts-brand-enabled-surface-primary)',
               cssVarName: '--layouts-brand-enabled-surface-primary',
-              value: '#EBF5F1',
+              value: '#FBF4F3',
             },
             secondary: {
               cssVar: 'var(--layouts-brand-enabled-surface-secondary)',
               cssVarName: '--layouts-brand-enabled-surface-secondary',
-              value: '#D7ECE3',
+              value: '#F7E6E3',
             },
             tertiary: {
               cssVar: 'var(--layouts-brand-enabled-surface-tertiary)',
@@ -1815,12 +1929,12 @@ export const themeDefaultLight: AppTheme = {
             section: {
               cssVar: 'var(--layouts-brand-enabled-surface-section)',
               cssVarName: '--layouts-brand-enabled-surface-section',
-              value: '#144E38',
+              value: '#6C2B1F',
             },
             solid: {
               cssVar: 'var(--layouts-brand-enabled-surface-solid)',
               cssVarName: '--layouts-brand-enabled-surface-solid',
-              value: '#247656',
+              value: '#8A3629',
             },
           },
           onSurface: {
@@ -1854,12 +1968,12 @@ export const themeDefaultLight: AppTheme = {
             primary: {
               cssVar: 'var(--layouts-brand-enabled-border-primary)',
               cssVarName: '--layouts-brand-enabled-border-primary',
-              value: '#359E74',
+              value: '#C44A3A',
             },
             primaryAlt: {
               cssVar: 'var(--layouts-brand-enabled-border-primary-alt)',
               cssVarName: '--layouts-brand-enabled-border-primary-alt',
-              value: '#2D8A65',
+              value: '#A94032',
             },
           },
         },
@@ -1897,7 +2011,7 @@ export const themeDefaultLight: AppTheme = {
             primary: {
               cssVar: 'var(--functional-action-primary-enabled-surface-primary)',
               cssVarName: '--functional-action-primary-enabled-surface-primary',
-              value: '#247656',
+              value: '#8A3629',
             },
           },
           onSurface: {
@@ -1909,36 +2023,36 @@ export const themeDefaultLight: AppTheme = {
             primary: {
               cssVar: 'var(--functional-action-primary-enabled-on-surface-primary)',
               cssVarName: '--functional-action-primary-enabled-on-surface-primary',
-              value: '#0D3A29',
+              value: '#9B0F06',
             },
             secondary: {
               cssVar: 'var(--functional-action-primary-enabled-on-surface-secondary)',
               cssVarName: '--functional-action-primary-enabled-on-surface-secondary',
-              value: '#144E38',
+              value: '#6C2B1F',
             },
             tertiary: {
               cssVar: 'var(--functional-action-primary-enabled-on-surface-tertiary)',
               cssVarName: '--functional-action-primary-enabled-on-surface-tertiary',
-              value: '#144E38',
+              value: '#6C2B1F',
             },
             tertiaryAlt: {
               cssVar: 'var(--functional-action-primary-enabled-on-surface-tertiary-alt)',
               cssVarName: '--functional-action-primary-enabled-on-surface-tertiary-alt',
-              value: '#144E38',
+              value: '#6C2B1F',
             },
           },
           onLayout: {
             primary: {
               cssVar: 'var(--functional-action-primary-enabled-on-layout-primary)',
               cssVarName: '--functional-action-primary-enabled-on-layout-primary',
-              value: '#247656',
+              value: '#8A3629',
             },
           },
           border: {
             primary: {
               cssVar: 'var(--functional-action-primary-enabled-border-primary)',
               cssVarName: '--functional-action-primary-enabled-border-primary',
-              value: '#359E74',
+              value: '#C44A3A',
             },
           },
         },
@@ -1947,21 +2061,21 @@ export const themeDefaultLight: AppTheme = {
             primary: {
               cssVar: 'var(--functional-action-primary-hover-surface-primary)',
               cssVarName: '--functional-action-primary-hover-surface-primary',
-              value: '#144E38',
+              value: '#6C2B1F',
             },
           },
           onLayout: {
             primary: {
               cssVar: 'var(--functional-action-primary-hover-on-layout-primary)',
               cssVarName: '--functional-action-primary-hover-on-layout-primary',
-              value: '#144E38',
+              value: '#6C2B1F',
             },
           },
           border: {
             primary: {
               cssVar: 'var(--functional-action-primary-hover-border-primary)',
               cssVarName: '--functional-action-primary-hover-border-primary',
-              value: '#359E74',
+              value: '#C44A3A',
             },
           },
         },
@@ -1970,14 +2084,14 @@ export const themeDefaultLight: AppTheme = {
             primary: {
               cssVar: 'var(--functional-action-primary-pressed-surface-primary)',
               cssVarName: '--functional-action-primary-pressed-surface-primary',
-              value: '#144E38',
+              value: '#6C2B1F',
             },
           },
           onLayout: {
             primary: {
               cssVar: 'var(--functional-action-primary-pressed-on-layout-primary)',
               cssVarName: '--functional-action-primary-pressed-on-layout-primary',
-              value: '#144E38',
+              value: '#6C2B1F',
             },
           },
         },
@@ -1986,7 +2100,7 @@ export const themeDefaultLight: AppTheme = {
             primary: {
               cssVar: 'var(--functional-action-primary-focused-ring-primary)',
               cssVarName: '--functional-action-primary-focused-ring-primary',
-              value: '#359E74',
+              value: '#C44A3A',
             },
           },
         },
@@ -2048,7 +2162,7 @@ export const themeDefaultLight: AppTheme = {
             priamry: {
               cssVar: 'var(--functional-action-secondary-pressed-surface-priamry)',
               cssVarName: '--functional-action-secondary-pressed-surface-priamry',
-              value: '#D7ECE3',
+              value: '#F7E6E3',
             },
           },
         },
@@ -2187,7 +2301,7 @@ export const themeDefaultLight: AppTheme = {
             primary: {
               cssVar: 'var(--functional-success-enabled-border-primary)',
               cssVarName: '--functional-success-enabled-border-primary',
-              value: '#AED8C7',
+              value: '#EECCC8',
             },
           },
         },
@@ -2201,7 +2315,7 @@ export const themeDefaultLight: AppTheme = {
             secondary: {
               cssVar: 'var(--functional-success-hover-surface-secondary)',
               cssVarName: '--functional-success-hover-surface-secondary',
-              value: '#D7ECE3',
+              value: '#F7E6E3',
             },
           },
         },
@@ -2289,7 +2403,7 @@ export const themeDefaultLight: AppTheme = {
         default: {
           cssVar: 'var(--effects-focus-ring-default)',
           cssVarName: '--effects-focus-ring-default',
-          value: '#359E74',
+          value: '#C44A3A',
         },
         error: {
           cssVar: 'var(--effects-focus-ring-error)',

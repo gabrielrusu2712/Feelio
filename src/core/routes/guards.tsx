@@ -1,6 +1,6 @@
 import { Navigate, Outlet } from 'react-router'
 import { useAppSelector } from '@/core/store'
-import { selectAuthInitialized, selectIsAuthenticated } from '@/core/store/auth'
+import { selectAuthInitialized, selectIsAuthenticated } from '@/auth/data-access/store'
 
 export const AuthGuard = () => {
   const initialized = useAppSelector(selectAuthInitialized)

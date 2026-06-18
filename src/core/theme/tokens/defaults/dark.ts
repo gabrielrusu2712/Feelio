@@ -28,57 +28,57 @@ export const themeDefaultDark: AppTheme = {
         '50': {
           cssVar: 'var(--primitives-palette-brand-50)',
           cssVarName: '--primitives-palette-brand-50',
-          value: '#EBF5F1',
+          value: '#FBF4F3',
         },
         '100': {
           cssVar: 'var(--primitives-palette-brand-100)',
           cssVarName: '--primitives-palette-brand-100',
-          value: '#D7ECE3',
+          value: '#F7E6E3',
         },
         '200': {
           cssVar: 'var(--primitives-palette-brand-200)',
           cssVarName: '--primitives-palette-brand-200',
-          value: '#AED8C7',
+          value: '#EECCC8',
         },
         '300': {
           cssVar: 'var(--primitives-palette-brand-300)',
           cssVarName: '--primitives-palette-brand-300',
-          value: '#86C5AC',
+          value: '#E3A8A0',
         },
         '400': {
           cssVar: 'var(--primitives-palette-brand-400)',
           cssVarName: '--primitives-palette-brand-400',
-          value: '#5DB190',
+          value: '#D57D71',
         },
         '500': {
           cssVar: 'var(--primitives-palette-brand-500)',
           cssVarName: '--primitives-palette-brand-500',
-          value: '#359E74',
+          value: '#C44A3A',
         },
         '600': {
           cssVar: 'var(--primitives-palette-brand-600)',
           cssVarName: '--primitives-palette-brand-600',
-          value: '#2D8A65',
+          value: '#A94032',
         },
         '700': {
           cssVar: 'var(--primitives-palette-brand-700)',
           cssVarName: '--primitives-palette-brand-700',
-          value: '#247656',
+          value: '#8A3629',
         },
         '800': {
           cssVar: 'var(--primitives-palette-brand-800)',
           cssVarName: '--primitives-palette-brand-800',
-          value: '#144E38',
+          value: '#6C2B1F',
         },
         '900': {
           cssVar: 'var(--primitives-palette-brand-900)',
           cssVarName: '--primitives-palette-brand-900',
-          value: '#0D3A29',
+          value: '#9B0F06',
         },
         '950': {
           cssVar: 'var(--primitives-palette-brand-950)',
           cssVarName: '--primitives-palette-brand-950',
-          value: '#08261B',
+          value: '#391910',
         },
       },
       red: {
@@ -1278,6 +1278,120 @@ export const themeDefaultDark: AppTheme = {
           value: '#0C090C',
         },
       },
+      cream: {
+        '50': {
+          cssVar: 'var(--primitives-palette-cream-50)',
+          cssVarName: '--primitives-palette-cream-50',
+          value: '#FFFEFB',
+        },
+        '100': {
+          cssVar: 'var(--primitives-palette-cream-100)',
+          cssVarName: '--primitives-palette-cream-100',
+          value: '#FFFDF6',
+        },
+        '200': {
+          cssVar: 'var(--primitives-palette-cream-200)',
+          cssVarName: '--primitives-palette-cream-200',
+          value: '#FFF9D2',
+        },
+        '300': {
+          cssVar: 'var(--primitives-palette-cream-300)',
+          cssVarName: '--primitives-palette-cream-300',
+          value: '#FFF8E0',
+        },
+        '400': {
+          cssVar: 'var(--primitives-palette-cream-400)',
+          cssVarName: '--primitives-palette-cream-400',
+          value: '#FFF4D0',
+        },
+        '500': {
+          cssVar: 'var(--primitives-palette-cream-500)',
+          cssVarName: '--primitives-palette-cream-500',
+          value: '#FFF0BE',
+        },
+        '600': {
+          cssVar: 'var(--primitives-palette-cream-600)',
+          cssVarName: '--primitives-palette-cream-600',
+          value: '#DACCA1',
+        },
+        '700': {
+          cssVar: 'var(--primitives-palette-cream-700)',
+          cssVarName: '--primitives-palette-cream-700',
+          value: '#B1A380',
+        },
+        '800': {
+          cssVar: 'var(--primitives-palette-cream-800)',
+          cssVarName: '--primitives-palette-cream-800',
+          value: '#887A5F',
+        },
+        '900': {
+          cssVar: 'var(--primitives-palette-cream-900)',
+          cssVarName: '--primitives-palette-cream-900',
+          value: '#635642',
+        },
+        '950': {
+          cssVar: 'var(--primitives-palette-cream-950)',
+          cssVarName: '--primitives-palette-cream-950',
+          value: '#433728',
+        },
+      },
+      peach: {
+        '50': {
+          cssVar: 'var(--primitives-palette-peach-50)',
+          cssVarName: '--primitives-palette-peach-50',
+          value: '#FFFAF8',
+        },
+        '100': {
+          cssVar: 'var(--primitives-palette-peach-100)',
+          cssVarName: '--primitives-palette-peach-100',
+          value: '#FFF4EF',
+        },
+        '200': {
+          cssVar: 'var(--primitives-palette-peach-200)',
+          cssVarName: '--primitives-palette-peach-200',
+          value: '#FFEADF',
+        },
+        '300': {
+          cssVar: 'var(--primitives-palette-peach-300)',
+          cssVarName: '--primitives-palette-peach-300',
+          value: '#FFDBC9',
+        },
+        '400': {
+          cssVar: 'var(--primitives-palette-peach-400)',
+          cssVarName: '--primitives-palette-peach-400',
+          value: '#FFC8AE',
+        },
+        '500': {
+          cssVar: 'var(--primitives-palette-peach-500)',
+          cssVarName: '--primitives-palette-peach-500',
+          value: '#FFB38E',
+        },
+        '600': {
+          cssVar: 'var(--primitives-palette-peach-600)',
+          cssVarName: '--primitives-palette-peach-600',
+          value: '#DA9978',
+        },
+        '700': {
+          cssVar: 'var(--primitives-palette-peach-700)',
+          cssVarName: '--primitives-palette-peach-700',
+          value: '#B17B60',
+        },
+        '800': {
+          cssVar: 'var(--primitives-palette-peach-800)',
+          cssVarName: '--primitives-palette-peach-800',
+          value: '#885D48',
+        },
+        '900': {
+          cssVar: 'var(--primitives-palette-peach-900)',
+          cssVarName: '--primitives-palette-peach-900',
+          value: '#634332',
+        },
+        '950': {
+          cssVar: 'var(--primitives-palette-peach-950)',
+          cssVarName: '--primitives-palette-peach-950',
+          value: '#432C1F',
+        },
+      },
     },
     spacing: {
       '0': {
@@ -1685,17 +1799,17 @@ export const themeDefaultDark: AppTheme = {
             primary: {
               cssVar: 'var(--layouts-default-enabled-surface-primary)',
               cssVarName: '--layouts-default-enabled-surface-primary',
-              value: '#0A0A0A',
+              value: '#391910',
             },
             secondary: {
               cssVar: 'var(--layouts-default-enabled-surface-secondary)',
               cssVarName: '--layouts-default-enabled-surface-secondary',
-              value: '#171717',
+              value: '#9B0F06',
             },
             tertiary: {
               cssVar: 'var(--layouts-default-enabled-surface-tertiary)',
               cssVarName: '--layouts-default-enabled-surface-tertiary',
-              value: '#262626',
+              value: '#6C2B1F',
             },
             quaternary: {
               cssVar: 'var(--layouts-default-enabled-surface-quaternary)',
@@ -1712,17 +1826,17 @@ export const themeDefaultDark: AppTheme = {
             primary: {
               cssVar: 'var(--layouts-default-enabled-on-surface-primary)',
               cssVarName: '--layouts-default-enabled-on-surface-primary',
-              value: '#FAFAFA',
+              value: '#FFF9D2',
             },
             secondary: {
               cssVar: 'var(--layouts-default-enabled-on-surface-secondary)',
               cssVarName: '--layouts-default-enabled-on-surface-secondary',
-              value: '#E5E5E5',
+              value: '#FFF4D0',
             },
             tertiary: {
               cssVar: 'var(--layouts-default-enabled-on-surface-tertiary)',
               cssVarName: '--layouts-default-enabled-on-surface-tertiary',
-              value: '#D4D4D4',
+              value: '#FFDBC9',
             },
             quaternary: {
               cssVar: 'var(--layouts-default-enabled-on-surface-quaternary)',
@@ -1732,19 +1846,19 @@ export const themeDefaultDark: AppTheme = {
             placeholder: {
               cssVar: 'var(--layouts-default-enabled-on-surface-placeholder)',
               cssVarName: '--layouts-default-enabled-on-surface-placeholder',
-              value: '#A3A3A3',
+              value: '#525252',
             },
           },
           border: {
             primary: {
               cssVar: 'var(--layouts-default-enabled-border-primary)',
               cssVarName: '--layouts-default-enabled-border-primary',
-              value: '#404040',
+              value: '#8A3629',
             },
             secondary: {
               cssVar: 'var(--layouts-default-enabled-border-secondary)',
               cssVarName: '--layouts-default-enabled-border-secondary',
-              value: '#525252',
+              value: '#A94032',
             },
             secondaryAlt: {
               cssVar: 'var(--layouts-default-enabled-border-secondary-alt)',
@@ -1754,7 +1868,7 @@ export const themeDefaultDark: AppTheme = {
             tertiary: {
               cssVar: 'var(--layouts-default-enabled-border-tertiary)',
               cssVarName: '--layouts-default-enabled-border-tertiary',
-              value: '#262626',
+              value: '#E5E5E5',
             },
           },
         },
@@ -1775,12 +1889,12 @@ export const themeDefaultDark: AppTheme = {
             secondary: {
               cssVar: 'var(--layouts-default-hover-on-surface-secondary)',
               cssVarName: '--layouts-default-hover-on-surface-secondary',
-              value: '#F5F5F5',
+              value: '#404040',
             },
             tertiary: {
               cssVar: 'var(--layouts-default-hover-on-surface-tertiary)',
               cssVarName: '--layouts-default-hover-on-surface-tertiary',
-              value: '#E5E5E5',
+              value: '#525252',
             },
           },
         },
@@ -1800,44 +1914,44 @@ export const themeDefaultDark: AppTheme = {
             primary: {
               cssVar: 'var(--layouts-brand-enabled-surface-primary)',
               cssVarName: '--layouts-brand-enabled-surface-primary',
-              value: '#359E74',
+              value: '#C44A3A',
             },
             secondary: {
               cssVar: 'var(--layouts-brand-enabled-surface-secondary)',
               cssVarName: '--layouts-brand-enabled-surface-secondary',
-              value: '#2D8A65',
+              value: '#A94032',
             },
             tertiary: {
               cssVar: 'var(--layouts-brand-enabled-surface-tertiary)',
               cssVarName: '--layouts-brand-enabled-surface-tertiary',
-              value: '#2D8A65',
+              value: '#A94032',
             },
             section: {
               cssVar: 'var(--layouts-brand-enabled-surface-section)',
               cssVarName: '--layouts-brand-enabled-surface-section',
-              value: '#171717',
+              value: '#FAFAFA',
             },
             solid: {
               cssVar: 'var(--layouts-brand-enabled-surface-solid)',
               cssVarName: '--layouts-brand-enabled-surface-solid',
-              value: '#2D8A65',
+              value: '#A94032',
             },
           },
           onSurface: {
             primary: {
               cssVar: 'var(--layouts-brand-enabled-on-surface-primary)',
               cssVarName: '--layouts-brand-enabled-on-surface-primary',
-              value: '#FAFAFA',
+              value: '#171717',
             },
             secondary: {
               cssVar: 'var(--layouts-brand-enabled-on-surface-secondary)',
               cssVarName: '--layouts-brand-enabled-on-surface-secondary',
-              value: '#E5E5E5',
+              value: '#404040',
             },
             tertiary: {
               cssVar: 'var(--layouts-brand-enabled-on-surface-tertiary)',
               cssVarName: '--layouts-brand-enabled-on-surface-tertiary',
-              value: '#D4D4D4',
+              value: '#525252',
             },
             quaternary: {
               cssVar: 'var(--layouts-brand-enabled-on-surface-quaternary)',
@@ -1847,19 +1961,19 @@ export const themeDefaultDark: AppTheme = {
             placeholder: {
               cssVar: 'var(--layouts-brand-enabled-on-surface-placeholder)',
               cssVarName: '--layouts-brand-enabled-on-surface-placeholder',
-              value: '#A3A3A3',
+              value: '#525252',
             },
           },
           border: {
             primary: {
               cssVar: 'var(--layouts-brand-enabled-border-primary)',
               cssVarName: '--layouts-brand-enabled-border-primary',
-              value: '#5DB190',
+              value: '#D57D71',
             },
             primaryAlt: {
               cssVar: 'var(--layouts-brand-enabled-border-primary-alt)',
               cssVarName: '--layouts-brand-enabled-border-primary-alt',
-              value: '#525252',
+              value: '#404040',
             },
           },
         },
@@ -1870,7 +1984,7 @@ export const themeDefaultDark: AppTheme = {
             primary: {
               cssVar: 'var(--layouts-inverted-enabled-surface-primary)',
               cssVarName: '--layouts-inverted-enabled-surface-primary',
-              value: '#EBF5F1',
+              value: '#FBF4F3',
             },
           },
           onSurface: {
@@ -1938,7 +2052,7 @@ export const themeDefaultDark: AppTheme = {
             primary: {
               cssVar: 'var(--functional-action-primary-enabled-border-primary)',
               cssVarName: '--functional-action-primary-enabled-border-primary',
-              value: '#5DB190',
+              value: '#D57D71',
             },
           },
         },
@@ -1947,21 +2061,21 @@ export const themeDefaultDark: AppTheme = {
             primary: {
               cssVar: 'var(--functional-action-primary-hover-surface-primary)',
               cssVarName: '--functional-action-primary-hover-surface-primary',
-              value: '#359E74',
+              value: '#C44A3A',
             },
           },
           onLayout: {
             primary: {
               cssVar: 'var(--functional-action-primary-hover-on-layout-primary)',
               cssVarName: '--functional-action-primary-hover-on-layout-primary',
-              value: '#2D8A65',
+              value: '#A94032',
             },
           },
           border: {
             primary: {
               cssVar: 'var(--functional-action-primary-hover-border-primary)',
               cssVarName: '--functional-action-primary-hover-border-primary',
-              value: '#2D8A65',
+              value: '#A94032',
             },
           },
         },
@@ -1986,7 +2100,7 @@ export const themeDefaultDark: AppTheme = {
             primary: {
               cssVar: 'var(--functional-action-primary-focused-ring-primary)',
               cssVarName: '--functional-action-primary-focused-ring-primary',
-              value: '#359E74',
+              value: '#C44A3A',
             },
           },
         },
@@ -2004,14 +2118,14 @@ export const themeDefaultDark: AppTheme = {
             primary: {
               cssVar: 'var(--functional-action-secondary-enabled-on-surface-primary)',
               cssVarName: '--functional-action-secondary-enabled-on-surface-primary',
-              value: '#144E38',
+              value: '#6C2B1F',
             },
           },
           onLayout: {
             primary: {
               cssVar: 'var(--functional-action-secondary-enabled-on-layout-primary)',
               cssVarName: '--functional-action-secondary-enabled-on-layout-primary',
-              value: '#144E38',
+              value: '#6C2B1F',
             },
           },
           border: {
@@ -2039,7 +2153,7 @@ export const themeDefaultDark: AppTheme = {
             primary: {
               cssVar: 'var(--functional-action-secondary-hover-on-layout-primary)',
               cssVarName: '--functional-action-secondary-hover-on-layout-primary',
-              value: '#0D3A29',
+              value: '#9B0F06',
             },
           },
         },
@@ -2048,7 +2162,7 @@ export const themeDefaultDark: AppTheme = {
             priamry: {
               cssVar: 'var(--functional-action-secondary-pressed-surface-priamry)',
               cssVarName: '--functional-action-secondary-pressed-surface-priamry',
-              value: '#D7ECE3',
+              value: '#F7E6E3',
             },
           },
         },
@@ -2187,7 +2301,7 @@ export const themeDefaultDark: AppTheme = {
             primary: {
               cssVar: 'var(--functional-success-enabled-border-primary)',
               cssVarName: '--functional-success-enabled-border-primary',
-              value: '#2D8A65',
+              value: '#A94032',
             },
           },
         },
@@ -2201,7 +2315,7 @@ export const themeDefaultDark: AppTheme = {
             secondary: {
               cssVar: 'var(--functional-success-hover-surface-secondary)',
               cssVarName: '--functional-success-hover-surface-secondary',
-              value: '#EBF5F1',
+              value: '#FBF4F3',
             },
           },
         },
@@ -2289,7 +2403,7 @@ export const themeDefaultDark: AppTheme = {
         default: {
           cssVar: 'var(--effects-focus-ring-default)',
           cssVarName: '--effects-focus-ring-default',
-          value: '#359E74',
+          value: '#C44A3A',
         },
         error: {
           cssVar: 'var(--effects-focus-ring-error)',

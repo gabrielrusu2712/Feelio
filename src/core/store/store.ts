@@ -1,10 +1,12 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
-import authReducer from '@/core/store/auth/auth.slice'
+import authReducer from '@/auth/data-access/store/auth.slice'
+import userReducer from '@/user/data-access/store/user.slice'
 import uiReducer from '@/core/store/ui/ui.slice'
 
 const rootReducer = combineReducers({
   auth: authReducer,
   ui: uiReducer,
+  user: userReducer,
 })
 
 export type RootState = ReturnType<typeof rootReducer>

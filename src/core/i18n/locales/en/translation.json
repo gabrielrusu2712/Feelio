@@ -5,5 +5,15 @@
   "landing.title": "Get started",
   "landing.subtitle": "Edit src/App.tsx and save to test HMR",
   "home.title": "Home Page",
-  "auth.title": "Auth Page"
+  "auth.title": "Auth Page",
+  "auth.login": "🔑 Login",
+  "auth.register": "📝 Register",
+  "auth.emailPlaceholder": "Email",
+  "auth.passwordPlaceholder": "Password",
+  "auth.toggleToRegister": "Don't have an account? Register",
+  "auth.toggleToLogin": "Already have an account? Login",
+  "auth.error.unknown": "Authentication failed. Please try again.",
+  "auth.error.notLoggedIn": "You are not logged in.",
+  "auth.error.currentPasswordRequired": "Please enter your current password.",
+  "auth.error.passwordTooShort": "The new password must be at least 6 characters."
 }

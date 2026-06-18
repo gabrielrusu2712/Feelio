@@ -18,47 +18,47 @@
       "brand": {
         "50": {
           "$type": "color",
-          "$value": "#EBF5F1"
+          "$value": "#FBF4F3"
         },
         "100": {
           "$type": "color",
-          "$value": "#D7ECE3"
+          "$value": "#F7E6E3"
         },
         "200": {
           "$type": "color",
-          "$value": "#AED8C7"
+          "$value": "#EECCC8"
         },
         "300": {
           "$type": "color",
-          "$value": "#86C5AC"
+          "$value": "#E3A8A0"
         },
         "400": {
           "$type": "color",
-          "$value": "#5DB190"
+          "$value": "#D57D71"
         },
         "500": {
           "$type": "color",
-          "$value": "#359E74"
+          "$value": "#C44A3A"
         },
         "600": {
           "$type": "color",
-          "$value": "#2D8A65"
+          "$value": "#A94032"
         },
         "700": {
           "$type": "color",
-          "$value": "#247656"
+          "$value": "#8A3629"
         },
         "800": {
           "$type": "color",
-          "$value": "#144E38"
+          "$value": "#6C2B1F"
         },
         "900": {
           "$type": "color",
-          "$value": "#0D3A29"
+          "$value": "#9B0F06"
         },
         "950": {
           "$type": "color",
-          "$value": "#08261B"
+          "$value": "#391910"
         }
       },
       "red": {
@@ -1025,6 +1025,98 @@
         "950": {
           "$type": "color",
           "$value": "#0C090C"
+        }
+      },
+      "cream": {
+        "50": {
+          "$type": "color",
+          "$value": "#FFFEFB"
+        },
+        "100": {
+          "$type": "color",
+          "$value": "#FFFDF6"
+        },
+        "200": {
+          "$type": "color",
+          "$value": "#FFF9D2"
+        },
+        "300": {
+          "$type": "color",
+          "$value": "#FFF8E0"
+        },
+        "400": {
+          "$type": "color",
+          "$value": "#FFF4D0"
+        },
+        "500": {
+          "$type": "color",
+          "$value": "#FFF0BE"
+        },
+        "600": {
+          "$type": "color",
+          "$value": "#DACCA1"
+        },
+        "700": {
+          "$type": "color",
+          "$value": "#B1A380"
+        },
+        "800": {
+          "$type": "color",
+          "$value": "#887A5F"
+        },
+        "900": {
+          "$type": "color",
+          "$value": "#635642"
+        },
+        "950": {
+          "$type": "color",
+          "$value": "#433728"
+        }
+      },
+      "peach": {
+        "50": {
+          "$type": "color",
+          "$value": "#FFFAF8"
+        },
+        "100": {
+          "$type": "color",
+          "$value": "#FFF4EF"
+        },
+        "200": {
+          "$type": "color",
+          "$value": "#FFEADF"
+        },
+        "300": {
+          "$type": "color",
+          "$value": "#FFDBC9"
+        },
+        "400": {
+          "$type": "color",
+          "$value": "#FFC8AE"
+        },
+        "500": {
+          "$type": "color",
+          "$value": "#FFB38E"
+        },
+        "600": {
+          "$type": "color",
+          "$value": "#DA9978"
+        },
+        "700": {
+          "$type": "color",
+          "$value": "#B17B60"
+        },
+        "800": {
+          "$type": "color",
+          "$value": "#885D48"
+        },
+        "900": {
+          "$type": "color",
+          "$value": "#634332"
+        },
+        "950": {
+          "$type": "color",
+          "$value": "#432C1F"
         }
       }
     }

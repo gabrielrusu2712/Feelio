@@ -298,6 +298,32 @@ export interface AppTheme {
         readonly '900': ThemeValue
         readonly '950': ThemeValue
       }
+      readonly cream: {
+        readonly '50': ThemeValue
+        readonly '100': ThemeValue
+        readonly '200': ThemeValue
+        readonly '300': ThemeValue
+        readonly '400': ThemeValue
+        readonly '500': ThemeValue
+        readonly '600': ThemeValue
+        readonly '700': ThemeValue
+        readonly '800': ThemeValue
+        readonly '900': ThemeValue
+        readonly '950': ThemeValue
+      }
+      readonly peach: {
+        readonly '50': ThemeValue
+        readonly '100': ThemeValue
+        readonly '200': ThemeValue
+        readonly '300': ThemeValue
+        readonly '400': ThemeValue
+        readonly '500': ThemeValue
+        readonly '600': ThemeValue
+        readonly '700': ThemeValue
+        readonly '800': ThemeValue
+        readonly '900': ThemeValue
+        readonly '950': ThemeValue
+      }
     }
     readonly spacing: {
       readonly '0': ThemeValue

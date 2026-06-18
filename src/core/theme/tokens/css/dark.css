@@ -2,55 +2,49 @@
  * Do not edit directly, this file was auto-generated.
  */
 
-[data-color-mode='dark'] {
+[data-color-mode="dark"] {
   --layouts-default-enabled-border-secondary-alt: rgba(0, 0, 0, 0.1);
   --effects-shadow-skeumorphic-inner: rgba(0, 0, 0, 0.05);
   --effects-shadow-skeumorphic-inner-border: rgba(0, 0, 0, 0.18);
-  --layouts-default-enabled-surface-primary: var(--primitives-palette-grey-neutral-950);
-  --layouts-default-enabled-surface-secondary: var(--primitives-palette-grey-neutral-900);
-  --layouts-default-enabled-surface-tertiary: var(--primitives-palette-grey-neutral-800);
+  --layouts-default-enabled-surface-primary: var(--primitives-palette-brand-950);
+  --layouts-default-enabled-surface-secondary: var(--primitives-palette-brand-900);
+  --layouts-default-enabled-surface-tertiary: var(--primitives-palette-brand-800);
   --layouts-default-enabled-surface-quaternary: var(--primitives-palette-grey-neutral-700);
   --layouts-default-enabled-surface-solid: var(--primitives-palette-grey-neutral-100);
-  --layouts-default-enabled-on-surface-primary: var(--primitives-palette-grey-neutral-50);
-  --layouts-default-enabled-on-surface-secondary: var(--primitives-palette-grey-neutral-200);
-  --layouts-default-enabled-on-surface-tertiary: var(--primitives-palette-grey-neutral-300);
+  --layouts-default-enabled-on-surface-primary: var(--primitives-palette-cream-200);
+  --layouts-default-enabled-on-surface-secondary: var(--primitives-palette-cream-400);
+  --layouts-default-enabled-on-surface-tertiary: var(--primitives-palette-peach-300);
   --layouts-default-enabled-on-surface-quaternary: var(--primitives-palette-grey-neutral-400);
-  --layouts-default-enabled-on-surface-placeholder: var(--primitives-palette-grey-neutral-400);
-  --layouts-default-enabled-border-primary: var(--primitives-palette-grey-neutral-700);
-  --layouts-default-enabled-border-secondary: var(--primitives-palette-grey-neutral-600);
-  --layouts-default-enabled-border-tertiary: var(--primitives-palette-grey-neutral-800);
+  --layouts-default-enabled-on-surface-placeholder: var(--primitives-palette-grey-neutral-600);
+  --layouts-default-enabled-border-primary: var(--primitives-palette-brand-700);
+  --layouts-default-enabled-border-secondary: var(--primitives-palette-brand-600);
+  --layouts-default-enabled-border-tertiary: var(--primitives-palette-grey-neutral-200);
   --layouts-default-hover-surface-primary: var(--primitives-palette-grey-neutral-900);
   --layouts-default-hover-surface-secondary: var(--primitives-palette-grey-neutral-800);
-  --layouts-default-hover-on-surface-secondary: var(--primitives-palette-grey-neutral-100);
-  --layouts-default-hover-on-surface-tertiary: var(--primitives-palette-grey-neutral-200);
+  --layouts-default-hover-on-surface-secondary: var(--primitives-palette-grey-neutral-700);
+  --layouts-default-hover-on-surface-tertiary: var(--primitives-palette-grey-neutral-600);
   --layouts-default-focused-border-primary: var(--primitives-palette-grey-neutral-50);
   --layouts-brand-enabled-surface-primary: var(--primitives-palette-brand-500);
   --layouts-brand-enabled-surface-secondary: var(--primitives-palette-brand-600);
   --layouts-brand-enabled-surface-tertiary: var(--primitives-palette-brand-600);
-  --layouts-brand-enabled-surface-section: var(--primitives-palette-grey-neutral-900);
+  --layouts-brand-enabled-surface-section: var(--primitives-palette-grey-neutral-50);
   --layouts-brand-enabled-surface-solid: var(--primitives-palette-brand-600);
-  --layouts-brand-enabled-on-surface-primary: var(--primitives-palette-grey-neutral-50);
-  --layouts-brand-enabled-on-surface-secondary: var(--primitives-palette-grey-neutral-200);
-  --layouts-brand-enabled-on-surface-tertiary: var(--primitives-palette-grey-neutral-300);
+  --layouts-brand-enabled-on-surface-primary: var(--primitives-palette-grey-neutral-900);
+  --layouts-brand-enabled-on-surface-secondary: var(--primitives-palette-grey-neutral-700);
+  --layouts-brand-enabled-on-surface-tertiary: var(--primitives-palette-grey-neutral-600);
   --layouts-brand-enabled-on-surface-quaternary: var(--primitives-palette-grey-neutral-400);
-  --layouts-brand-enabled-on-surface-placeholder: var(--primitives-palette-grey-neutral-400);
+  --layouts-brand-enabled-on-surface-placeholder: var(--primitives-palette-grey-neutral-600);
   --layouts-brand-enabled-border-primary: var(--primitives-palette-brand-400);
-  --layouts-brand-enabled-border-primary-alt: var(--primitives-palette-grey-neutral-600);
+  --layouts-brand-enabled-border-primary-alt: var(--primitives-palette-grey-neutral-700);
   --layouts-inverted-enabled-surface-primary: var(--primitives-palette-brand-50);
   --layouts-inverted-enabled-on-surface-primary: var(--primitives-palette-base-white);
   --layouts-inverted-enabled-border-primary: var(--primitives-palette-base-white);
   --functional-action-primary-enabled-surface-primary: var(--primitives-palette-grey-neutral-400);
   --functional-action-primary-enabled-on-surface-white: var(--primitives-palette-base-white);
   --functional-action-primary-enabled-on-surface-primary: var(--primitives-palette-grey-neutral-50);
-  --functional-action-primary-enabled-on-surface-secondary: var(
-    --primitives-palette-grey-neutral-300
-  );
-  --functional-action-primary-enabled-on-surface-tertiary: var(
-    --primitives-palette-grey-neutral-400
-  );
-  --functional-action-primary-enabled-on-surface-tertiary-alt: var(
-    --primitives-palette-grey-neutral-50
-  );
+  --functional-action-primary-enabled-on-surface-secondary: var(--primitives-palette-grey-neutral-300);
+  --functional-action-primary-enabled-on-surface-tertiary: var(--primitives-palette-grey-neutral-400);
+  --functional-action-primary-enabled-on-surface-tertiary-alt: var(--primitives-palette-grey-neutral-50);
   --functional-action-primary-enabled-on-layout-primary: var(--primitives-palette-grey-neutral-50);
   --functional-action-primary-enabled-border-primary: var(--primitives-palette-brand-400);
   --functional-action-primary-hover-surface-primary: var(--primitives-palette-brand-500);
@@ -63,9 +57,7 @@
   --functional-action-secondary-enabled-on-surface-primary: var(--primitives-palette-brand-800);
   --functional-action-secondary-enabled-on-layout-primary: var(--primitives-palette-brand-800);
   --functional-action-secondary-enabled-border-primary: var(--primitives-palette-grey-neutral-700);
-  --functional-action-secondary-enabled-border-secondary: var(
-    --primitives-palette-grey-neutral-800
-  );
+  --functional-action-secondary-enabled-border-secondary: var(--primitives-palette-grey-neutral-800);
   --functional-action-secondary-hover-surface-primary: var(--primitives-palette-grey-neutral-800);
   --functional-action-secondary-hover-on-layout-primary: var(--primitives-palette-brand-900);
   --functional-action-secondary-pressed-surface-priamry: var(--primitives-palette-brand-100);

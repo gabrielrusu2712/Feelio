@@ -5,5 +5,15 @@
   "landing.title": "Începe aici",
   "landing.subtitle": "Editează src/App.tsx și salvează pentru a testa HMR",
   "home.title": "Pagina principală",
-  "auth.title": "Pagina de autentificare"
+  "auth.title": "Pagina de autentificare",
+  "auth.login": "🔑 Autentificare",
+  "auth.register": "📝 Înregistrare",
+  "auth.emailPlaceholder": "Email",
+  "auth.passwordPlaceholder": "Parolă",
+  "auth.toggleToRegister": "Nu ai un cont? Înregistrează-te",
+  "auth.toggleToLogin": "Ai deja un cont? Autentifică-te",
+  "auth.error.unknown": "Autentificarea a eșuat. Încearcă din nou.",
+  "auth.error.notLoggedIn": "Nu ești autentificat.",
+  "auth.error.currentPasswordRequired": "Introdu parola curentă.",
+  "auth.error.passwordTooShort": "Noua parolă trebuie să aibă cel puțin 6 caractere."
 }

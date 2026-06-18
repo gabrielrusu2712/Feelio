@@ -5,15 +5,15 @@
         "surface": {
           "primary": {
             "$type": "color",
-            "$value": "{primitives.palette.base.white}"
+            "$value": "{primitives.palette.cream.500}"
           },
           "secondary": {
             "$type": "color",
-            "$value": "{primitives.palette.greyNeutral.50}"
+            "$value": "{primitives.palette.cream.200}"
           },
           "tertiary": {
             "$type": "color",
-            "$value": "{primitives.palette.greyNeutral.100}"
+            "$value": "{primitives.palette.cream.100}"
           },
           "quaternary": {
             "$type": "color",
@@ -27,15 +27,15 @@
         "onSurface": {
           "primary": {
             "$type": "color",
-            "$value": "{primitives.palette.greyNeutral.900}"
+            "$value": "{primitives.palette.brand.500}"
           },
           "secondary": {
             "$type": "color",
-            "$value": "{primitives.palette.greyNeutral.700}"
+            "$value": "{primitives.palette.brand.700}"
           },
           "tertiary": {
             "$type": "color",
-            "$value": "{primitives.palette.greyNeutral.600}"
+            "$value": "{primitives.palette.brand.600}"
           },
           "quaternary": {
             "$type": "color",
@@ -49,11 +49,11 @@
         "border": {
           "primary": {
             "$type": "color",
-            "$value": "{primitives.palette.greyNeutral.300}"
+            "$value": "{primitives.palette.peach.500}"
           },
           "secondary": {
             "$type": "color",
-            "$value": "{primitives.palette.greyNeutral.500}"
+            "$value": "{primitives.palette.peach.600}"
           },
           "secondaryAlt": {
             "$type": "color",
@@ -61,7 +61,7 @@
           },
           "tertiary": {
             "$type": "color",
-            "$value": "{primitives.palette.greyNeutral.200}"
+            "$value": "{primitives.palette.peach.300}"
           }
         }
       },
