@@ -1,8 +1,8 @@
 import LandingPage from '@/landing/ui/landing-page/landing-page'
 import OnboardingPage from '@/onboarding/ui/onboarding-page/onboarding-page'
 import AuthPage from '@/auth/features/auth-page/auth-page'
-import HomePage from '@/home/features/home-page/home-page'
-import { Route, Routes } from 'react-router'
+import AppLayout from '@/shared/features/app-layout/app-layout'
+import { Navigate, Route, Routes } from 'react-router'
 import { AuthGuard, GuestGuard } from '@/core/routes/guards'
 
 const AppRoutes = () => {
@@ -15,19 +15,13 @@ const AppRoutes = () => {
         <Route path="/auth" element={<AuthPage />} />
       </Route>
 
-      {/* Authenticated routes */}
+      {/* Authenticated app shell. Content (stats/explore/album/…) switches
+          inside the shell's content panel rather than via separate routes. */}
       <Route element={<AuthGuard />}>
-        <Route path="/home" element={<HomePage />} />
-        <Route path="/statistics" element={<div>Statistics Page</div>} />
-        <Route path="/explore" element={<div>Explore Page</div>} />
-        <Route path="/album" element={<div>Album Page</div>} />
-        <Route path="/diary" element={<div>Diary Page</div>} />
-        <Route path="/chat" element={<div>Chat Page</div>} />
-        <Route path="/settings" element={<div>Settings Page</div>} />
-        <Route path="/about-us" element={<div>About Us Page</div>} />
+        <Route path="/home" element={<AppLayout />} />
       </Route>
 
-      <Route path="*" element={<div>Not Found</div>} />
+      <Route path="*" element={<Navigate to="/home" replace />} />
     </Routes>
   )
 }

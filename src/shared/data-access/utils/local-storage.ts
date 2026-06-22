@@ -6,6 +6,10 @@ export const STORAGE_KEYS = {
   LANGUAGE: 'feelio_lang',
   /** redux-persist key for the user slice (stats mirror / totalStars / username). */
   USER: 'feelio_user',
+  /** Settings backdrop blur strength (px). */
+  BLUR: 'feelio_blur',
+  /** Desktop panel order (character/bars/content). */
+  PANEL_ORDER: 'feelio_panel_order',
 } as const
 
 export type StorageKey = (typeof STORAGE_KEYS)[keyof typeof STORAGE_KEYS]

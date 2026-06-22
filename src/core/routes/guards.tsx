@@ -1,12 +1,13 @@
 import { Navigate, Outlet } from 'react-router'
 import { useAppSelector } from '@/core/store'
 import { selectAuthInitialized, selectIsAuthenticated } from '@/auth/data-access/store'
+import Splash from '@/shared/ui/splash/splash'
 
 export const AuthGuard = () => {
   const initialized = useAppSelector(selectAuthInitialized)
   const isAuthenticated = useAppSelector(selectIsAuthenticated)
 
-  if (!initialized) return null
+  if (!initialized) return <Splash />
 
   if (!isAuthenticated) {
     return <Navigate to="/auth" replace />
@@ -19,7 +20,7 @@ export const GuestGuard = () => {
   const initialized = useAppSelector(selectAuthInitialized)
   const isAuthenticated = useAppSelector(selectIsAuthenticated)
 
-  if (!initialized) return null
+  if (!initialized) return <Splash />
 
   if (isAuthenticated) {
     return <Navigate to="/home" replace />
