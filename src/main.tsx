@@ -7,7 +7,10 @@ import '@/core/theme/tokens/css/dark.css'
 import App from '@/app'
 import { BrowserRouter } from 'react-router'
 
-createRoot(document.getElementById('root')!).render(
+const rootElement = document.getElementById('root')!
+rootElement.setAttribute('data-mounted', '1')
+
+createRoot(rootElement).render(
   <StrictMode>
     <BrowserRouter>
       <App />

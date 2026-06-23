@@ -9,11 +9,39 @@ import {
   persistReducer,
   persistStore,
 } from 'redux-persist'
-import storage from 'redux-persist/lib/storage'
+import type { WebStorage } from 'redux-persist'
 import authReducer from '@/auth/data-access/store/auth.slice'
 import userReducer from '@/user/data-access/store/user.slice'
 import uiReducer from '@/core/store/ui/ui.slice'
 import { STORAGE_KEYS } from '@/shared/data-access/utils/local-storage'
+
+// redux-persist's `redux-persist/lib/storage` subpath breaks Vite's dependency
+// optimizer, so we provide the equivalent localStorage engine inline (fail-safe).
+const storage: WebStorage = {
+  getItem: (key) => {
+    try {
+      return Promise.resolve(localStorage.getItem(key))
+    } catch {
+      return Promise.resolve(null)
+    }
+  },
+  setItem: (key, value) => {
+    try {
+      localStorage.setItem(key, value)
+    } catch {
+      // storage unavailable / over quota — non-fatal
+    }
+    return Promise.resolve()
+  },
+  removeItem: (key) => {
+    try {
+      localStorage.removeItem(key)
+    } catch {
+      // non-fatal
+    }
+    return Promise.resolve()
+  },
+}
 
 // Persist only the durable per-user fields so they paint instantly on reload,
 // before loadUserDataThunk refreshes from Firestore. Transient status/error are

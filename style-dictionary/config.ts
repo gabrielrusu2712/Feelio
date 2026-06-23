@@ -23,11 +23,17 @@ const OUTPUT_DIR = resolve(__dirname, '../src/core/theme/tokens/css')
 
 // ─── Custom Transforms ──────────────────────────────────────────────────────
 
+// Emit numeric dimension tokens as `rem` (relative to a 16px root) rather than
+// `px`. rem scales uniformly with browser zoom and the user's font-size setting,
+// so the whole UI grows/shrinks proportionally instead of drifting (mixing px
+// with viewport units was what made zoom look broken).
+const REM_BASE = 16
+
 StyleDictionary.registerTransform({
-  name: 'size/pxUnitless',
+  name: 'size/pxToRem',
   type: 'value',
   filter: (token) => typeof token.$value === 'number' && token.$value !== 0,
-  transform: (token) => `${token.$value}px`,
+  transform: (token) => `${(token.$value as number) / REM_BASE}rem`,
 })
 
 // ─── Build Functions ────────────────────────────────────────────────────────
@@ -42,7 +48,7 @@ const buildBase = () =>
     ],
     platforms: {
       css: {
-        transforms: ['name/kebab', 'size/pxUnitless'],
+        transforms: ['name/kebab', 'size/pxToRem'],
         buildPath: `${OUTPUT_DIR}/`,
         files: [
           {

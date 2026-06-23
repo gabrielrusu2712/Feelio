@@ -1,9 +1,10 @@
 import LandingPage from '@/landing/ui/landing-page/landing-page'
 import OnboardingPage from '@/onboarding/ui/onboarding-page/onboarding-page'
 import AuthPage from '@/auth/features/auth-page/auth-page'
-import HomePage from '@/home/features/home-page/home-page'
-import { Route, Routes } from 'react-router'
+import AppLayout from '@/shared/features/app-layout/app-layout'
+import { Navigate, Route, Routes } from 'react-router'
 import { AuthGuard, GuestGuard } from '@/core/routes/guards'
+import { AUTHED_PATHS } from '@/shared/data-access/constants/content-views'
 
 const AppRoutes = () => {
   return (
@@ -15,19 +16,17 @@ const AppRoutes = () => {
         <Route path="/auth" element={<AuthPage />} />
       </Route>
 
-      {/* Authenticated routes */}
+      {/* Authenticated app shell. AppLayout stays mounted across these paths and
+          derives the active destination from the URL; each path is a marker. */}
       <Route element={<AuthGuard />}>
-        <Route path="/home" element={<HomePage />} />
-        <Route path="/statistics" element={<div>Statistics Page</div>} />
-        <Route path="/explore" element={<div>Explore Page</div>} />
-        <Route path="/album" element={<div>Album Page</div>} />
-        <Route path="/diary" element={<div>Diary Page</div>} />
-        <Route path="/chat" element={<div>Chat Page</div>} />
-        <Route path="/settings" element={<div>Settings Page</div>} />
-        <Route path="/about-us" element={<div>About Us Page</div>} />
+        <Route element={<AppLayout />}>
+          {AUTHED_PATHS.map((path) => (
+            <Route key={path} path={path} element={null} />
+          ))}
+        </Route>
       </Route>
 
-      <Route path="*" element={<div>Not Found</div>} />
+      <Route path="*" element={<Navigate to="/home" replace />} />
     </Routes>
   )
 }
