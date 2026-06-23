@@ -20,26 +20,39 @@ const storeWithUser = () => {
 // jsdom matchMedia is mocked to landscape (matches: false) in test setup → desktop.
 describe('AppLayout', () => {
   it('shows the username and day counter in the fixed top bar', () => {
-    renderWithProviders(<AppLayout />, { store: storeWithUser() })
+    renderWithProviders(<AppLayout />, { store: storeWithUser(), route: '/home' })
 
     expect(screen.getByText('ana')).toBeInTheDocument()
     expect(screen.getByText('Day 3')).toBeInTheDocument()
   })
 
-  it('shows the default Stats view active and lists views in the page menu', async () => {
-    const { user } = renderWithProviders(<AppLayout />, { store: storeWithUser() })
+  it('renders the big destination board on Home (landscape)', () => {
+    renderWithProviders(<AppLayout />, { store: storeWithUser(), route: '/home' })
 
-    // The active view label is shown in the content header.
-    expect(screen.getByText('Stats')).toBeInTheDocument()
-
-    // Views live behind the "…" menu, not a tab row.
-    await user.click(screen.getByRole('button', { name: 'Open menu' }))
-    expect(screen.getByRole('menuitem', { name: 'Stats' })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: 'Where to?' })).toBeInTheDocument()
+    expect(screen.getByRole('menuitem', { name: 'Statistics' })).toBeInTheDocument()
     expect(screen.getByRole('menuitem', { name: 'Explore' })).toBeInTheDocument()
   })
 
+  it('renders a routed view behind the compact menu (landscape)', () => {
+    renderWithProviders(<AppLayout />, { store: storeWithUser(), route: '/statistics' })
+
+    // Title in the content header + placeholder body; nav is the compact "…" menu.
+    expect(screen.getByText('Statistics')).toBeInTheDocument()
+    expect(screen.getByText('Statistics — coming soon')).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Open menu' })).toBeInTheDocument()
+  })
+
+  it('navigates from the Home board to a destination', async () => {
+    const { user } = renderWithProviders(<AppLayout />, { store: storeWithUser(), route: '/home' })
+
+    await user.click(screen.getByRole('menuitem', { name: 'Explore' }))
+
+    expect(screen.getByText('Explore — coming soon')).toBeInTheDocument()
+  })
+
   it('opens the settings overlay from the top-bar button', async () => {
-    const { user } = renderWithProviders(<AppLayout />, { store: storeWithUser() })
+    const { user } = renderWithProviders(<AppLayout />, { store: storeWithUser(), route: '/home' })
 
     await user.click(screen.getByRole('button', { name: 'Open settings' }))
 
@@ -49,7 +62,7 @@ describe('AppLayout', () => {
   describe('portrait (mobile) layout', () => {
     afterEach(() => vi.restoreAllMocks())
 
-    it('renders the stacked mobile shell with the panels and page menu', () => {
+    it('renders the stacked mobile shell with the Home screen and page menu', () => {
       window.matchMedia = vi.fn().mockImplementation((query: string) => ({
         matches: query.includes('portrait'),
         media: query,
@@ -61,7 +74,7 @@ describe('AppLayout', () => {
         dispatchEvent: vi.fn(),
       }))
 
-      renderWithProviders(<AppLayout />, { store: storeWithUser() })
+      renderWithProviders(<AppLayout />, { store: storeWithUser(), route: '/home' })
 
       expect(screen.getByText('ana')).toBeInTheDocument()
       expect(screen.getByRole('button', { name: 'Open menu' })).toBeInTheDocument()

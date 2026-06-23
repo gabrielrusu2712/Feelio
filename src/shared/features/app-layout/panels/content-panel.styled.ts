@@ -35,19 +35,6 @@ export const HeaderTitle = styled.span`
   `}
 `
 
-export const CollapseToggle = styled.button`
-  ${({ theme: { colors, radius } }) => `
-    margin-left: auto;
-    border: 1px solid ${colors.layouts.default.enabled.border.primary.cssVar};
-    background: ${colors.layouts.default.enabled.surface.primary.cssVar};
-    color: ${colors.layouts.default.enabled.onSurface.primary.cssVar};
-    border-radius: ${radius.full.cssVar};
-    width: 1.75rem;
-    height: 1.75rem;
-    cursor: pointer;
-  `}
-`
-
 export const ContentBody = styled.div`
   ${({ theme: { colors, spacing, typography } }) => `
     flex: 1;

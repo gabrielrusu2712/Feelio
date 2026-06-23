@@ -4,6 +4,7 @@ import AuthPage from '@/auth/features/auth-page/auth-page'
 import AppLayout from '@/shared/features/app-layout/app-layout'
 import { Navigate, Route, Routes } from 'react-router'
 import { AuthGuard, GuestGuard } from '@/core/routes/guards'
+import { AUTHED_PATHS } from '@/shared/data-access/constants/content-views'
 
 const AppRoutes = () => {
   return (
@@ -15,10 +16,14 @@ const AppRoutes = () => {
         <Route path="/auth" element={<AuthPage />} />
       </Route>
 
-      {/* Authenticated app shell. Content (stats/explore/album/…) switches
-          inside the shell's content panel rather than via separate routes. */}
+      {/* Authenticated app shell. AppLayout stays mounted across these paths and
+          derives the active destination from the URL; each path is a marker. */}
       <Route element={<AuthGuard />}>
-        <Route path="/home" element={<AppLayout />} />
+        <Route element={<AppLayout />}>
+          {AUTHED_PATHS.map((path) => (
+            <Route key={path} path={path} element={null} />
+          ))}
+        </Route>
       </Route>
 
       <Route path="*" element={<Navigate to="/home" replace />} />

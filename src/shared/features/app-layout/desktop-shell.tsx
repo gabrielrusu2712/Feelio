@@ -21,7 +21,7 @@ import { OverlayPanel } from '@/shared/features/app-layout/sortable-panel.styled
 import CharacterPanel from '@/shared/features/app-layout/panels/character-panel'
 import ProgressBarsPanel from '@/shared/features/app-layout/panels/progress-bars-panel'
 import ContentPanel from '@/shared/features/app-layout/panels/content-panel'
-import type { ContentViewKey } from '@/shared/data-access/constants/content-views'
+import type { ActiveView } from '@/shared/data-access/constants/content-views'
 import { DesktopRow } from '@/shared/features/app-layout/desktop-shell.styled'
 
 // Each panel keeps its proportion (45 / 15 / 40) regardless of its position.
@@ -32,12 +32,12 @@ const PANEL_FLEX: Record<PanelKey, string> = {
 }
 
 interface DesktopShellProps {
-  view: ContentViewKey
-  onViewChange: (view: ContentViewKey) => void
+  active: ActiveView
+  onSelect: (target: ActiveView) => void
 }
 
 const DesktopShell = (props: DesktopShellProps) => {
-  const { view, onViewChange } = props
+  const { active, onSelect } = props
   const { desktopOrder, reorderDesktop } = usePanelOrder()
   const [activeKey, setActiveKey] = useState<PanelKey | null>(null)
 
@@ -62,7 +62,7 @@ const DesktopShell = (props: DesktopShellProps) => {
   const renderPanel = (key: PanelKey) => {
     if (key === 'character') return <CharacterPanel />
     if (key === 'bars') return <ProgressBarsPanel />
-    return <ContentPanel view={view} onViewChange={onViewChange} />
+    return <ContentPanel active={active} onSelect={onSelect} />
   }
 
   return (

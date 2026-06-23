@@ -1,8 +1,7 @@
-import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import PageMenu from '@/shared/ui/page-menu/page-menu'
 import { CONTENT_VIEWS } from '@/shared/data-access/constants/content-views'
-import type { ContentViewKey } from '@/shared/data-access/constants/content-views'
+import type { ActiveView } from '@/shared/data-access/constants/content-views'
 import HomeScreen from '@/shared/features/app-layout/panels/home-screen'
 import {
   HeaderTitle,
@@ -12,13 +11,17 @@ import {
   Placeholder,
 } from '@/shared/features/app-layout/mobile-shell.styled'
 
-// Portrait is one panel: the "…" menu (Home + content views) swaps the full
-// page. Home shows the bear over horizontal bars; the rest are placeholders.
-type PortraitPage = 'home' | ContentViewKey
+interface MobileShellProps {
+  active: ActiveView
+  onSelect: (target: ActiveView) => void
+}
 
-const MobileShell = () => {
+// Portrait is one panel: the "…" menu (Home + content views) swaps the full
+// page via the route. Home shows the bear over horizontal bars; the rest are
+// placeholders.
+const MobileShell = (props: MobileShellProps) => {
+  const { active, onSelect } = props
   const { t } = useTranslation()
-  const [page, setPage] = useState<PortraitPage>('home')
 
   const items = [
     { key: 'home', label: t('shell.menu.home') },
@@ -27,22 +30,22 @@ const MobileShell = () => {
       label: t(entry.labelKey, { defaultValue: entry.key }),
     })),
   ]
-  const activeLabel = items.find((item) => item.key === page)?.label ?? ''
+  const activeLabel = items.find((item) => item.key === active)?.label ?? ''
 
   return (
     <MobilePanel>
       <MobileHeader>
         <PageMenu
           items={items}
-          active={page}
-          onSelect={(key) => setPage(key as PortraitPage)}
+          active={active}
+          onSelect={(key) => onSelect(key as ActiveView)}
           ariaLabel={t('shell.menu.open')}
         />
         <HeaderTitle>{activeLabel}</HeaderTitle>
       </MobileHeader>
 
       <MobileBody>
-        {page === 'home' ? (
+        {active === 'home' ? (
           <HomeScreen />
         ) : (
           <Placeholder>{t('shell.content.placeholder', { view: activeLabel })}</Placeholder>
