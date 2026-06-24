@@ -3,6 +3,9 @@ import PageMenu from '@/shared/ui/page-menu/page-menu'
 import { CONTENT_VIEWS } from '@/shared/data-access/constants/content-views'
 import type { ActiveView } from '@/shared/data-access/constants/content-views'
 import HomeScreen from '@/shared/features/app-layout/panels/home-screen'
+import DiaryPage from '@/diary/features/diary-page/diary-page'
+import MapPage from '@/map/features/map-page/map-page'
+import AlbumPage from '@/album/features/album-page/album-page'
 import {
   HeaderTitle,
   MobileBody,
@@ -44,9 +47,15 @@ const MobileShell = (props: MobileShellProps) => {
         <HeaderTitle>{activeLabel}</HeaderTitle>
       </MobileHeader>
 
-      <MobileBody>
+      <MobileBody $fullHeight={active === 'journal' || active === 'explore' || active === 'album'}>
         {active === 'home' ? (
           <HomeScreen />
+        ) : active === 'journal' ? (
+          <DiaryPage />
+        ) : active === 'explore' ? (
+          <MapPage />
+        ) : active === 'album' ? (
+          <AlbumPage />
         ) : (
           <Placeholder>{t('shell.content.placeholder', { view: activeLabel })}</Placeholder>
         )}

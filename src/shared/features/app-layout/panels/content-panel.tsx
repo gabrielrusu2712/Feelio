@@ -3,6 +3,9 @@ import { CONTENT_VIEWS } from '@/shared/data-access/constants/content-views'
 import type { ActiveView } from '@/shared/data-access/constants/content-views'
 import PageMenu from '@/shared/ui/page-menu/page-menu'
 import HomeNavMenu from '@/shared/ui/home-nav-menu/home-nav-menu'
+import DiaryPage from '@/diary/features/diary-page/diary-page'
+import MapPage from '@/map/features/map-page/map-page'
+import AlbumPage from '@/album/features/album-page/album-page'
 import {
   ContentBody,
   ContentHeader,
@@ -56,7 +59,17 @@ const ContentPanel = (props: ContentPanelProps) => {
         <HeaderTitle>{activeLabel}</HeaderTitle>
       </ContentHeader>
 
-      <ContentBody>{t('shell.content.placeholder', { view: activeLabel })}</ContentBody>
+      <ContentBody $noPadding={active === 'journal' || active === 'explore' || active === 'album'}>
+        {active === 'journal' ? (
+          <DiaryPage />
+        ) : active === 'explore' ? (
+          <MapPage />
+        ) : active === 'album' ? (
+          <AlbumPage />
+        ) : (
+          t('shell.content.placeholder', { view: activeLabel })
+        )}
+      </ContentBody>
     </ContentRoot>
   )
 }

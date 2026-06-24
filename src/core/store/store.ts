@@ -13,6 +13,9 @@ import type { WebStorage } from 'redux-persist'
 import authReducer from '@/auth/data-access/store/auth.slice'
 import userReducer from '@/user/data-access/store/user.slice'
 import uiReducer from '@/core/store/ui/ui.slice'
+import diaryReducer from '@/diary/data-access/store/diary.slice'
+import mapReducer from '@/map/data-access/store/map.slice'
+import albumReducer from '@/album/data-access/store/album.slice'
 import { STORAGE_KEYS } from '@/shared/data-access/utils/local-storage'
 
 // redux-persist's `redux-persist/lib/storage` subpath breaks Vite's dependency
@@ -56,6 +59,9 @@ const rootReducer = combineReducers({
   auth: authReducer,
   ui: uiReducer,
   user: persistReducer(userPersistConfig, userReducer),
+  diary: diaryReducer,
+  map: mapReducer,
+  album: albumReducer,
 })
 
 export type RootState = ReturnType<typeof rootReducer>

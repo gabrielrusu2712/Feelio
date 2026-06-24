@@ -1,0 +1,179 @@
+
+Sigur că da! Iată încă 5 locații pentru fiecare dintre orașele menționate (Craiova, Reșița, Baia Mare, Bacău și Botoșani), păstrând structura necesară pentru baza ta de date Firebase.
+1. Craiova
+parcul_nicolae_romanescu
+category: "nature"
+coords: [44.3015, 23.8048]
+desc: { "en": "The largest natural park in Eastern Europe.", "ro": "Cel mai mare parc natural din estul Europei." }
+image: "photo/parc_romanescu.jpg"
+name: { "en": "Nicolae Romanescu Park", "ro": "Parcul Nicolae Romanescu" }
+stars: "10"
+
+
+muzeul_de_arta_craiova
+category: "culture"
+coords: [44.3181, 23.7946]
+desc: { "en": "Housed in the Jean Mihail Palace, it features Brâncuși sculptures.", "ro": "Găzduit în Palatul Jean Mihail, deține sculpturi de Brâncuși." }
+image: "photo/muzeu_arta_cv.jpg"
+name: { "en": "Art Museum Craiova", "ro": "Muzeul de Artă Craiova" }
+stars: "9"
+
+
+gradina_botanica_craiova
+category: "nature"
+coords: [44.3168, 23.7852]
+desc: { "en": "A vast scientific garden perfect for relaxation.", "ro": "O grădină științifică vastă, perfectă pentru relaxare." }
+image: "photo/botanica_cv.jpg"
+name: { "en": "Botanical Garden", "ro": "Grădina Botanică" }
+stars: "9"
+
+piata_mihai_viteazul_cv
+category: "culture"
+coords: [44.3212, 23.7945]
+desc: { "en": "The central square of the city, famous for its musical fountain.", "ro": "Piața centrală a orașului, celebră pentru fântâna muzicală." }
+image: "photo/piata_mihai.jpg"
+name: { "en": "Mihai Viteazul Square", "ro": "Piața Mihai Viteazul" }
+stars: "8"
+
+casa_baniei
+category: "culture"
+coords: [44.3155, 23.7915]
+desc: { "en": "The oldest non-religious building in Craiova.", "ro": "Cea mai veche clădire civilă din Craiova." }
+image: "photo/casa_baniei.jpg"
+name: { "en": "Bania House", "ro": "Casa Băniei" }
+stars: "8"
+
+
+2. Reșița
+muzeul_de_locomotive_resita
+category: "culture"
+coords: [45.2974, 21.8906]
+desc: { "en": "An impressive open-air museum featuring steam locomotives.", "ro": "Un muzeu în aer liber impresionant cu locomotive cu abur." }
+image: "photo/muzeu_locomotive.jpg"
+name: { "en": "Steam Locomotive Museum", "ro": "Muzeul de Locomotive" }
+stars: "10"
+gradina_zoologica_resita
+category: "nature"
+coords: [45.2980, 21.8750]
+desc: { "en": "A beautiful zoo located in a forest setting.", "ro": "O grădină zoologică frumoasă situată într-un cadru forestier." }
+image: "photo/zoo_resita.jpg"
+name: { "en": "Resita Zoo", "ro": "Grădina Zoologică Reșița" }
+stars: "8"
+dealul_crucii_resita
+category: "nature"
+coords: [45.3050, 21.8820]
+desc: { "en": "A viewpoint offering a panoramic panorama over the industrial city.", "ro": "Un punct de observație ce oferă o panoramă asupra orașului industrial." }
+image: "photo/dealul_crucii.jpg"
+name: { "en": "Cross Hill", "ro": "Dealul Crucii" }
+stars: "9"
+centrul_civic_resita
+category: "culture"
+coords: [45.2995, 21.8845]
+desc: { "en": "The heart of the city, recently renovated with a kinetic fountain.", "ro": "Inima orașului, recent renovată, cu o fântână cinetică." }
+image: "photo/centru_resita.jpg"
+name: { "en": "Civic Center", "ro": "Centrul Civic" }
+stars: "8"
+muzeul_banatului_montan
+category: "culture"
+coords: [45.2955, 21.8915]
+desc: { "en": "Exhibitions detailing the industrial history of the region.", "ro": "Expoziții ce detaliază istoria industrială a regiunii." }
+image: "photo/muzeu_banat.jpg"
+name: { "en": "Mountainous Banat Museum", "ro": "Muzeul Banatului Montan" }
+stars: "8"
+3. Baia Mare
+turnul_stefan
+category: "culture"
+coords: [47.6596, 23.5828]
+desc: { "en": "The iconic 15th-century tower, a symbol of the city.", "ro": "Turnul emblematic din secolul XV, simbol al orașului." }
+image: "photo/turnul_stefan.jpg"
+name: { "en": "Stephen's Tower", "ro": "Turnul lui Ștefan" }
+stars: "10"
+muzeul_de_mineralogie
+category: "culture"
+coords: [47.6505, 23.5785]
+desc: { "en": "One of the most important museums of its kind in Europe.", "ro": "Unul dintre cele mai importante muzee de acest gen din Europa." }
+image: "photo/mineralogie.jpg"
+name: { "en": "Mineralogy Museum", "ro": "Muzeul de Mineralogie" }
+stars: "10"
+muzeul_satului_baia_mare
+category: "culture"
+coords: [47.6655, 23.5930]
+desc: { "en": "An open-air museum with traditional Maramureș houses.", "ro": "Un muzeu în aer liber cu case tradiționale maramureșene." }
+image: "photo/satului_bm.jpg"
+name: { "en": "Village Museum", "ro": "Muzeul Satului" }
+stars: "9"
+parcul_regina_maria_bm
+category: "nature"
+coords: [47.6620, 23.5800]
+desc: { "en": "The main urban park, ideal for long walks.", "ro": "Principalul parc urban, ideal pentru plimbări lungi." }
+image: "photo/parc_bm.jpg"
+name: { "en": "Queen Mary Park", "ro": "Parcul Regina Maria" }
+stars: "8"
+bastionul_macelarilor
+category: "culture"
+coords: [47.6580, 23.5810]
+desc: { "en": "Part of the old medieval fortification of the city.", "ro": "Parte din vechea fortificație medievală a orașului." }
+image: "photo/bastion_bm.jpg"
+name: { "en": "Butchers' Bastion", "ro": "Bastionul Măcelarilor" }
+stars: "8"
+4. Bacău
+observatorul_astronomic_bacau
+category: "culture"
+coords: [46.5681, 26.9111]
+desc: { "en": "A unique cultural and scientific center in the region.", "ro": "Un centru cultural și științific unic în regiune." }
+image: "photo/observator.jpg"
+name: { "en": "Victor Anestin Observatory", "ro": "Observatorul Astronomic" }
+stars: "9"
+insula_de_agrement_bacau
+category: "nature"
+coords: [46.5562, 26.9036]
+desc: { "en": "A recreational island on the Bistrita river.", "ro": "O insulă de agrement pe râul Bistrița." }
+image: "photo/insula_bacau.jpg"
+name: { "en": "Leisure Island", "ro": "Insula de Agrement" }
+stars: "9"
+parcul_cancicov
+category: "nature"
+coords: [46.5645, 26.9080]
+desc: { "en": "The largest and oldest park in Bacău.", "ro": "Cel mai mare și vechi parc din Bacău." }
+image: "photo/cancicov.jpg"
+name: { "en": "Cancicov Park", "ro": "Parcul Cancicov" }
+stars: "8"
+
+muzeul_de_stiinte_bacau
+category: "culture"
+coords: [46.5595, 26.9180]
+desc: { "en": "Known as the Ion Borcea Museum, focusing on natural sciences.", "ro": "Cunoscut ca Muzeul Ion Borcea, axat pe științele naturii." }
+image: "photo/muzeu_bc.jpg"
+name: { "en": "Natural Sciences Museum", "ro": "Muzeul de Științe Naturale" }
+stars: "8"
+5. Botoșani
+
+centrul_istoric_botosani
+category: "culture"
+coords: [47.7450, 26.6650]
+desc: { "en": "Unique 19th-century architecture in the old merchant center.", "ro": "Arhitectură unică de secol XIX în vechiul centru negustoresc." }
+image: "photo/centru_bt.jpg"
+name: { "en": "Historic Old Town", "ro": "Centrul Istoric" }
+stars: "9"
+
+muzeul_judetean_botosani
+category: "culture"
+coords: [47.7435, 26.6666]
+desc: { "en": "Housed in a beautiful historic building, it hosts local history.", "ro": "Găzduit într-o clădire istorică superbă, prezintă istoria locală." }
+image: "photo/muzeu_bt.jpg"
+name: { "en": "County Museum", "ro": "Muzeul Județean" }
+stars: "8"
+cornisa_aqua_park
+category: "nature"
+coords: [47.7485, 26.6320]
+desc: { "en": "A modern leisure park with pools and sports facilities.", "ro": "Un parc de agrement modern cu piscine și facilități sportive." }
+image: "photo/cornisa.jpg"
+name: { "en": "Cornisa Aqua Park", "ro": "Cornișa Aqua Park" }
+stars: "10"
+teatrul_mihai_eminescu_bt
+category: "culture"
+coords: [47.7444, 26.6635]
+desc: { "en": "An important cultural landmark of the city.", "ro": "Un reper cultural important al orașului." }
+image: "photo/teatru_bt.jpg"
+name: { "en": "Mihai Eminescu Theatre", "ro": "Teatrul Mihai Eminescu" }
+stars: "9"

@@ -35,12 +35,12 @@ export const HeaderTitle = styled.span`
   `}
 `
 
-export const ContentBody = styled.div`
-  ${({ theme: { colors, spacing, typography } }) => `
+export const ContentBody = styled.div<{ $noPadding?: boolean }>`
+  ${({ theme: { colors, spacing, typography }, $noPadding }) => `
     flex: 1;
     min-height: 0;
-    overflow: auto; /* sub-pages (e.g. AI convo) scroll here, never the shell */
-    padding: ${spacing.lg.cssVar};
+    overflow: ${$noPadding ? 'hidden' : 'auto'};
+    padding: ${$noPadding ? '0' : spacing.lg.cssVar};
     color: ${colors.layouts.default.enabled.onSurface.secondary.cssVar};
     font-size: ${typography.fontSize.text.md.cssVar};
   `}

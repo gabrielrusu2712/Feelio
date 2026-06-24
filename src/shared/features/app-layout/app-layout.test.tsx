@@ -48,7 +48,7 @@ describe('AppLayout', () => {
 
     await user.click(screen.getByRole('menuitem', { name: 'Explore' }))
 
-    expect(screen.getByText('Explore — coming soon')).toBeInTheDocument()
+    expect(screen.getByLabelText('Interactive map')).toBeInTheDocument()
   })
 
   it('opens the settings overlay from the top-bar button', async () => {

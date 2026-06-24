@@ -37,11 +37,12 @@ export const HeaderTitle = styled.span`
   `}
 `
 
-export const MobileBody = styled.div`
+export const MobileBody = styled.div<{ $fullHeight?: boolean }>`
   flex: 1;
   min-height: 0;
   display: flex;
   flex-direction: column;
+  overflow: ${({ $fullHeight }) => ($fullHeight ? 'hidden' : 'visible')};
 `
 
 // Non-home views are placeholders for now; they scroll inside the panel.

@@ -11,17 +11,23 @@
     <script>
       // Surfaces startup errors that happen before React mounts (module-eval /
       // failed imports) — otherwise they leave a silent white screen.
-      (function () {
+      ;(function () {
         function show(title, detail) {
           var root = document.getElementById('root')
           if (!root || root.getAttribute('data-mounted') === '1' || root.children.length) return
           root.innerHTML =
             '<pre style="white-space:pre-wrap;word-break:break-word;padding:1rem;margin:0;' +
             'font:13px/1.5 ui-monospace,Menlo,Consolas,monospace;color:#9b0f06;">' +
-            title + '\n\n' + detail + '</pre>'
+            title +
+            '\n\n' +
+            detail +
+            '</pre>'
         }
         window.addEventListener('error', function (e) {
-          show('Startup error', (e.message || '') + '\n' + ((e.error && e.error.stack) || e.filename || ''))
+          show(
+            'Startup error',
+            (e.message || '') + '\n' + ((e.error && e.error.stack) || e.filename || ''),
+          )
         })
         window.addEventListener('unhandledrejection', function (e) {
           var r = e.reason || {}
