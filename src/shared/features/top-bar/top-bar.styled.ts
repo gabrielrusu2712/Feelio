@@ -5,6 +5,9 @@ import styled from 'styled-components'
 export const Bar = styled.header`
   ${({ theme: { colors } }) => `
     flex: 0 0 auto;
+    /* Sit above panel content (e.g. the map) so it never paints over the bar. */
+    position: relative;
+    z-index: 2;
     display: flex;
     align-items: center;
     justify-content: center;

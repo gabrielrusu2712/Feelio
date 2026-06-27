@@ -1799,17 +1799,17 @@ export const themeDefaultDark: AppTheme = {
             primary: {
               cssVar: 'var(--layouts-default-enabled-surface-primary)',
               cssVarName: '--layouts-default-enabled-surface-primary',
-              value: '#391910',
+              value: '#6C2B1F',
             },
             secondary: {
               cssVar: 'var(--layouts-default-enabled-surface-secondary)',
               cssVarName: '--layouts-default-enabled-surface-secondary',
-              value: '#9B0F06',
+              value: '#391910',
             },
             tertiary: {
               cssVar: 'var(--layouts-default-enabled-surface-tertiary)',
               cssVarName: '--layouts-default-enabled-surface-tertiary',
-              value: '#6C2B1F',
+              value: '#9B0F06',
             },
             quaternary: {
               cssVar: 'var(--layouts-default-enabled-surface-quaternary)',

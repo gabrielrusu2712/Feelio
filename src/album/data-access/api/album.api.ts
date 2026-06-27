@@ -18,7 +18,7 @@ import {
   LOCATION_REWARDS_COLLECTION,
   USERS_COLLECTION,
 } from '@/album/data-access/constants/album.constants'
-import type { PendingClaim } from '@/album/data-access/constants/album.constants'
+import type { PendingClaim } from '@/shared/data-access/utils/pending-claim'
 import type { AlbumEntry } from '@/album/data-access/store/album.types'
 import { compressImage, readFileAsDataURL } from '@/album/data-access/utils/image-utils'
 

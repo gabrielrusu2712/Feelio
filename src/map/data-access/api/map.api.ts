@@ -21,7 +21,7 @@ export const fetchLocations = async (): Promise<MapObjective[]> => {
       coords: [lat, lng],
       category: data.category ?? 'all',
       desc: data.desc ?? { ro: '', en: '' },
-      stars: parseInt(data.stars) || 10,
+      stars: parseInt(data.stars, 10) || 10,
       image: data.image ?? '/neutral.png',
     })
   })

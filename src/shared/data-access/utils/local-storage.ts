@@ -6,10 +6,10 @@ export const STORAGE_KEYS = {
   LANGUAGE: 'feelio_lang',
   /** redux-persist key for the user slice (stats mirror / totalStars / username). */
   USER: 'feelio_user',
-  /** Settings backdrop blur strength (px). */
-  BLUR: 'feelio_blur',
   /** Desktop panel order (character/bars/content). */
   PANEL_ORDER: 'feelio_panel_order',
+  /** Map→album hand-off: a pending location check-in awaiting a photo upload. */
+  PENDING_CLAIM: 'feelio_pending_location_claim',
 } as const
 
 export type StorageKey = (typeof STORAGE_KEYS)[keyof typeof STORAGE_KEYS]
@@ -30,5 +30,14 @@ export const setItem = <T>(key: StorageKey, value: T): void => {
     localStorage.setItem(key, JSON.stringify(value))
   } catch {
     // Storage unavailable or over quota — non-fatal.
+  }
+}
+
+// Removes a key; swallows errors (storage unavailable / private mode).
+export const removeItem = (key: StorageKey): void => {
+  try {
+    localStorage.removeItem(key)
+  } catch {
+    // Storage unavailable — non-fatal.
   }
 }

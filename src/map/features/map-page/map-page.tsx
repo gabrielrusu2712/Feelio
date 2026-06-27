@@ -2,16 +2,23 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useAppDispatch, useAppSelector } from '@/core/store/hooks'
 import { useColorMode } from '@/core/providers/theme-provider/color-mode-context'
+import { writePendingClaim } from '@/shared/data-access/utils/pending-claim'
 import {
+  loadLocationsThunk,
   selectActiveCategory,
   selectFilteredObjectives,
   selectMapStatus,
-  selectSearchQuery,
-} from '@/map/data-access/store/map.selectors'
-import { loadLocationsThunk } from '@/map/data-access/store/map.thunks'
-import { setCategory, setSearchQuery, setSelectedLocation } from '@/map/data-access/store/map.slice'
+  setCategory,
+  setSearchQuery,
+  setSelectedLocation,
+} from '@/map/data-access/store'
+import type { MapObjective } from '@/map/data-access/store'
+import {
+  CATEGORY_LABEL_KEYS,
+  CHECKIN_DISTANCE_METERS,
+  MAP_CATEGORIES,
+} from '@/map/data-access/constants/map.constants'
 import type { MapCategory } from '@/map/data-access/constants/map.constants'
-import type { MapObjective } from '@/map/data-access/store/map.types'
 import { useLeafletMap } from '@/map/data-access/hooks/use-leaflet-map'
 import MapSearchBar from '@/map/ui/map-search-bar/map-search-bar'
 import MapFilterBar from '@/map/ui/map-filter-bar/map-filter-bar'
@@ -28,9 +35,9 @@ const MapPage = () => {
   const status = useAppSelector(selectMapStatus)
   const filteredObjectives = useAppSelector(selectFilteredObjectives)
   const activeCategory = useAppSelector(selectActiveCategory)
-  useAppSelector(selectSearchQuery)
 
   const containerRef = useRef<HTMLDivElement>(null)
+  const messageTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const [checkinMessage, setCheckinMessage] = useState<string | null>(null)
   const [showConfetti, setShowConfetti] = useState(false)
@@ -42,25 +49,29 @@ const MapPage = () => {
     }
   }, [dispatch, status])
 
+  // Clear any in-flight check-in message timer if the page unmounts first.
+  useEffect(() => () => clearTimeout(messageTimerRef.current ?? undefined), [])
+
   const handleCheckin = useCallback(
     (obj: MapObjective, distance: number) => {
       dispatch(setSelectedLocation(obj))
-      if (distance < 200) {
-        const claim = {
+      clearTimeout(messageTimerRef.current ?? undefined)
+
+      if (distance < CHECKIN_DISTANCE_METERS) {
+        writePendingClaim({
           placeKey: obj.id,
           placeName: i18n.language === 'ro' ? obj.name.ro : obj.name.en,
           stars: obj.stars || 20,
-        }
-        localStorage.setItem('feelio_pending_location_claim', JSON.stringify(claim))
+        })
         setShowConfetti(true)
         setCheckinMessage(`${t('map.distCheck')} (${Math.round(distance)}m)`)
-        setTimeout(() => {
+        messageTimerRef.current = setTimeout(() => {
           setShowConfetti(false)
           setCheckinMessage(null)
         }, 3500)
       } else {
         setCheckinMessage(`${t('map.distFail')} (${Math.round(distance)}m)`)
-        setTimeout(() => setCheckinMessage(null), 3000)
+        messageTimerRef.current = setTimeout(() => setCheckinMessage(null), 3000)
       }
     },
     [dispatch, t, i18n.language],
@@ -89,12 +100,13 @@ const MapPage = () => {
     [dispatch],
   )
 
-  const categoryLabels = {
-    all: t('map.filter.all'),
-    nature: t('map.filter.nature'),
-    water: t('map.filter.water'),
-    culture: t('map.filter.culture'),
-  }
+  const categoryLabels = MAP_CATEGORIES.reduce(
+    (labels, category) => {
+      labels[category] = t(CATEGORY_LABEL_KEYS[category])
+      return labels
+    },
+    {} as Record<MapCategory, string>,
+  )
 
   return (
     <MapPageRoot>

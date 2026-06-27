@@ -1,10 +1,12 @@
 import styled from 'styled-components'
 
+// Flat (no card) so the mood row, textarea and entries below all share the same
+// width — the section is grouped by spacing, not by a background.
 export const MoodSelectorRoot = styled.div`
-  ${({ theme: { colors, radius, spacing } }) => `
-    background: ${colors.layouts.default.enabled.surface.secondary.cssVar};
-    border-radius: ${radius['2xl'].cssVar};
-    padding: ${spacing['3xl'].cssVar};
+  ${({ theme: { spacing } }) => `
+    display: flex;
+    flex-direction: column;
+    gap: ${spacing.lg.cssVar};
   `}
 `
 
@@ -13,26 +15,19 @@ export const MoodLabel = styled.p`
     color: ${colors.layouts.default.enabled.onSurface.primary.cssVar};
     font-size: ${typography.fontSize.text.sm.cssVar};
     font-weight: 600;
-    margin: 0 0 0.75rem;
+    text-align: center;
+    margin: 0;
   `}
 `
 
 export const MoodRow = styled.div`
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 0.5rem;
 `
 
-export const MoodButton = styled.button<{ $active: boolean }>`
-  ${({ theme: { colors, radius }, $active }) => `
-    flex: 1;
-    font-size: 1.5rem;
-    padding: 0.5rem;
-    border-radius: ${radius['2xl'].cssVar};
-    border: 2px solid ${$active ? colors.layouts.default.enabled.onSurface.primary.cssVar : 'transparent'};
-    background: ${$active ? colors.layouts.default.enabled.surface.primary.cssVar : 'transparent'};
-    cursor: pointer;
-    transition: border-color 0.2s, background 0.2s;
-    line-height: 1;
-  `}
+export const MoodEmoji = styled.span`
+  font-size: 1.25rem;
+  line-height: 1;
 `

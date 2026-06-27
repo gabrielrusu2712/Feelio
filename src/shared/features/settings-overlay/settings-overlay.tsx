@@ -7,7 +7,6 @@ import { selectUsername } from '@/user/data-access/store'
 import { useColorMode } from '@/core/providers/theme-provider/color-mode-context'
 import type { ThemeMode } from '@/core/providers/theme-provider/color-mode-context'
 import LanguageSwitcher from '@/shared/features/language-switcher/language-switcher'
-import { STORAGE_KEYS, getItem, setItem } from '@/shared/data-access/utils/local-storage'
 import {
   Backdrop,
   ChoiceButton,
@@ -22,7 +21,8 @@ import {
   Row,
 } from '@/shared/features/settings-overlay/settings-overlay.styled'
 
-const DEFAULT_BLUR = 6
+// Fixed backdrop blur strength (px).
+const BACKDROP_BLUR = 3
 const THEME_MODES: ThemeMode[] = ['auto', 'light', 'dark']
 
 interface SettingsOverlayProps {
@@ -37,14 +37,13 @@ const SettingsOverlay = (props: SettingsOverlayProps) => {
   const authError = useAppSelector(selectAuthError)
   const { themeMode, setThemeMode } = useColorMode()
 
-  const [blur, setBlur] = useState<number>(() => getItem<number>(STORAGE_KEYS.BLUR) ?? DEFAULT_BLUR)
   const [currentPassword, setCurrentPassword] = useState('')
   const [newPassword, setNewPassword] = useState('')
 
-  // Apply the blur strength live (the backdrop reads --app-blur).
+  // Fixed backdrop blur (the backdrop reads --app-blur).
   useEffect(() => {
-    document.documentElement.style.setProperty('--app-blur', `${blur}px`)
-  }, [blur])
+    document.documentElement.style.setProperty('--app-blur', `${BACKDROP_BLUR}px`)
+  }, [])
 
   // Close on Escape.
   useEffect(() => {
@@ -54,11 +53,6 @@ const SettingsOverlay = (props: SettingsOverlayProps) => {
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
   }, [onClose])
-
-  const handleBlurChange = (value: number) => {
-    setBlur(value)
-    setItem(STORAGE_KEYS.BLUR, value)
-  }
 
   const handlePasswordSubmit = (event: React.FormEvent) => {
     event.preventDefault()
@@ -112,18 +106,6 @@ const SettingsOverlay = (props: SettingsOverlayProps) => {
           <Row>
             <LanguageSwitcher />
           </Row>
-        </Field>
-
-        <Field>
-          <label htmlFor="settings-blur">{t('settings.blur')}</label>
-          <input
-            id="settings-blur"
-            type="range"
-            min={0}
-            max={20}
-            value={blur}
-            onChange={(event) => handleBlurChange(Number(event.target.value))}
-          />
         </Field>
 
         <Form onSubmit={handlePasswordSubmit}>

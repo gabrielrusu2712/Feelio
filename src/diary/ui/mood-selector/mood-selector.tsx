@@ -1,7 +1,8 @@
 import { MOOD_LIST } from '@/diary/data-access/constants/diary.constants'
 import type { MoodId } from '@/diary/data-access/constants/diary.constants'
+import OptionButton from '@/shared/ui/option-button/option-button'
 import {
-  MoodButton,
+  MoodEmoji,
   MoodLabel,
   MoodRow,
   MoodSelectorRoot,
@@ -9,28 +10,27 @@ import {
 
 interface MoodSelectorProps {
   label: string
+  moodLabels: Record<MoodId, string>
   selected: MoodId
   onSelect: (id: MoodId, emoji: string) => void
 }
 
 const MoodSelector = (props: MoodSelectorProps) => {
-  const { label, selected, onSelect } = props
+  const { label, moodLabels, selected, onSelect } = props
 
   return (
     <MoodSelectorRoot>
       <MoodLabel>{label}</MoodLabel>
       <MoodRow>
         {MOOD_LIST.map((mood) => (
-          <MoodButton
+          <OptionButton
             key={mood.id}
-            type="button"
-            $active={selected === mood.id}
-            aria-label={mood.id}
-            aria-pressed={selected === mood.id}
-            onClick={() => onSelect(mood.id as MoodId, mood.emoji)}
+            active={selected === mood.id}
+            ariaLabel={moodLabels[mood.id]}
+            onSelect={() => onSelect(mood.id, mood.emoji)}
           >
-            {mood.emoji}
-          </MoodButton>
+            <MoodEmoji>{mood.emoji}</MoodEmoji>
+          </OptionButton>
         ))}
       </MoodRow>
     </MoodSelectorRoot>

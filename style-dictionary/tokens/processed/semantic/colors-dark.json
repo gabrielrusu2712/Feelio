@@ -5,15 +5,15 @@
         "surface": {
           "primary": {
             "$type": "color",
-            "$value": "{primitives.palette.brand.950}"
+            "$value": "{primitives.palette.brand.800}"
           },
           "secondary": {
             "$type": "color",
-            "$value": "{primitives.palette.brand.900}"
+            "$value": "{primitives.palette.brand.950}"
           },
           "tertiary": {
             "$type": "color",
-            "$value": "{primitives.palette.brand.800}"
+            "$value": "{primitives.palette.brand.900}"
           },
           "quaternary": {
             "$type": "color",

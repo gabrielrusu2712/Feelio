@@ -1,9 +1,9 @@
 import {
-  CardRoot,
+  Composer,
+  ErrorChip,
   QuestionBox,
   QuestionText,
   SaveButton,
-  SaveStatus,
   Sparkle,
   StyledTextarea,
 } from '@/diary/ui/daily-question-card/daily-question-card.styled'
@@ -15,16 +15,22 @@ interface DailyQuestionCardProps {
   buttonLabel: string
   saveStatus: 'idle' | 'saving' | 'saved' | 'error'
   savedMessage: string
+  errorMessage: string
   onChange: (value: string) => void
   onSave: () => void
 }
 
 const DailyQuestionCard = (props: DailyQuestionCardProps) => {
-  const { question, value, placeholder, buttonLabel, saveStatus, savedMessage, onChange, onSave } =
+  const { question, value, placeholder, buttonLabel, saveStatus, savedMessage, errorMessage } =
     props
+  const { onChange, onSave } = props
+
+  // On a successful save the parent clears the text, so the confirmation rides
+  // in the (now-visible) placeholder instead of pushing the layout around.
+  const effectivePlaceholder = saveStatus === 'saved' ? savedMessage : placeholder
 
   return (
-    <CardRoot>
+    <Composer>
       <QuestionBox>
         <Sparkle>✨</Sparkle>
         <QuestionText>{question}</QuestionText>
@@ -32,22 +38,17 @@ const DailyQuestionCard = (props: DailyQuestionCardProps) => {
 
       <StyledTextarea
         value={value}
-        placeholder={placeholder}
+        placeholder={effectivePlaceholder}
         rows={4}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={(event) => onChange(event.target.value)}
       />
 
       <SaveButton type="button" disabled={saveStatus === 'saving'} onClick={onSave}>
         {buttonLabel}
       </SaveButton>
 
-      {saveStatus === 'saved' && <SaveStatus $visible>{savedMessage}</SaveStatus>}
-      {saveStatus === 'error' && (
-        <SaveStatus $visible $error>
-          ⚠️
-        </SaveStatus>
-      )}
-    </CardRoot>
+      {saveStatus === 'error' && <ErrorChip role="alert">⚠️ {errorMessage}</ErrorChip>}
+    </Composer>
   )
 }
 

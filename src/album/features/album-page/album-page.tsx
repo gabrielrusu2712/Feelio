@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useAppDispatch, useAppSelector } from '@/core/store/hooks'
-import { selectAuthUser } from '@/auth/data-access/store/auth.selectors'
+import { selectUid } from '@/shared/data-access/store/current-user.selectors'
 import {
   selectAlbumEntries,
   selectAlbumSaveStatus,
@@ -10,8 +10,8 @@ import {
 } from '@/album/data-access/store'
 import { loadEntriesThunk, savePhotoThunk } from '@/album/data-access/store/album.thunks'
 import { resetSaveStatus } from '@/album/data-access/store/album.slice'
-import { clearPendingClaim, readPendingClaim } from '@/album/data-access/constants/album.constants'
-import type { PendingClaim } from '@/album/data-access/constants/album.constants'
+import { clearPendingClaim, readPendingClaim } from '@/shared/data-access/utils/pending-claim'
+import type { PendingClaim } from '@/shared/data-access/utils/pending-claim'
 import AlbumUploadCard from '@/album/ui/album-upload-card/album-upload-card'
 import AlbumGallery from '@/album/ui/album-gallery/album-gallery'
 import AlbumLightbox from '@/album/ui/album-lightbox/album-lightbox'
@@ -25,7 +25,7 @@ const AlbumPage = () => {
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
 
-  const user = useAppSelector(selectAuthUser)
+  const uid = useAppSelector(selectUid)
   const entries = useAppSelector(selectAlbumEntries)
   const status = useAppSelector(selectAlbumStatus)
   const saveStatus = useAppSelector(selectAlbumSaveStatus)
@@ -33,8 +33,6 @@ const AlbumPage = () => {
 
   const [pendingClaim, setPendingClaim] = useState<PendingClaim | null>(() => readPendingClaim())
   const [lightboxSrc, setLightboxSrc] = useState<string | null>(null)
-
-  const uid = user?.uid
 
   useEffect(() => {
     if (uid && status === 'idle') {

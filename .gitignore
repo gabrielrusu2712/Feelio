@@ -33,3 +33,5 @@ test-results
 # Environment variables
 .env
 .env.local
+# Firebase admin key for one-off migrations
+scripts/serviceAccount.json

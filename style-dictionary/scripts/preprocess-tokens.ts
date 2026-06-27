@@ -240,9 +240,9 @@ const BRAND_OVERLAY_LIGHT: Record<string, string> = {
 }
 
 const BRAND_OVERLAY_DARK: Record<string, string> = {
-  'layouts.default.enabled.surface.primary': ref('brand.950'),
-  'layouts.default.enabled.surface.secondary': ref('brand.900'),
-  'layouts.default.enabled.surface.tertiary': ref('brand.800'),
+  'layouts.default.enabled.surface.primary': ref('brand.800'),
+  'layouts.default.enabled.surface.secondary': ref('brand.950'),
+  'layouts.default.enabled.surface.tertiary': ref('brand.900'),
   'layouts.default.enabled.onSurface.primary': ref('cream.200'),
   'layouts.default.enabled.onSurface.secondary': ref('cream.400'),
   'layouts.default.enabled.onSurface.tertiary': ref('peach.300'),

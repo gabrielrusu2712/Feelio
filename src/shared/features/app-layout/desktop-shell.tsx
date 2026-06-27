@@ -3,7 +3,6 @@ import {
   DndContext,
   DragOverlay,
   KeyboardSensor,
-  PointerSensor,
   closestCenter,
   useSensor,
   useSensors,
@@ -17,6 +16,7 @@ import {
 import { usePanelOrder } from '@/shared/data-access/hooks/use-panel-order'
 import type { PanelKey } from '@/shared/data-access/hooks/use-panel-order'
 import SortablePanel from '@/shared/features/app-layout/sortable-panel'
+import { SmartPointerSensor } from '@/shared/features/app-layout/smart-pointer-sensor'
 import { OverlayPanel } from '@/shared/features/app-layout/sortable-panel.styled'
 import CharacterPanel from '@/shared/features/app-layout/panels/character-panel'
 import ProgressBarsPanel from '@/shared/features/app-layout/panels/progress-bars-panel'
@@ -42,8 +42,10 @@ const DesktopShell = (props: DesktopShellProps) => {
   const [activeKey, setActiveKey] = useState<PanelKey | null>(null)
 
   const sensors = useSensors(
-    // Small distance threshold so clicks/taps on panel content still work.
-    useSensor(PointerSensor, { activationConstraint: { distance: 8 } }),
+    // Small distance threshold so clicks/taps on panel content still work; the
+    // smart sensor also refuses to drag from interactive content (buttons, the
+    // map, …) so those gestures aren't hijacked by panel reordering.
+    useSensor(SmartPointerSensor, { activationConstraint: { distance: 8 } }),
     useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates }),
   )
 

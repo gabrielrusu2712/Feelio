@@ -1,6 +1,7 @@
-import { MAP_CATEGORIES, CATEGORY_LABEL_KEYS } from '@/map/data-access/constants/map.constants'
+import { MAP_CATEGORIES } from '@/map/data-access/constants/map.constants'
 import type { MapCategory } from '@/map/data-access/constants/map.constants'
-import { FilterBar, FilterPill } from '@/map/ui/map-filter-bar/map-filter-bar.styled'
+import OptionButton from '@/shared/ui/option-button/option-button'
+import { FilterBar } from '@/map/ui/map-filter-bar/map-filter-bar.styled'
 
 interface MapFilterBarProps {
   active: MapCategory
@@ -14,19 +15,12 @@ const MapFilterBar = (props: MapFilterBarProps) => {
   return (
     <FilterBar>
       {MAP_CATEGORIES.map((cat) => (
-        <FilterPill
-          key={cat}
-          type="button"
-          $active={active === cat}
-          aria-pressed={active === cat}
-          onClick={() => onSelect(cat)}
-        >
+        <OptionButton key={cat} active={active === cat} onSelect={() => onSelect(cat)}>
           {labels[cat]}
-        </FilterPill>
+        </OptionButton>
       ))}
     </FilterBar>
   )
 }
 
-export { CATEGORY_LABEL_KEYS }
 export default MapFilterBar

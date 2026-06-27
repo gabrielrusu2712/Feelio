@@ -23,6 +23,16 @@ export type MoodId = (typeof Moods)[keyof typeof Moods]['id']
 
 export const MOOD_LIST = Object.values(Moods)
 
+// i18n keys for each mood, so accessible labels are translated instead of
+// showing the raw Romanian mood id.
+export const MOOD_LABEL_KEYS = {
+  excelent: 'diary.mood.excelent',
+  bine: 'diary.mood.bine',
+  neutru: 'diary.mood.neutru',
+  trist: 'diary.mood.trist',
+  stresat: 'diary.mood.stresat',
+} as const satisfies Record<MoodId, string>
+
 export const JOURNAL_COLLECTION = 'journal'
 export const USERS_COLLECTION = 'users'
 export const MAX_ENTRIES_LOADED = 10

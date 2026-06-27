@@ -5,6 +5,7 @@ import {
   CHECKIN_DISTANCE_METERS,
   DEFAULT_MAP_CENTER,
   DEFAULT_MAP_ZOOM,
+  MARKER_COLORS,
   TILE_URL,
 } from '@/map/data-access/constants/map.constants'
 
@@ -28,7 +29,6 @@ export const useLeafletMap = (
   // stable refs so markers' click handlers always see current values
   const onSelectRef = useRef(onSelectLocation)
   const onCheckinRef = useRef(onCheckin)
-  const userMarkerStableRef = useRef(userMarkerRef)
 
   useEffect(() => {
     onSelectRef.current = onSelectLocation
@@ -50,7 +50,9 @@ export const useLeafletMap = (
     markerLayerRef.current = L.layerGroup().addTo(map)
     mapRef.current = map
 
-    setTimeout(() => map.invalidateSize(), 300)
+    // The map mounts inside a panel that may still be animating; recompute its
+    // size once the layout settles.
+    const invalidateTimer = setTimeout(() => map.invalidateSize(), 300)
 
     // Geolocation
     if (navigator.geolocation) {
@@ -60,8 +62,8 @@ export const useLeafletMap = (
 
         userMarkerRef.current = L.circleMarker([lat, lng], {
           radius: 8,
-          fillColor: '#3498db',
-          color: '#fff',
+          fillColor: MARKER_COLORS.userFill,
+          color: MARKER_COLORS.userStroke,
           weight: 2,
           fillOpacity: 1,
         }).addTo(map)
@@ -71,6 +73,7 @@ export const useLeafletMap = (
     }
 
     return () => {
+      clearTimeout(invalidateTimer)
       map.remove()
       mapRef.current = null
       markerLayerRef.current = null
@@ -90,33 +93,48 @@ export const useLeafletMap = (
 
       const marker = L.circleMarker(obj.coords, {
         radius: 12,
-        fillColor: '#C44A3A',
-        color: '#ffffff',
+        fillColor: MARKER_COLORS.objectiveFill,
+        color: MARKER_COLORS.objectiveStroke,
         weight: 3,
         fillOpacity: 0.8,
       }).addTo(layer)
 
+      // Build the popup as DOM nodes (not innerHTML) so Firestore-sourced
+      // strings can never inject markup.
       const popupContent = document.createElement('div')
       popupContent.className = 'map-popup-card'
-      popupContent.innerHTML = `
-        <img src="${obj.image}" class="popup-img" alt="${name}">
-        <div class="popup-info">
-          <h3>${name}</h3>
-          <p>${desc}</p>
-          <button class="popup-checkin-btn" type="button">🗺️ ${obj.stars}⭐</button>
-        </div>
-      `
 
-      popupContent.querySelector('.popup-checkin-btn')?.addEventListener('click', () => {
+      const img = document.createElement('img')
+      img.className = 'popup-img'
+      img.src = obj.image
+      img.alt = name
+
+      const info = document.createElement('div')
+      info.className = 'popup-info'
+
+      const heading = document.createElement('h3')
+      heading.textContent = name
+
+      const paragraph = document.createElement('p')
+      paragraph.textContent = desc
+
+      const checkinBtn = document.createElement('button')
+      checkinBtn.className = 'popup-checkin-btn'
+      checkinBtn.type = 'button'
+      checkinBtn.textContent = `🗺️ ${obj.stars}⭐`
+      checkinBtn.addEventListener('click', () => {
         onSelectRef.current(obj)
-        const userMarker = userMarkerStableRef.current.current
+        const userMarker = userMarkerRef.current
         if (!userMarker) {
           onCheckinRef.current(obj, Infinity)
           return
         }
-        const dist = (userMarker.getLatLng() as L.LatLng).distanceTo(L.latLng(obj.coords))
+        const dist = userMarker.getLatLng().distanceTo(L.latLng(obj.coords))
         onCheckinRef.current(obj, dist)
       })
+
+      info.append(heading, paragraph, checkinBtn)
+      popupContent.append(img, info)
 
       marker.bindPopup(popupContent, { maxWidth: 250, className: 'feelio-map-popup' })
       marker.on('popupopen', () => onSelectRef.current(obj))

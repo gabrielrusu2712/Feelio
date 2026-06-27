@@ -1,13 +1,14 @@
 import styled from 'styled-components'
 
-export const CardRoot = styled.div`
-  ${({ theme: { colors, radius, spacing } }) => `
-    background: ${colors.layouts.default.enabled.surface.secondary.cssVar};
-    border-radius: ${radius['2xl'].cssVar};
-    padding: ${spacing['3xl'].cssVar};
+// Flat composer (no surrounding card) so the textarea and save button line up
+// with the mood row and the entry cards at the same full width. `relative` lets
+// the error chip float without shifting the layout.
+export const Composer = styled.div`
+  ${({ theme: { spacing } }) => `
+    position: relative;
     display: flex;
     flex-direction: column;
-    gap: ${spacing['3xl'].cssVar};
+    gap: ${spacing.lg.cssVar};
   `}
 `
 
@@ -82,13 +83,22 @@ export const SaveButton = styled.button`
   `}
 `
 
-export const SaveStatus = styled.p<{ $visible: boolean; $error?: boolean }>`
-  ${({ theme: { colors }, $visible, $error }) => `
+// Floats just below the composer (in the gap to the next section) so a save
+// error is visible without pushing anything down.
+export const ErrorChip = styled.p`
+  ${({ theme: { colors, radius, spacing } }) => `
+    position: absolute;
+    top: calc(100% + ${spacing.xs.cssVar});
+    left: 50%;
+    transform: translateX(-50%);
     margin: 0;
-    font-size: 0.85rem;
-    font-weight: 500;
-    opacity: ${$visible ? 1 : 0};
-    color: ${$error ? 'red' : colors.layouts.default.enabled.onSurface.primary.cssVar};
-    transition: opacity 0.3s;
+    padding: ${spacing.xs.cssVar} ${spacing.lg.cssVar};
+    border-radius: ${radius.full.cssVar};
+    background: ${colors.functional.danger.enabled.surface.primary.cssVar};
+    color: ${colors.functional.danger.enabled.onSurface.primary.cssVar};
+    font-size: 0.75rem;
+    font-weight: 600;
+    white-space: nowrap;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
   `}
 `

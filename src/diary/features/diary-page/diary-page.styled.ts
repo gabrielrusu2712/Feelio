@@ -15,8 +15,8 @@ export const DiaryScrollBody = styled.div`
     overscroll-behavior: contain;
     display: flex;
     flex-direction: column;
-    gap: ${spacing['4xl'].cssVar};
-    padding: ${spacing['3xl'].cssVar} ${spacing['4xl'].cssVar} ${spacing['5xl'].cssVar};
+    gap: ${spacing['2xl'].cssVar};
+    padding: ${spacing['3xl'].cssVar} ${spacing['3xl'].cssVar} ${spacing['5xl'].cssVar};
 
     &::-webkit-scrollbar {
       width: 5px;

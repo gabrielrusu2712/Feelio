@@ -2,7 +2,7 @@
   "paths": {
     "@/*": ["src/*"]
   },
-  "ignoreDependencies": ["postinstall-postinstall"],
+  "ignoreDependencies": ["postinstall-postinstall", "firebase-admin"],
   "ignore": [
     "src/core/theme/styled.d.ts",
     "src/core/i18n/types/i18next.d.ts",

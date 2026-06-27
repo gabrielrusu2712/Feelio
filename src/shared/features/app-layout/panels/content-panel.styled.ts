@@ -20,6 +20,9 @@ export const ContentHeader = styled.div`
     gap: ${spacing.xs.cssVar};
     flex-wrap: wrap;
     padding: ${spacing.sm.cssVar};
+    /* Keep the header (and its "…" dropdown) above the map in the body. */
+    position: relative;
+    z-index: 1;
     border-bottom: 1px solid ${colors.layouts.default.enabled.border.tertiary.cssVar};
   `}
 `

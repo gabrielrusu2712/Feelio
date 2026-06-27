@@ -3,6 +3,9 @@ import styled from 'styled-components'
 export const MapFrameRoot = styled.div`
   ${({ theme: { colors, radius, spacing } }) => `
     position: relative;
+    /* Contain Leaflet's internal high z-indexes (panes/controls up to 1000+) in
+       this box so they can't paint over the top bar or the nav menu. */
+    isolation: isolate;
     flex: 1;
     margin: 0 ${spacing['3xl'].cssVar} ${spacing['3xl'].cssVar};
     border-radius: ${radius['4xl'].cssVar};

@@ -9,5 +9,3 @@ export const selectAuthInitialized = (state: RootState) => selectAuth(state).ini
 export const selectAuthStatus = (state: RootState) => selectAuth(state).status
 
 export const selectAuthError = (state: RootState) => selectAuth(state).error
-
-export const selectAuthUser = (state: RootState) => selectAuth(state).user

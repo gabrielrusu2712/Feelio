@@ -12,6 +12,7 @@ import { db } from '@/core/services/firebase'
 import {
   JOURNAL_COLLECTION,
   MAX_ENTRIES_LOADED,
+  Moods,
   USERS_COLLECTION,
 } from '@/diary/data-access/constants/diary.constants'
 import type { DiaryEntry } from '@/diary/data-access/store/diary.types'
@@ -48,8 +49,8 @@ export const fetchJournalEntries = async (uid: string): Promise<DiaryEntry[]> =>
       id: docSnap.id,
       entry: data.entry ?? '',
       question: data.question ?? '',
-      mood: data.mood ?? 'neutru',
-      moodEmoji: data.moodEmoji ?? '😐',
+      mood: data.mood ?? Moods.NEUTRAL.id,
+      moodEmoji: data.moodEmoji ?? Moods.NEUTRAL.emoji,
       createdAt: data.createdAt ?? new Date().toISOString(),
     }
   })

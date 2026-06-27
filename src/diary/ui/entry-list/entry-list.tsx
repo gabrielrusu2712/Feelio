@@ -6,10 +6,12 @@ interface EntryListProps {
   entries: DiaryEntry[]
   title: string
   emptyMessage: string
+  expandLabel: string
+  collapseLabel: string
 }
 
 const EntryList = (props: EntryListProps) => {
-  const { entries, title, emptyMessage } = props
+  const { entries, title, emptyMessage, expandLabel, collapseLabel } = props
 
   return (
     <div>
@@ -18,7 +20,14 @@ const EntryList = (props: EntryListProps) => {
         {entries.length === 0 ? (
           <EmptyMessage>{emptyMessage}</EmptyMessage>
         ) : (
-          entries.map((entry) => <EntryItem key={entry.id} entry={entry} />)
+          entries.map((entry) => (
+            <EntryItem
+              key={entry.id}
+              entry={entry}
+              expandLabel={expandLabel}
+              collapseLabel={collapseLabel}
+            />
+          ))
         )}
       </EntryListRoot>
     </div>
