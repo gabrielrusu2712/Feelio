@@ -35,3 +35,4 @@ test-results
 .env.local
 # Firebase admin key for one-off migrations
 scripts/serviceAccount.json
+CLAUDE.md

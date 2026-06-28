@@ -1,7 +1,11 @@
 import { describe, expect, it } from 'vitest'
-import userReducer, { resetUserData, setUserData } from '@/user/data-access/store/user.slice'
+import userReducer, {
+  adjustStat,
+  resetUserData,
+  setUserData,
+} from '@/user/data-access/store/user.slice'
 import { loadUserDataThunk } from '@/user/data-access/store/user.thunks'
-import { DEFAULT_STATS } from '@/user/data-access/store/user.constants'
+import { DEFAULT_STATS, STAT_TARGETS } from '@/user/data-access/store/user.constants'
 import type { UserProfile, UserState } from '@/user/data-access/store/user.types'
 
 const initialState: UserState = {
@@ -52,6 +56,28 @@ describe('user slice', () => {
 
     expect(state.status).toBe('error')
     expect(state.error).toBe('user.error.loadFailed')
+  })
+
+  it('increments a stat by its delta', () => {
+    const state = userReducer(initialState, adjustStat({ key: 'water', delta: 1 }))
+
+    expect(state.stats.water).toBe(1)
+  })
+
+  it('clamps an increment to the daily target', () => {
+    const atTarget: UserState = {
+      ...initialState,
+      stats: { ...DEFAULT_STATS, water: STAT_TARGETS.water },
+    }
+    const state = userReducer(atTarget, adjustStat({ key: 'water', delta: 1 }))
+
+    expect(state.stats.water).toBe(STAT_TARGETS.water)
+  })
+
+  it('clamps a decrement at zero', () => {
+    const state = userReducer(initialState, adjustStat({ key: 'sport', delta: -10 }))
+
+    expect(state.stats.sport).toBe(0)
   })
 
   it('clears back to defaults on resetUserData', () => {

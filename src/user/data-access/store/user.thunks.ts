@@ -8,6 +8,7 @@ import {
 import { applyNewDayReset } from '@/user/data-access/utils/daily-reset'
 import { toDateKey } from '@/user/data-access/utils/date-key'
 import type { UserProfile } from '@/user/data-access/store/user.types'
+import type { RootState } from '@/core/store/store'
 
 interface LoadUserArgs {
   uid: string
@@ -62,5 +63,19 @@ export const loadUserDataThunk = createAsyncThunk<
     }
   } catch (error) {
     return rejectWithValue(error instanceof Error ? error.message : 'user.error.loadFailed')
+  }
+})
+
+// Persists the current stats map to Firestore (merge). Reads the latest stats
+// from state so callers just dispatch it after an optimistic `adjustStat`.
+export const saveStatsThunk = createAsyncThunk<
+  void,
+  { uid: string },
+  { state: RootState; rejectValue: string }
+>('user/saveStats', async (args, { getState, rejectWithValue }) => {
+  try {
+    await updateUserDocument(args.uid, { stats: getState().user.stats })
+  } catch (error) {
+    return rejectWithValue(error instanceof Error ? error.message : 'user.error.saveFailed')
   }
 })

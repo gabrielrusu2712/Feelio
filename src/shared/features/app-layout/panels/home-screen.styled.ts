@@ -11,11 +11,11 @@ export const HomeRoot = styled.div`
   `}
 `
 
-// The bear sits on top and takes the larger share; bars fill the rest.
+// The bear takes all the space the bars don't need.
 export const CharacterArea = styled.div`
   ${({ theme: { spacing } }) => `
     container-type: size;
-    flex: 3 1 0;
+    flex: 1 1 auto;
     min-height: 0;
     display: flex;
     flex-direction: column;
@@ -25,18 +25,18 @@ export const CharacterArea = styled.div`
   `}
 `
 
+// Sizes to its content (the bars + generous padding) and never scrolls — if it
+// needs more room it grows and the character area yields the space instead.
 export const BarsArea = styled.div`
   ${({ theme: { colors, radius, spacing } }) => `
-    flex: 2 1 0;
-    min-height: 0;
+    flex: 0 0 auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: ${spacing.sm.cssVar};
-    padding: ${spacing.md.cssVar};
+    gap: ${spacing.lg.cssVar};
+    padding: ${spacing.xl.cssVar};
     border-radius: ${radius.lg.cssVar};
     background: ${colors.layouts.default.enabled.surface.primary.cssVar};
     border: 1px solid ${colors.layouts.default.enabled.border.tertiary.cssVar};
-    overflow: auto;
   `}
 `

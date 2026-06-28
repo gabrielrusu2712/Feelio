@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import { DEFAULT_STATS } from '@/user/data-access/store/user.constants'
+import { DEFAULT_STATS, STAT_TARGETS } from '@/user/data-access/store/user.constants'
 import { loadUserDataThunk } from '@/user/data-access/store/user.thunks'
-import type { UserProfile, UserState } from '@/user/data-access/store/user.types'
+import type { Stats, UserProfile, UserState } from '@/user/data-access/store/user.types'
 
 const initialState: UserState = {
   username: null,
@@ -29,6 +29,13 @@ const userSlice = createSlice({
     setUserData: (state, action: PayloadAction<UserProfile>) => {
       applyProfile(state, action.payload)
     },
+    // Bumps a stat by a (signed) delta, clamped to [0, daily target]. The save
+    // to Firestore is a side-effect dispatched from the component, not here.
+    adjustStat: (state, action: PayloadAction<{ key: keyof Stats; delta: number }>) => {
+      const { key, delta } = action.payload
+      const next = state.stats[key] + delta
+      state.stats[key] = Math.min(STAT_TARGETS[key], Math.max(0, next))
+    },
     // Cleared on logout so a subsequent login never shows stale data.
     resetUserData: () => initialState,
   },
@@ -48,6 +55,6 @@ const userSlice = createSlice({
   },
 })
 
-export const { setUserData, resetUserData } = userSlice.actions
+export const { setUserData, adjustStat, resetUserData } = userSlice.actions
 
 export default userSlice.reducer

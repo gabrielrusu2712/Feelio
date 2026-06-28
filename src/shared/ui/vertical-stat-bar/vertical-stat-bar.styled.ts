@@ -1,7 +1,17 @@
-import styled from 'styled-components'
+import styled, { css, keyframes } from 'styled-components'
 
-// A query container: the icon + label below size themselves to THIS column's
-// width (cqi), so a narrow column shrinks them to fit instead of overflowing.
+const glint = keyframes`
+  0% { transform: translateY(100%); }
+  60%, 100% { transform: translateY(-100%); }
+`
+
+// Diagonal drift by whole tiles (1 across, 2 down) so the loop stays seamless.
+const cloudDrift = keyframes`
+  from { background-position: 0 0; }
+  to { background-position: var(--sky-tile-w) calc(var(--sky-tile-h) * -2); }
+`
+
+// Query container so the riding icon scales to the column width (cqi).
 export const BarColumn = styled.div`
   ${({ theme: { spacing } }) => `
     container-type: inline-size;
@@ -15,60 +25,93 @@ export const BarColumn = styled.div`
   `}
 `
 
-export const Track = styled.div`
-  ${({ theme: { colors, radius } }) => `
+// Wraps the track + riding icon (icon sits outside Track so it isn't clipped).
+export const TrackWrap = styled.div<{ $clickable?: boolean }>`
+  ${({ $clickable }) => `
     position: relative;
     width: 100%;
     flex: 1;
     min-height: 0;
+    cursor: ${$clickable ? 'pointer' : 'default'};
+  `}
+`
+
+export const Track = styled.div`
+  ${({ theme: { colors, radius } }) => `
+    position: relative;
+    width: 100%;
+    height: 100%;
     border-radius: ${radius.full.cssVar};
     background: ${colors.layouts.default.enabled.surface.tertiary.cssVar};
     overflow: hidden;
   `}
 `
 
+// Flat accent colour with a moving glint (the normal stat bars).
 export const Fill = styled.div<{ $fill: number; $accent: string }>`
-  ${({ $fill, $accent }) => `
+  ${({ $fill, $accent }) => css`
     position: absolute;
     inset-inline: 0;
     bottom: 0;
     height: ${$fill}%;
     background: ${$accent};
+    overflow: hidden;
     transition: height 0.4s ease;
 
-    /* Shimmer placeholder — the animated glint/texture lands in Stage 3. */
-    background-image: linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.35) 0%,
-      rgba(255, 255, 255, 0) 35%
-    );
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.5) 50%,
+        rgba(255, 255, 255, 0) 100%
+      );
+      animation: ${glint} 2.6s ease-in-out infinite;
+      pointer-events: none;
+    }
   `}
 `
 
-export const RidingIcon = styled.span<{ $fill: number }>`
+// Textured fill: the texture covers the whole track, revealed bottom-up to the
+// fill via clip-path. Size container so the texture can size to the bar length (cqb).
+export const Sky = styled.div<{ $fill: number }>`
   ${({ $fill }) => `
     position: absolute;
-    inset-inline: 0;
-    bottom: ${$fill}%;
-    text-align: center;
-    transform: translateY(50%);
-    /* Scales with the column width so it always fits inside the bar. */
-    font-size: clamp(0.5rem, 55cqi, 1.15rem);
-    line-height: 1;
-    pointer-events: none;
-    transition: bottom 0.4s ease;
+    inset: 0;
+    overflow: hidden;
+    container-type: size;
+    clip-path: inset(${100 - $fill}% 0 0 0);
+    transition: clip-path 0.4s ease;
   `}
 `
 
-export const BarLabel = styled.span`
-  ${({ theme: { colors } }) => `
-    /* Scales to the column and is clipped to its width, so neighbouring
-       labels can never overlap. */
-    font-size: clamp(0.5rem, 35cqi, 0.8rem);
-    color: ${colors.layouts.default.enabled.onSurface.secondary.cssVar};
-    max-width: 100%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+// Tile width = $scale × bar length (cqb); height keeps the texture aspect ($ratio %).
+export const SkyTexture = styled.div<{ $texture: string; $ratio: number; $scale: number }>`
+  ${({ $texture, $ratio, $scale }) => css`
+    position: absolute;
+    inset: 0;
+    --sky-tile-w: ${100 * $scale}cqb;
+    --sky-tile-h: ${$ratio * $scale}cqb;
+    background-image: url(${$texture});
+    background-repeat: repeat;
+    background-size: var(--sky-tile-w) var(--sky-tile-h);
+    animation: ${cloudDrift} 28s linear infinite;
+  `}
+`
+
+// Icon riding the top edge of the fill; $scale lets one stat read larger.
+export const RidingIcon = styled.img<{ $fill: number; $scale: number }>`
+  ${({ $fill, $scale }) => `
+    position: absolute;
+    left: 50%;
+    bottom: ${$fill}%;
+    transform: translate(-50%, 50%) scale(${$scale});
+    width: clamp(1.2rem, 90cqi, 2.6rem);
+    height: clamp(1.2rem, 90cqi, 2.6rem);
+    object-fit: contain;
+    pointer-events: none;
+    transition: bottom 0.4s ease;
   `}
 `

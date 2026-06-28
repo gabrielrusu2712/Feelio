@@ -24,10 +24,11 @@ import ContentPanel from '@/shared/features/app-layout/panels/content-panel'
 import type { ActiveView } from '@/shared/data-access/constants/content-views'
 import { DesktopRow } from '@/shared/features/app-layout/desktop-shell.styled'
 
-// Each panel keeps its proportion (45 / 15 / 40) regardless of its position.
+// Each panel keeps its proportion regardless of its position. The bars panel
+// gets extra room (taken from the character) so the vertical bars aren't cramped.
 const PANEL_FLEX: Record<PanelKey, string> = {
-  character: '45 1 0',
-  bars: '15 1 0',
+  character: '38 1 0',
+  bars: '22 1 0',
   content: '40 1 0',
 }
 

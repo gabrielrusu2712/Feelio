@@ -11,3 +11,9 @@ export const DEFAULT_STATS: Stats = {
   sport: 0,
   wellbeing: 0,
 }
+
+// Canonical daily goals + per-tap step, ported from Feelio-Judeteana's
+// `targets`/`increments`. Static constants — never stored in Redux state.
+export const STAT_TARGETS: Stats = { sleep: 8, water: 10, food: 3, sport: 30, wellbeing: 5 }
+
+export const STAT_INCREMENTS: Stats = { sleep: 1, water: 1, food: 1, sport: 10, wellbeing: 1 }

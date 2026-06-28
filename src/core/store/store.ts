@@ -16,6 +16,7 @@ import uiReducer from '@/core/store/ui/ui.slice'
 import diaryReducer from '@/diary/data-access/store/diary.slice'
 import mapReducer from '@/map/data-access/store/map.slice'
 import albumReducer from '@/album/data-access/store/album.slice'
+import characterActionReducer from '@/shared/data-access/store/character-action.slice'
 import { STORAGE_KEYS } from '@/shared/data-access/utils/local-storage'
 
 // redux-persist's `redux-persist/lib/storage` subpath breaks Vite's dependency
@@ -62,6 +63,7 @@ const rootReducer = combineReducers({
   diary: diaryReducer,
   map: mapReducer,
   album: albumReducer,
+  characterAction: characterActionReducer,
 })
 
 export type RootState = ReturnType<typeof rootReducer>
