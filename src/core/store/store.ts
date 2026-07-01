@@ -16,6 +16,7 @@ import uiReducer from '@/core/store/ui/ui.slice'
 import diaryReducer from '@/diary/data-access/store/diary.slice'
 import mapReducer from '@/map/data-access/store/map.slice'
 import albumReducer from '@/album/data-access/store/album.slice'
+import wellbeingReducer from '@/wellbeing/data-access/store/wellbeing.slice'
 import characterActionReducer from '@/shared/data-access/store/character-action.slice'
 import { STORAGE_KEYS } from '@/shared/data-access/utils/local-storage'
 
@@ -53,7 +54,7 @@ const storage: WebStorage = {
 const userPersistConfig = {
   key: STORAGE_KEYS.USER,
   storage,
-  whitelist: ['username', 'stats', 'totalDays', 'totalStars'],
+  whitelist: ['username', 'stats', 'totalDays', 'xp', 'playerLevel', 'totalStars'],
 }
 
 const rootReducer = combineReducers({
@@ -63,6 +64,7 @@ const rootReducer = combineReducers({
   diary: diaryReducer,
   map: mapReducer,
   album: albumReducer,
+  wellbeing: wellbeingReducer,
   characterAction: characterActionReducer,
 })
 

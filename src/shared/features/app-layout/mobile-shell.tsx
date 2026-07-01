@@ -6,6 +6,7 @@ import HomeScreen from '@/shared/features/app-layout/panels/home-screen'
 import DiaryPage from '@/diary/features/diary-page/diary-page'
 import MapPage from '@/map/features/map-page/map-page'
 import AlbumPage from '@/album/features/album-page/album-page'
+import WellbeingPage from '@/wellbeing/features/wellbeing-page/wellbeing-page'
 import {
   HeaderTitle,
   MobileBody,
@@ -47,7 +48,14 @@ const MobileShell = (props: MobileShellProps) => {
         <HeaderTitle>{activeLabel}</HeaderTitle>
       </MobileHeader>
 
-      <MobileBody $fullHeight={active === 'journal' || active === 'explore' || active === 'album'}>
+      <MobileBody
+        $fullHeight={
+          active === 'journal' ||
+          active === 'explore' ||
+          active === 'album' ||
+          active === 'challenges'
+        }
+      >
         {active === 'home' ? (
           <HomeScreen />
         ) : active === 'journal' ? (
@@ -56,6 +64,8 @@ const MobileShell = (props: MobileShellProps) => {
           <MapPage />
         ) : active === 'album' ? (
           <AlbumPage />
+        ) : active === 'challenges' ? (
+          <WellbeingPage />
         ) : (
           <Placeholder>{t('shell.content.placeholder', { view: activeLabel })}</Placeholder>
         )}

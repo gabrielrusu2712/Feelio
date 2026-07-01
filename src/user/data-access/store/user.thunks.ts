@@ -30,7 +30,14 @@ export const loadUserDataThunk = createAsyncThunk<
     const document = await fetchUserDocument(args.uid)
 
     if (!document) {
-      return { username: fallbackUsername, stats: normalizeStats(), totalDays: 1, totalStars: 0 }
+      return {
+        username: fallbackUsername,
+        stats: normalizeStats(),
+        totalDays: 1,
+        xp: 0,
+        playerLevel: 1,
+        totalStars: 0,
+      }
     }
 
     const username = document.username ?? fallbackUsername
@@ -59,6 +66,8 @@ export const loadUserDataThunk = createAsyncThunk<
       username,
       stats: reset.stats,
       totalDays: reset.totalDays,
+      xp: document.xp ?? 0,
+      playerLevel: document.playerLevel ?? 1,
       totalStars: document.totalStars ?? 0,
     }
   } catch (error) {

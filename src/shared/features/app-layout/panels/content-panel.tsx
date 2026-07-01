@@ -6,6 +6,7 @@ import HomeNavMenu from '@/shared/ui/home-nav-menu/home-nav-menu'
 import DiaryPage from '@/diary/features/diary-page/diary-page'
 import MapPage from '@/map/features/map-page/map-page'
 import AlbumPage from '@/album/features/album-page/album-page'
+import WellbeingPage from '@/wellbeing/features/wellbeing-page/wellbeing-page'
 import {
   ContentBody,
   ContentHeader,
@@ -59,13 +60,22 @@ const ContentPanel = (props: ContentPanelProps) => {
         <HeaderTitle>{activeLabel}</HeaderTitle>
       </ContentHeader>
 
-      <ContentBody $noPadding={active === 'journal' || active === 'explore' || active === 'album'}>
+      <ContentBody
+        $noPadding={
+          active === 'journal' ||
+          active === 'explore' ||
+          active === 'album' ||
+          active === 'challenges'
+        }
+      >
         {active === 'journal' ? (
           <DiaryPage />
         ) : active === 'explore' ? (
           <MapPage />
         ) : active === 'album' ? (
           <AlbumPage />
+        ) : active === 'challenges' ? (
+          <WellbeingPage />
         ) : (
           t('shell.content.placeholder', { view: activeLabel })
         )}

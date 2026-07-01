@@ -29,6 +29,22 @@ export const Identity = styled.div`
   `}
 `
 
+export const Stars = styled.div`
+  ${({ theme: { colors, spacing } }) => `
+    display: flex;
+    align-items: center;
+    gap: ${spacing.xs.cssVar};
+    color: ${colors.layouts.default.enabled.onSurface.primary.cssVar};
+    font-size: clamp(0.75rem, 1.9cqi, 1.05rem);
+    font-weight: 800;
+  `}
+`
+
+export const StarIcon = styled.img`
+  width: clamp(0.9rem, 2.6cqi, 1.4rem);
+  height: auto;
+`
+
 export const DayCounter = styled.span`
   ${({ theme: { colors } }) => `
     color: ${colors.layouts.default.enabled.onSurface.secondary.cssVar};

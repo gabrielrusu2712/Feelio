@@ -1,17 +1,24 @@
 import { describe, expect, it } from 'vitest'
 import userReducer, {
   adjustStat,
+  awardXp,
   resetUserData,
   setUserData,
 } from '@/user/data-access/store/user.slice'
 import { loadUserDataThunk } from '@/user/data-access/store/user.thunks'
-import { DEFAULT_STATS, STAT_TARGETS } from '@/user/data-access/store/user.constants'
+import {
+  DEFAULT_STATS,
+  STARS_PER_LEVEL_UP,
+  STAT_TARGETS,
+} from '@/user/data-access/store/user.constants'
 import type { UserProfile, UserState } from '@/user/data-access/store/user.types'
 
 const initialState: UserState = {
   username: null,
   stats: DEFAULT_STATS,
   totalDays: 1,
+  xp: 0,
+  playerLevel: 1,
   totalStars: 0,
   status: 'idle',
   error: null,
@@ -21,6 +28,8 @@ const profile: UserProfile = {
   username: 'ana',
   stats: { sleep: 3, water: 2, food: 1, sport: 0, wellbeing: 4 },
   totalDays: 7,
+  xp: 40,
+  playerLevel: 2,
   totalStars: 25,
 }
 
@@ -78,6 +87,30 @@ describe('user slice', () => {
     const state = userReducer(initialState, adjustStat({ key: 'sport', delta: -10 }))
 
     expect(state.stats.sport).toBe(0)
+  })
+
+  it('accumulates xp below a level threshold without leveling up', () => {
+    const state = userReducer(initialState, awardXp({ amount: 30 }))
+
+    expect(state.xp).toBe(30)
+    expect(state.playerLevel).toBe(1)
+    expect(state.totalStars).toBe(0)
+  })
+
+  it('rolls xp over into a level-up and grants a batch of stars', () => {
+    const near = userReducer({ ...initialState, xp: 80 }, awardXp({ amount: 30 }))
+
+    expect(near.xp).toBe(10)
+    expect(near.playerLevel).toBe(2)
+    expect(near.totalStars).toBe(STARS_PER_LEVEL_UP)
+  })
+
+  it('clears multiple levels for an oversized xp gain', () => {
+    const state = userReducer(initialState, awardXp({ amount: 250 }))
+
+    expect(state.playerLevel).toBe(3)
+    expect(state.xp).toBe(50)
+    expect(state.totalStars).toBe(STARS_PER_LEVEL_UP * 2)
   })
 
   it('clears back to defaults on resetUserData', () => {

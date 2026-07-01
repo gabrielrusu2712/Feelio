@@ -13,6 +13,15 @@ export interface UserDocument {
   stats?: Partial<Stats>
   totalDays?: number
   totalStars?: number
+  xp?: number
+  playerLevel?: number
+  // Per-category challenge progress, owned by the wellbeing domain but stored in
+  // this same user doc. Typed generically here so the raw-doc shape stays
+  // category-agnostic; the wellbeing layer normalizes it.
+  completedLevels?: Record<string, number>
+  // Date key of the last completed/reset challenge day; the wellbeing daily reset
+  // compares it against today (owned by the wellbeing domain).
+  lastChallengeDate?: string
   lastVisitDate?: string
 }
 
@@ -32,6 +41,8 @@ export const createUserDocument = async (uid: string, username: string): Promise
     stats: DEFAULT_STATS,
     username,
     totalStars: 0,
+    xp: 0,
+    playerLevel: 1,
   })
 }
 

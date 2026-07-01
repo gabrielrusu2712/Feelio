@@ -1,6 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import { DEFAULT_STATS, STAT_TARGETS } from '@/user/data-access/store/user.constants'
+import {
+  DEFAULT_STATS,
+  STAT_TARGETS,
+  STARS_PER_LEVEL_UP,
+  XP_PER_LEVEL,
+} from '@/user/data-access/store/user.constants'
 import { loadUserDataThunk } from '@/user/data-access/store/user.thunks'
 import type { Stats, UserProfile, UserState } from '@/user/data-access/store/user.types'
 
@@ -8,6 +13,8 @@ const initialState: UserState = {
   username: null,
   stats: DEFAULT_STATS,
   totalDays: 1,
+  xp: 0,
+  playerLevel: 1,
   totalStars: 0,
   status: 'idle',
   error: null,
@@ -17,6 +24,8 @@ const applyProfile = (state: UserState, profile: UserProfile) => {
   state.username = profile.username
   state.stats = profile.stats
   state.totalDays = profile.totalDays
+  state.xp = profile.xp
+  state.playerLevel = profile.playerLevel
   state.totalStars = profile.totalStars
   state.status = 'ready'
   state.error = null
@@ -35,6 +44,20 @@ const userSlice = createSlice({
       const { key, delta } = action.payload
       const next = state.stats[key] + delta
       state.stats[key] = Math.min(STAT_TARGETS[key], Math.max(0, next))
+    },
+    // Adds challenge XP and rolls it over into player levels: every full
+    // XP_PER_LEVEL bumps playerLevel and grants STARS_PER_LEVEL_UP stars. Pure
+    // player-economy math; the cross-slice wellbeing bump + category advance are
+    // orchestrated in the awardChallenge thunk, not here. Loops so an unusually
+    // large gain can clear more than one level. Persisting is a thunk side-effect.
+    awardXp: (state, action: PayloadAction<{ amount: number }>) => {
+      let xp = state.xp + Math.max(0, action.payload.amount)
+      while (xp >= XP_PER_LEVEL) {
+        xp -= XP_PER_LEVEL
+        state.playerLevel += 1
+        state.totalStars += STARS_PER_LEVEL_UP
+      }
+      state.xp = xp
     },
     // Cleared on logout so a subsequent login never shows stale data.
     resetUserData: () => initialState,
@@ -55,6 +78,6 @@ const userSlice = createSlice({
   },
 })
 
-export const { setUserData, adjustStat, resetUserData } = userSlice.actions
+export const { setUserData, adjustStat, awardXp, resetUserData } = userSlice.actions
 
 export default userSlice.reducer

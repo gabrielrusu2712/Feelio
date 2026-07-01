@@ -11,6 +11,8 @@ const storeWithUser = () => {
       username: 'ana',
       stats: { sleep: 4, water: 2, food: 1, sport: 0, wellbeing: 3 },
       totalDays: 3,
+      xp: 0,
+      playerLevel: 1,
       totalStars: 0,
     }),
   )
