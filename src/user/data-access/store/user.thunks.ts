@@ -3,10 +3,13 @@ import {
   fetchUserDocument,
   normalizeStats,
   recordLoginDay,
+  saveDailyMoodSnapshot,
   updateUserDocument,
 } from '@/user/data-access/api/user.api'
+import { STAT_TARGETS } from '@/user/data-access/store/user.constants'
 import { applyNewDayReset } from '@/user/data-access/utils/daily-reset'
 import { toDateKey } from '@/user/data-access/utils/date-key'
+import { avgPercent, percentToMood } from '@/user/data-access/utils/mood'
 import type { UserProfile } from '@/user/data-access/store/user.types'
 import type { RootState } from '@/core/store/store'
 
@@ -83,7 +86,15 @@ export const saveStatsThunk = createAsyncThunk<
   { state: RootState; rejectValue: string }
 >('user/saveStats', async (args, { getState, rejectWithValue }) => {
   try {
-    await updateUserDocument(args.uid, { stats: getState().user.stats })
+    const stats = getState().user.stats
+    const today = toDateKey()
+    const percent = avgPercent(stats, STAT_TARGETS)
+    // Persist the main doc and today's dailyMoods snapshot together — the snapshot
+    // is the per-day series the statistics dashboard charts.
+    await Promise.all([
+      updateUserDocument(args.uid, { stats, lastVisitDate: today }),
+      saveDailyMoodSnapshot(args.uid, today, percent, percentToMood(percent)),
+    ])
   } catch (error) {
     return rejectWithValue(error instanceof Error ? error.message : 'user.error.saveFailed')
   }

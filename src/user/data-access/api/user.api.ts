@@ -5,6 +5,7 @@ import type { Stats } from '@/user/data-access/store/user.types'
 
 const USERS_COLLECTION = 'users'
 const LOGIN_DAYS_COLLECTION = 'loginDays'
+const DAILY_MOODS_COLLECTION = 'dailyMoods'
 
 // Raw shape as stored in Firestore. May also carry Timestamp fields
 // (createdAt / lastUsernameChange) that we deliberately never read into Redux.
@@ -63,6 +64,24 @@ export const recordLoginDay = async (uid: string, dateKey: string): Promise<void
   await setDoc(
     loginDayRef,
     { date: dateKey, loggedIn: true, timestamp: new Date().toISOString() },
+    { merge: true },
+  )
+}
+
+// Writes the day's wellbeing snapshot (avg completion % + coarse mood bucket) to
+// users/{uid}/dailyMoods/{dateKey}. This is the per-day series the statistics
+// dashboard reads; the source wrote it on every stat save (data.ts), so we mirror
+// that from saveStatsThunk. Merge so repeated saves in a day overwrite the value.
+export const saveDailyMoodSnapshot = async (
+  uid: string,
+  dateKey: string,
+  avgPercent: number,
+  mood: number,
+): Promise<void> => {
+  const snapshotRef = doc(collection(userDocRef(uid), DAILY_MOODS_COLLECTION), dateKey)
+  await setDoc(
+    snapshotRef,
+    { avgPercent, mood, timestamp: new Date().toISOString() },
     { merge: true },
   )
 }

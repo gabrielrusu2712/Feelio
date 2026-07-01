@@ -7,6 +7,7 @@ import DiaryPage from '@/diary/features/diary-page/diary-page'
 import MapPage from '@/map/features/map-page/map-page'
 import AlbumPage from '@/album/features/album-page/album-page'
 import WellbeingPage from '@/wellbeing/features/wellbeing-page/wellbeing-page'
+import StatisticsPage from '@/statistics/features/statistics-page/statistics-page'
 import {
   HeaderTitle,
   MobileBody,
@@ -53,7 +54,8 @@ const MobileShell = (props: MobileShellProps) => {
           active === 'journal' ||
           active === 'explore' ||
           active === 'album' ||
-          active === 'challenges'
+          active === 'challenges' ||
+          active === 'stats'
         }
       >
         {active === 'home' ? (
@@ -66,6 +68,8 @@ const MobileShell = (props: MobileShellProps) => {
           <AlbumPage />
         ) : active === 'challenges' ? (
           <WellbeingPage />
+        ) : active === 'stats' ? (
+          <StatisticsPage />
         ) : (
           <Placeholder>{t('shell.content.placeholder', { view: activeLabel })}</Placeholder>
         )}

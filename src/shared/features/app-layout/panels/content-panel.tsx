@@ -7,6 +7,7 @@ import DiaryPage from '@/diary/features/diary-page/diary-page'
 import MapPage from '@/map/features/map-page/map-page'
 import AlbumPage from '@/album/features/album-page/album-page'
 import WellbeingPage from '@/wellbeing/features/wellbeing-page/wellbeing-page'
+import StatisticsPage from '@/statistics/features/statistics-page/statistics-page'
 import {
   ContentBody,
   ContentHeader,
@@ -65,7 +66,8 @@ const ContentPanel = (props: ContentPanelProps) => {
           active === 'journal' ||
           active === 'explore' ||
           active === 'album' ||
-          active === 'challenges'
+          active === 'challenges' ||
+          active === 'stats'
         }
       >
         {active === 'journal' ? (
@@ -76,6 +78,8 @@ const ContentPanel = (props: ContentPanelProps) => {
           <AlbumPage />
         ) : active === 'challenges' ? (
           <WellbeingPage />
+        ) : active === 'stats' ? (
+          <StatisticsPage />
         ) : (
           t('shell.content.placeholder', { view: activeLabel })
         )}

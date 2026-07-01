@@ -39,9 +39,9 @@ describe('AppLayout', () => {
   it('renders a routed view behind the compact menu (landscape)', () => {
     renderWithProviders(<AppLayout />, { store: storeWithUser(), route: '/statistics' })
 
-    // Title in the content header + placeholder body; nav is the compact "…" menu.
+    // Content header title + the real statistics page body; nav is the compact "…" menu.
     expect(screen.getByText('Statistics')).toBeInTheDocument()
-    expect(screen.getByText('Statistics — coming soon')).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: "This week's recap" })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: 'Open menu' })).toBeInTheDocument()
   })
 
