@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import userReducer, {
+  adjustStars,
   adjustStat,
   awardXp,
   resetUserData,
@@ -111,6 +112,26 @@ describe('user slice', () => {
     expect(state.playerLevel).toBe(3)
     expect(state.xp).toBe(50)
     expect(state.totalStars).toBe(STARS_PER_LEVEL_UP * 2)
+  })
+
+  it('adds stars directly without touching xp/level', () => {
+    const state = userReducer(initialState, adjustStars({ delta: 10 }))
+
+    expect(state.totalStars).toBe(10)
+    expect(state.xp).toBe(0)
+    expect(state.playerLevel).toBe(1)
+  })
+
+  it('spends stars via a negative delta', () => {
+    const state = userReducer({ ...initialState, totalStars: 10 }, adjustStars({ delta: -10 }))
+
+    expect(state.totalStars).toBe(0)
+  })
+
+  it('clamps stars at zero', () => {
+    const state = userReducer({ ...initialState, totalStars: 5 }, adjustStars({ delta: -10 }))
+
+    expect(state.totalStars).toBe(0)
   })
 
   it('clears back to defaults on resetUserData', () => {

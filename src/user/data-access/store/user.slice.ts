@@ -59,6 +59,13 @@ const userSlice = createSlice({
       }
       state.xp = xp
     },
+    // Direct stars delta (spend/earn), bypassing the xp→level rollover — used by
+    // the game economy (entry cost, session payout), which grants/removes stars
+    // straight from the pool rather than through challenge xp. Persisting is a
+    // thunk side-effect.
+    adjustStars: (state, action: PayloadAction<{ delta: number }>) => {
+      state.totalStars = Math.max(0, state.totalStars + action.payload.delta)
+    },
     // Cleared on logout so a subsequent login never shows stale data.
     resetUserData: () => initialState,
   },
@@ -78,6 +85,6 @@ const userSlice = createSlice({
   },
 })
 
-export const { setUserData, adjustStat, awardXp, resetUserData } = userSlice.actions
+export const { setUserData, adjustStat, awardXp, adjustStars, resetUserData } = userSlice.actions
 
 export default userSlice.reducer

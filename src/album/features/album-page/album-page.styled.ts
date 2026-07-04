@@ -29,16 +29,3 @@ export const AlbumScrollBody = styled.div`
     }
   `}
 `
-
-export const RewardBanner = styled.div`
-  ${({ theme: { colors, radius, spacing } }) => `
-    background: ${colors.layouts.default.enabled.surface.secondary.cssVar};
-    border: 2px solid ${colors.layouts.default.enabled.onSurface.primary.cssVar};
-    border-radius: ${radius.xl.cssVar};
-    padding: ${spacing.xl.cssVar} ${spacing['2xl'].cssVar};
-    text-align: center;
-    font-weight: 700;
-    font-size: 1rem;
-    color: ${colors.layouts.default.enabled.onSurface.primary.cssVar};
-  `}
-`

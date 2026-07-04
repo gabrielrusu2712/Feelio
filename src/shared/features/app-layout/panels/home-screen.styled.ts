@@ -37,6 +37,6 @@ export const BarsArea = styled.div`
     padding: ${spacing.xl.cssVar};
     border-radius: ${radius.lg.cssVar};
     background: ${colors.layouts.default.enabled.surface.primary.cssVar};
-    border: 1px solid ${colors.layouts.default.enabled.border.tertiary.cssVar};
+    border: 1px solid ${colors.layouts.default.enabled.border.primary.cssVar};
   `}
 `

@@ -29,10 +29,14 @@ export const ScrollBody = styled.div`
 `
 
 export const Section = styled.section`
-  ${({ theme: { spacing } }) => `
+  ${({ theme: { colors, radius, spacing } }) => `
     display: flex;
     flex-direction: column;
     gap: ${spacing.md.cssVar};
+    padding: ${spacing.xl.cssVar};
+    border-radius: ${radius.lg.cssVar};
+    background: ${colors.layouts.default.enabled.surface.primary.cssVar};
+    border: 1px solid ${colors.layouts.default.enabled.border.primary.cssVar};
   `}
 `
 

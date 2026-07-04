@@ -15,6 +15,7 @@ export const Composer = styled.div`
 export const QuestionBox = styled.div`
   ${({ theme: { colors, radius, spacing } }) => `
     background: ${colors.layouts.default.enabled.surface.tertiary.cssVar};
+    border: 1px solid ${colors.layouts.default.enabled.border.primary.cssVar};
     border-radius: ${radius.xl.cssVar};
     padding: ${spacing['2xl'].cssVar};
     display: flex;

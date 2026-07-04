@@ -6,7 +6,6 @@ import {
   selectAlbumEntries,
   selectAlbumSaveStatus,
   selectAlbumStatus,
-  selectLastRewardStars,
 } from '@/album/data-access/store'
 import { loadEntriesThunk, savePhotoThunk } from '@/album/data-access/store/album.thunks'
 import { resetSaveStatus } from '@/album/data-access/store/album.slice'
@@ -15,11 +14,7 @@ import type { PendingClaim } from '@/shared/data-access/utils/pending-claim'
 import AlbumUploadCard from '@/album/ui/album-upload-card/album-upload-card'
 import AlbumGallery from '@/album/ui/album-gallery/album-gallery'
 import AlbumLightbox from '@/album/ui/album-lightbox/album-lightbox'
-import {
-  AlbumPageRoot,
-  AlbumScrollBody,
-  RewardBanner,
-} from '@/album/features/album-page/album-page.styled'
+import { AlbumPageRoot, AlbumScrollBody } from '@/album/features/album-page/album-page.styled'
 
 const AlbumPage = () => {
   const { t } = useTranslation()
@@ -29,7 +24,6 @@ const AlbumPage = () => {
   const entries = useAppSelector(selectAlbumEntries)
   const status = useAppSelector(selectAlbumStatus)
   const saveStatus = useAppSelector(selectAlbumSaveStatus)
-  const lastRewardStars = useAppSelector(selectLastRewardStars)
 
   const [pendingClaim, setPendingClaim] = useState<PendingClaim | null>(() => readPendingClaim())
   const [lightboxSrc, setLightboxSrc] = useState<string | null>(null)
@@ -72,10 +66,6 @@ const AlbumPage = () => {
   return (
     <AlbumPageRoot>
       <AlbumScrollBody>
-        {lastRewardStars && (
-          <RewardBanner>{t('album.reward', { stars: lastRewardStars })}</RewardBanner>
-        )}
-
         {showUpload && (
           <AlbumUploadCard
             placeName={pendingClaim.placeName}
