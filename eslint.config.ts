@@ -9,7 +9,9 @@ import noRelativeImportPaths from 'eslint-plugin-no-relative-import-paths'
 import prettier from 'eslint-plugin-prettier/recommended'
 
 export default defineConfig(
-  { ignores: ['dist'] },
+  // `functions/` is a separate Node/Cloud-Functions project with its own tsconfig
+  // and lint concerns — the app's React/alias rules don't apply there.
+  { ignores: ['dist', 'functions'] },
 
   // React
   {

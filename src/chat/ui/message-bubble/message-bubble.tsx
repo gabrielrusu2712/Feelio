@@ -4,16 +4,16 @@ import { Avatar, Bubble, BubbleRow } from '@/chat/ui/message-bubble/message-bubb
 
 interface MessageBubbleProps {
   message: ChatMessage
-  avatarEmoji: string
+  avatarSrc: string
 }
 
 const MessageBubble = (props: MessageBubbleProps) => {
-  const { message, avatarEmoji } = props
+  const { message, avatarSrc } = props
   const isUser = message.sender === ChatSender.USER
 
   return (
     <BubbleRow $isUser={isUser}>
-      {isUser ? null : <Avatar aria-hidden="true">{avatarEmoji}</Avatar>}
+      {isUser ? null : <Avatar src={avatarSrc} alt="Feelio" />}
       <Bubble $isUser={isUser}>{message.text}</Bubble>
     </BubbleRow>
   )

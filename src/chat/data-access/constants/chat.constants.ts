@@ -10,3 +10,13 @@ export interface ChatMessage {
   sender: ChatSenderType
   text: string
 }
+
+// A single turn kept for conversational context, in the shape the model expects
+// (role + content). The UI-only opening greeting and error bubbles are NOT part
+// of this history — only real user/assistant exchanges, matching the source.
+// The Gemini model/endpoint and the Feelio system prompt now live server-side
+// in the `feelioChat` Cloud Function (functions/src/index.ts).
+export interface ChatTurn {
+  role: 'user' | 'assistant'
+  content: string
+}

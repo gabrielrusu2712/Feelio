@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { css, keyframes } from 'styled-components'
 
 export const BubbleRow = styled.div<{ $isUser: boolean }>`
   ${({ $isUser }) => `
@@ -9,16 +9,13 @@ export const BubbleRow = styled.div<{ $isUser: boolean }>`
   `}
 `
 
-export const Avatar = styled.span`
+export const Avatar = styled.img`
   ${({ theme: { primitives } }) => `
     flex-shrink: 0;
     width: 2rem;
     height: 2rem;
     border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.1rem;
+    object-fit: cover;
     background: ${primitives.palette.peach['300'].cssVar};
     border: 2px solid ${primitives.palette.brand['500'].cssVar};
   `}
@@ -36,5 +33,41 @@ export const Bubble = styled.p<{ $isUser: boolean }>`
     background: ${primitives.palette.peach['500'].cssVar};
     border: 2px solid ${primitives.palette.brand['500'].cssVar};
     border-radius: ${$isUser ? '1.25rem 1.25rem 0.25rem 1.25rem' : '1.25rem 1.25rem 1.25rem 0.25rem'};
+  `}
+`
+
+const blink = keyframes`
+  0%, 80%, 100% { opacity: 0.3; transform: translateY(0); }
+  40% { opacity: 1; transform: translateY(-0.15rem); }
+`
+
+// The "Feelio is typing" bubble: three dots bouncing in sequence while awaiting
+// the model reply (ported from the source's convo-typing dots).
+export const TypingBubble = styled.div`
+  ${({ theme: { primitives } }) => `
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.85rem 1rem;
+    background: ${primitives.palette.peach['500'].cssVar};
+    border: 2px solid ${primitives.palette.brand['500'].cssVar};
+    border-radius: 1.25rem 1.25rem 1.25rem 0.25rem;
+  `}
+`
+
+export const Dot = styled.span`
+  ${({ theme: { primitives } }) => css`
+    width: 0.45rem;
+    height: 0.45rem;
+    border-radius: 50%;
+    background: ${primitives.palette.brand['500'].cssVar};
+    animation: ${blink} 1.2s infinite ease-in-out both;
+
+    &:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+    &:nth-child(3) {
+      animation-delay: 0.4s;
+    }
   `}
 `

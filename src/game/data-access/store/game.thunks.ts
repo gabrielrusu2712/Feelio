@@ -37,6 +37,7 @@ export const awardSessionStarsThunk = createAsyncThunk<
   try {
     await updateUserDocument(uid, { totalStars: getState().user.totalStars })
   } catch (error) {
+    dispatch(adjustStars({ delta: -stars })) // roll back the optimistic payout so local matches Firestore
     return rejectWithValue(error instanceof Error ? error.message : 'game.error.awardFailed')
   }
 })

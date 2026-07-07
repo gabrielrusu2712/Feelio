@@ -5,14 +5,15 @@ interface GameHudProps {
   score: number
   stars: number
   scoreLabel: string
+  livesLabel: string
 }
 
 const GameHud = (props: GameHudProps) => {
-  const { lives, score, stars, scoreLabel } = props
+  const { lives, score, stars, scoreLabel, livesLabel } = props
 
   return (
     <HudBar>
-      <Lives aria-label={`${lives} lives left`}>{'❤️'.repeat(lives)}</Lives>
+      <Lives aria-label={livesLabel}>{'❤️'.repeat(lives)}</Lives>
       <Score>
         {scoreLabel}: {score}
       </Score>

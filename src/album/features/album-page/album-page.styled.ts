@@ -8,7 +8,7 @@ export const AlbumPageRoot = styled.div`
 `
 
 export const AlbumScrollBody = styled.div`
-  ${({ theme: { spacing } }) => `
+  ${({ theme: { primitives, spacing } }) => `
     flex: 1;
     overflow-y: auto;
     overflow-x: hidden;
@@ -25,6 +25,7 @@ export const AlbumScrollBody = styled.div`
       background: transparent;
     }
     &::-webkit-scrollbar-thumb {
+      background-color: ${primitives.palette.brand['500'].cssVar};
       border-radius: 10px;
     }
   `}

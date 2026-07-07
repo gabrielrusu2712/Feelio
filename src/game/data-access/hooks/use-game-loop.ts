@@ -38,13 +38,21 @@ import {
 
 interface UseGameLoopArgs {
   canvasRef: RefObject<HTMLCanvasElement | null>
+  areaRef: RefObject<HTMLDivElement | null>
   onGameOver: (result: GameResult) => void
 }
 
 interface UseGameLoopResult {
   hud: GameHudState
+  // True when the play area is taller than the 2:1 design (portrait panel): the
+  // canvas fills the whole area instead of fitting a fixed 2:1 window.
+  fill: boolean
   setVerticalInput: (direction: 'up' | 'down', pressed: boolean) => void
 }
+
+// The designed aspect ratio (2:1). A panel at least this wide keeps the fixed
+// window; a taller one triggers fill mode.
+const DESIGN_ASPECT = GAME_CANVAS.width / GAME_CANVAS.height
 
 const createObstacle = (canvasWidth: number, canvasHeight: number): Obstacle => {
   const isStar = Math.random() < STAR_CHANCE
@@ -67,13 +75,14 @@ const createObstacle = (canvasWidth: number, canvasHeight: number): Obstacle => 
 // events (star collected, obstacle passed, hit taken), matching the source's
 // own updateHUD() call sites.
 export const useGameLoop = (args: UseGameLoopArgs): UseGameLoopResult => {
-  const { canvasRef, onGameOver } = args
+  const { canvasRef, areaRef, onGameOver } = args
 
   const [hud, setHud] = useState<GameHudState>({
     lives: STARTING_LIVES,
     score: 0,
     stars: 0,
   })
+  const [fill, setFill] = useState(false)
 
   const keysRef = useRef<Record<string, boolean>>({})
   const onGameOverRef = useRef(onGameOver)
@@ -87,8 +96,28 @@ export const useGameLoop = (args: UseGameLoopArgs): UseGameLoopResult => {
     const ctx = canvas.getContext('2d')
     if (!ctx) return
 
-    canvas.width = GAME_CANVAS.width
-    canvas.height = GAME_CANVAS.height
+    // Match the backing store to the play area's actual shape so the drawn
+    // bitmap is never stretched. A wide/landscape area keeps the fixed 2:1
+    // window (letterboxed to fit); a tall/portrait area fills the whole panel,
+    // giving a taller play field — obstacle/star/rocket sizes stay fixed pixels,
+    // only the background scales to cover.
+    const applySize = () => {
+      const area = areaRef.current
+      const areaWidth = area?.clientWidth ?? 0
+      const areaHeight = area?.clientHeight ?? 0
+      const shouldFill = areaWidth > 0 && areaHeight > 0 && areaWidth / areaHeight < DESIGN_ASPECT
+
+      const nextWidth = shouldFill ? Math.round(areaWidth) : GAME_CANVAS.width
+      const nextHeight = shouldFill ? Math.round(areaHeight) : GAME_CANVAS.height
+      // Setting width/height clears the canvas; only touch it on a real change.
+      if (canvas.width !== nextWidth) canvas.width = nextWidth
+      if (canvas.height !== nextHeight) canvas.height = nextHeight
+      setFill(shouldFill)
+    }
+    applySize()
+
+    const resizeObserver = new ResizeObserver(applySize)
+    if (areaRef.current) resizeObserver.observe(areaRef.current)
 
     const player = { ...PLAYER_START }
     let obstacles: Obstacle[] = []
@@ -112,7 +141,6 @@ export const useGameLoop = (args: UseGameLoopArgs): UseGameLoopResult => {
       const speed = computeSpeed(score, BASE_SPEED, SPEED_SCORE_DIVISOR)
 
       bgX -= BG_SCROLL_SPEED
-      if (bgX <= -canvas.width) bgX = 0
 
       if (keysRef.current.ArrowUp)
         player.y = clamp(player.y - player.speed, 0, canvas.height - player.h)
@@ -161,8 +189,20 @@ export const useGameLoop = (args: UseGameLoopArgs): UseGameLoopResult => {
 
     const draw = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height)
-      ctx.drawImage(spaceBgImage, bgX, 0, canvas.width, canvas.height)
-      ctx.drawImage(spaceBgImage, bgX + canvas.width, 0, canvas.width, canvas.height)
+
+      // Scroll the background as a horizontal tile scaled to cover the full
+      // height, keeping the texture's own aspect ratio (zoomed in on tall panels
+      // rather than stretched). Black (cleared) fallback until the image loads.
+      if (spaceBgImage.complete && spaceBgImage.naturalHeight > 0) {
+        const scale = canvas.height / spaceBgImage.naturalHeight
+        const tileWidth = spaceBgImage.naturalWidth * scale
+        if (tileWidth > 0) {
+          bgX %= tileWidth // keep bounded and seamless; negative → (-tileWidth, 0]
+          for (let x = bgX; x < canvas.width; x += tileWidth) {
+            ctx.drawImage(spaceBgImage, x, 0, tileWidth, canvas.height)
+          }
+        }
+      }
 
       if (invincibility % 10 < 5) {
         const drawX = player.x + (player.w - rocketDrawSize.width) / 2
@@ -219,6 +259,7 @@ export const useGameLoop = (args: UseGameLoopArgs): UseGameLoopResult => {
     return () => {
       ended = true
       cancelAnimationFrame(animationId)
+      resizeObserver.disconnect()
       window.removeEventListener('keydown', handleKeyDown)
       window.removeEventListener('keyup', handleKeyUp)
       canvas.removeEventListener('touchstart', handleTouchStart)
@@ -226,7 +267,7 @@ export const useGameLoop = (args: UseGameLoopArgs): UseGameLoopResult => {
       canvas.removeEventListener('touchend', handleTouchEnd)
       canvas.removeEventListener('touchcancel', handleTouchEnd)
     }
-  }, [canvasRef])
+  }, [canvasRef, areaRef])
 
   const setVerticalInput = useCallback((direction: 'up' | 'down', pressed: boolean) => {
     if (direction === 'up') {
@@ -238,5 +279,5 @@ export const useGameLoop = (args: UseGameLoopArgs): UseGameLoopResult => {
     }
   }, [])
 
-  return { hud, setVerticalInput }
+  return { hud, fill, setVerticalInput }
 }

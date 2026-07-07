@@ -4,7 +4,7 @@ import { useGameLoop } from '@/game/data-access/hooks/use-game-loop'
 import type { GameResult } from '@/game/data-access/constants/game.constants'
 import GameHud from '@/game/ui/game-hud/game-hud'
 import MobileControls from '@/game/ui/mobile-controls/mobile-controls'
-import { Canvas, CanvasRoot } from '@/game/ui/game-canvas/game-canvas.styled'
+import { Canvas, CanvasArea, CanvasRoot } from '@/game/ui/game-canvas/game-canvas.styled'
 
 interface GameCanvasProps {
   onGameOver: (result: GameResult) => void
@@ -17,8 +17,9 @@ const GameCanvas = (props: GameCanvasProps) => {
   const { onGameOver } = props
   const { t } = useTranslation()
   const canvasRef = useRef<HTMLCanvasElement>(null)
+  const areaRef = useRef<HTMLDivElement>(null)
 
-  const { hud, setVerticalInput } = useGameLoop({ canvasRef, onGameOver })
+  const { hud, fill, setVerticalInput } = useGameLoop({ canvasRef, areaRef, onGameOver })
 
   return (
     <CanvasRoot>
@@ -27,8 +28,11 @@ const GameCanvas = (props: GameCanvasProps) => {
         score={hud.score}
         stars={hud.stars}
         scoreLabel={t('game.labelScore')}
+        livesLabel={t('game.labelLives', { lives: hud.lives })}
       />
-      <Canvas ref={canvasRef} role="img" aria-label={t('game.canvasLabel')} />
+      <CanvasArea ref={areaRef}>
+        <Canvas ref={canvasRef} $fill={fill} role="img" aria-label={t('game.canvasLabel')} />
+      </CanvasArea>
       <MobileControls
         upLabel={t('game.controlUp')}
         downLabel={t('game.controlDown')}
