@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const HudBar = styled.div`
-  ${({ theme: { primitives, spacing } }) => `
+  ${({ theme: { primitives, spacing, typography } }) => `
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -10,7 +10,7 @@ export const HudBar = styled.div`
     background: ${primitives.palette.brand['700'].cssVar};
     color: ${primitives.palette.peach['50'].cssVar};
     font-weight: 700;
-    font-size: 0.85rem;
+    font-size: ${typography.fontSize.text.sm.cssVar};
   `}
 `
 

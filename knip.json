@@ -8,7 +8,8 @@
     "src/core/i18n/types/i18next.d.ts",
     "src/core/i18n/types/resources.d.ts",
     "src/env.d.ts",
-    "functions/**"
+    "functions/**",
+    "worker/**"
   ],
   "ignoreExportsUsedInFile": true
 }

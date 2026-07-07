@@ -76,9 +76,9 @@ export const PlayButton = styled.button`
 `
 
 export const ErrorText = styled.p`
-  ${({ theme: { primitives } }) => `
+  ${({ theme: { primitives, typography } }) => `
     margin: 0;
-    font-size: 0.85rem;
+    font-size: ${typography.fontSize.text.sm.cssVar};
     font-weight: 700;
     color: ${primitives.palette.red['500'].cssVar};
   `}

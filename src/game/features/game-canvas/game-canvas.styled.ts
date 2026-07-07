@@ -27,7 +27,7 @@ export const CanvasArea = styled.div`
 export const Canvas = styled.canvas<{ $fill: boolean }>`
   display: block;
   touch-action: none;
-  background: #000;
+  background: ${({ theme }) => theme.primitives.palette.base.black.cssVar};
   ${({ $fill }) =>
     $fill
       ? `

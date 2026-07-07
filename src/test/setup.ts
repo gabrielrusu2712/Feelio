@@ -25,6 +25,12 @@ if (!window.matchMedia) {
 HTMLCanvasElement.prototype.getContext = (() =>
   null) as typeof HTMLCanvasElement.prototype.getContext
 
+// jsdom does not implement scrollIntoView; auto-scrolling lists (e.g. the chat
+// message list) call it on mount/update. Stub it so those components render.
+if (!Element.prototype.scrollIntoView) {
+  Element.prototype.scrollIntoView = vi.fn()
+}
+
 // jsdom has no ResizeObserver; layout-observing components (e.g. sky-climb's bear
 // positioning) construct one on mount. Stub it so those components render in tests.
 if (!globalThis.ResizeObserver) {

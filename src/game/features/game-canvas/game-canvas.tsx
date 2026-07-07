@@ -4,7 +4,7 @@ import { useGameLoop } from '@/game/data-access/hooks/use-game-loop'
 import type { GameResult } from '@/game/data-access/constants/game.constants'
 import GameHud from '@/game/ui/game-hud/game-hud'
 import MobileControls from '@/game/ui/mobile-controls/mobile-controls'
-import { Canvas, CanvasArea, CanvasRoot } from '@/game/ui/game-canvas/game-canvas.styled'
+import { Canvas, CanvasArea, CanvasRoot } from '@/game/features/game-canvas/game-canvas.styled'
 
 interface GameCanvasProps {
   onGameOver: (result: GameResult) => void

@@ -3,12 +3,12 @@ import styled from 'styled-components'
 export const InputBar = styled.div`
   ${({ theme: { primitives, spacing } }) => `
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     gap: ${spacing.xs.cssVar};
     flex-shrink: 0;
     margin: ${spacing.md.cssVar};
     padding: ${spacing.xs.cssVar} ${spacing.md.cssVar};
-    border-radius: 999px;
+    border-radius: 1.25rem;
     background: ${primitives.palette.peach['500'].cssVar};
     border: 2px solid ${primitives.palette.brand['500'].cssVar};
   `}
@@ -24,9 +24,26 @@ export const Textarea = styled.textarea`
     font-family: inherit;
     font-size: 0.95rem;
     line-height: 1.4;
-    max-height: 6.5rem;
+    max-height: 10rem;
     padding: 0.5rem 0;
     color: ${primitives.palette.brand['700'].cssVar};
+
+    /* Height + overflow are driven by JS auto-grow: hidden until the text passes
+       the max height, then a thin, subtle scrollbar appears. */
+    overflow-y: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: ${primitives.palette.brand['500'].cssVar} transparent;
+
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: ${primitives.palette.brand['500'].cssVar};
+      border-radius: 999px;
+    }
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
 
     &::placeholder {
       color: ${primitives.palette.brand['700'].cssVar};

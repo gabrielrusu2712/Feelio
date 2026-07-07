@@ -7,7 +7,7 @@ import { awardSessionStarsThunk, spendStarsToPlayThunk } from '@/game/data-acces
 import { GAME_COST_STARS, GamePhase } from '@/game/data-access/constants/game.constants'
 import type { GamePhaseType, GameResult } from '@/game/data-access/constants/game.constants'
 import GameStartScreen from '@/game/ui/game-start-screen/game-start-screen'
-import GameCanvas from '@/game/ui/game-canvas/game-canvas'
+import GameCanvas from '@/game/features/game-canvas/game-canvas'
 import GameOverScreen from '@/game/ui/game-over-screen/game-over-screen'
 import { GamePageRoot } from '@/game/features/game-page/game-page.styled'
 
