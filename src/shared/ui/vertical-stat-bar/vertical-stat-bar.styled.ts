@@ -1,10 +1,5 @@
 import styled, { css, keyframes } from 'styled-components'
 
-const glint = keyframes`
-  0% { transform: translateY(100%); }
-  60%, 100% { transform: translateY(-100%); }
-`
-
 // Diagonal drift by whole tiles (1 across, 2 down) so the loop stays seamless.
 const cloudDrift = keyframes`
   from { background-position: 0 0; }
@@ -47,7 +42,7 @@ export const Track = styled.div`
   `}
 `
 
-// Flat accent colour with a moving glint (the normal stat bars).
+// Flat accent colour (the normal stat bars) — no texture, no glint.
 export const Fill = styled.div<{ $fill: number; $accent: string }>`
   ${({ $fill, $accent }) => css`
     position: absolute;
@@ -55,22 +50,7 @@ export const Fill = styled.div<{ $fill: number; $accent: string }>`
     bottom: 0;
     height: ${$fill}%;
     background: ${$accent};
-    overflow: hidden;
     transition: height 0.4s ease;
-
-    &::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        180deg,
-        rgba(255, 255, 255, 0) 0%,
-        rgba(255, 255, 255, 0.5) 50%,
-        rgba(255, 255, 255, 0) 100%
-      );
-      animation: ${glint} 2.6s ease-in-out infinite;
-      pointer-events: none;
-    }
   `}
 `
 

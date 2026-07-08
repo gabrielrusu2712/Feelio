@@ -13,6 +13,11 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: './src/test/setup.ts',
     include: ['src/**/*.test.{ts,tsx}'],
+    // Heavy page-render tests (e.g. wellbeing's sky-climb) can exceed the 5s
+    // default when the whole suite runs on a slow/loaded machine. Give real
+    // headroom so timing flakiness doesn't fail the run; true hangs still fail.
+    testTimeout: 15000,
+    hookTimeout: 15000,
     // Dummy Firebase config so the SDK singletons construct without throwing
     // in unit tests. No network calls are made unless explicitly invoked.
     env: {
@@ -22,6 +27,7 @@ export default defineConfig({
       VITE_FIREBASE_STORAGE_BUCKET: 'test.appspot.com',
       VITE_FIREBASE_MESSAGING_SENDER_ID: '0',
       VITE_FIREBASE_APP_ID: 'test-app-id',
+      VITE_CHAT_WORKER_URL: 'https://chat.test.workers.dev',
     },
     coverage: {
       provider: 'v8',

@@ -28,20 +28,17 @@ export interface FillTexture {
   scale?: number
 }
 
+// Only the vibe/wellbeing bar fills with an animated texture. The other stat
+// bars use a flat accent colour (see getStatAccents) — no texture, no glint.
 export const STAT_FILL_TEXTURES: Partial<Record<keyof Stats, FillTexture>> = {
-  water: { src: '/assets/stats/water_bar.png', ratio: 74.64, scale: 0.6 }, // 1171 × 874
-  food: { src: '/assets/stats/food_bar.png', ratio: 75.34, scale: 0.7 }, // 1160 × 874
-  sleep: { src: '/assets/stats/sleep_bar.png', ratio: 57.76, scale: 0.5 }, // 1160 × 670
-  sport: { src: '/assets/stats/sport_bar.png', ratio: 32.52 }, // 1550 × 504
   wellbeing: { src: '/assets/stats/wellbeing_bar.png', ratio: 34.42 }, // 2420 × 833
 }
 
-// Per-stat fill colour, read from the theme palette at render time. Shared by
-// the desktop (vertical) and portrait (horizontal) bars so they stay in sync.
-export const getStatAccents = (theme: DefaultTheme): Record<keyof Stats, string> => ({
-  water: theme.primitives.palette.blue['400'].cssVar,
-  sleep: theme.primitives.palette.indigo['400'].cssVar,
-  food: theme.primitives.palette.orange['400'].cssVar,
-  sport: theme.primitives.palette.green['500'].cssVar,
-  wellbeing: theme.primitives.palette.brand['500'].cssVar,
-})
+// Stat fill colour, read from the theme palette at render time. Every bar uses
+// the one brand accent (like the old project's single terracotta fill); the
+// track behind it is theme-aware, so the bar's look still adapts per theme.
+// Shared by the desktop (vertical) and portrait (horizontal) bars.
+export const getStatAccents = (theme: DefaultTheme): Record<keyof Stats, string> => {
+  const accent = theme.primitives.palette.brand['500'].cssVar
+  return { water: accent, sleep: accent, food: accent, sport: accent, wellbeing: accent }
+}
