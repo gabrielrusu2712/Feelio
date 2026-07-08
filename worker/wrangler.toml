@@ -8,4 +8,4 @@ compatibility_date = "2024-11-27"
 FIREBASE_PROJECT_ID = "fellio-7d0b3"
 # Comma-separated allowed browser origins. Add your production origin here once
 # the frontend is deployed, e.g. "http://localhost:5173,https://feelio.web.app".
-ALLOWED_ORIGIN = "http://localhost:5173", "https://feelio.click"
+ALLOWED_ORIGIN = "http://localhost:5173,https://feelio.click"
