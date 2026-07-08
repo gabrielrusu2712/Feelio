@@ -1,220 +1,205 @@
-import styled from 'styled-components'
+import { Link } from 'react-router'
+import styled, { keyframes } from 'styled-components'
 
-export const ThemeModeButton = styled.button`
-  ${({ theme: { typography, spacing, radius, colors } }) => `
-    font-size: ${typography.fontSize.text.sm.cssVar};
-    padding: ${spacing.xs.cssVar} ${spacing.sm.cssVar};
-    border-radius: ${radius.sm.cssVar};
-    color: ${colors.layouts.default.enabled.onSurface.primary.cssVar};
-    background: ${colors.layouts.default.enabled.surface.secondary.cssVar};
-    border: 1px solid ${colors.layouts.default.enabled.border.primary.cssVar};
-    cursor: pointer;
-    transition: background 0.2s;
-
-    &:hover {
-      background: ${colors.layouts.default.hover.surface.secondary.cssVar};
-    }
-  `}
+const floatTitle = keyframes`
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-0.5rem); }
 `
 
-export const Counter = styled.button`
-  ${({ theme: { typography, spacing, radius, colors } }) => `
-    font-size: ${typography.fontSize.text.md.cssVar};
-    padding: ${spacing.xs.cssVar} ${spacing.sm.cssVar};
-    border-radius: ${radius.sm.cssVar};
-    color: ${colors.layouts.brand.enabled.onSurface.primary.cssVar};
-    background: ${colors.layouts.brand.enabled.surface.secondary.cssVar};
-    border: 2px solid transparent;
-    transition: border-color 0.3s;
-    margin-bottom: ${spacing.lg.cssVar};
-
-    &:hover {
-      border-color: ${colors.layouts.brand.enabled.border.primary.cssVar};
-    }
-
-    &:focus-visible {
-      outline: 2px solid ${colors.layouts.default.focused.border.primary.cssVar};
-      outline-offset: 2px;
-    }
-  `}
+const floatHero = keyframes`
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-1rem); }
 `
 
-export const Hero = styled.div`
-  position: relative;
+const floatCloud = keyframes`
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-1rem) rotate(2deg); }
+`
 
-  .base,
-  .framework,
-  .vite {
-    inset-inline: 0;
-    margin: 0 auto;
-  }
+const pulseGlow = keyframes`
+  0% { box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.18); }
+  70% { box-shadow: 0 0 0 1rem rgba(0, 0, 0, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(0, 0, 0, 0); }
+`
 
-  .base {
-    width: 170px;
+// Outermost shell owns the viewport unit (locked rule: vh/vw only here).
+export const Shell = styled.div`
+  ${({ theme: { colors, spacing } }) => `
+    container-type: inline-size;
     position: relative;
-    z-index: 0;
-  }
-
-  .framework,
-  .vite {
-    position: absolute;
-  }
-
-  .framework {
-    z-index: 1;
-    top: 34px;
-    height: 28px;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(44deg) rotateY(39deg) scale(1.4);
-  }
-
-  .vite {
-    z-index: 0;
-    top: 107px;
-    height: 26px;
-    width: auto;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(40deg) rotateY(39deg) scale(0.8);
-  }
-`
-
-export const Center = styled.section`
-  ${({ theme: { spacing } }) => `
+    overflow: hidden;
+    min-height: 100dvh;
+    width: 100%;
     display: flex;
     flex-direction: column;
-    gap: ${spacing.lg.cssVar};
-    place-content: center;
-    place-items: center;
-    flex-grow: 1;
+    justify-content: space-between;
+    gap: ${spacing.md.cssVar};
+    padding: ${spacing.lg.cssVar};
+    background: ${colors.layouts.default.enabled.surface.primary.cssVar};
+  `}
 
-    @media (max-width: 1024px) {
-      padding: ${spacing['2xl'].cssVar} ${spacing.md.cssVar} ${spacing.lg.cssVar};
-      gap: ${spacing.md.cssVar};
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation: none !important;
     }
+  }
+`
+
+export const Clouds = styled.div`
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+`
+
+export const Cloud = styled.img<{
+  $top: string
+  $side: 'left' | 'right'
+  $offset: string
+  $size: string
+  $delay: string
+  $opacity: number
+  $desktopOnly?: boolean
+}>`
+  ${({ $top, $side, $offset, $size, $delay, $opacity, $desktopOnly }) => `
+    position: absolute;
+    top: ${$top};
+    ${$side}: ${$offset};
+    width: ${$size};
+    height: auto;
+    opacity: ${$opacity};
+    animation: ${floatCloud.getName()} 6s ease-in-out infinite;
+    animation-delay: ${$delay};
+    ${$desktopOnly ? '@media (orientation: portrait) { display: none; }' : ''}
   `}
 `
 
-export const NextSteps = styled.section`
-  ${({ theme: { spacing, colors } }) => `
-    display: flex;
-    border-top: 1px solid ${colors.layouts.default.enabled.border.primary.cssVar};
-    text-align: left;
-
-    & > div {
-      flex: 1 1 0;
-      padding: ${spacing['2xl'].cssVar};
-
-      @media (max-width: 1024px) {
-        padding: ${spacing.lg.cssVar} ${spacing.md.cssVar};
-      }
-    }
-
-    .icon {
-      margin-bottom: ${spacing.md.cssVar};
-      width: 22px;
-      height: 22px;
-    }
-
-    @media (max-width: 1024px) {
-      flex-direction: column;
-      text-align: center;
-    }
-  `}
-`
-
-export const Docs = styled.div`
-  ${({ theme: { colors } }) => `
-    border-right: 1px solid ${colors.layouts.default.enabled.border.primary.cssVar};
-
-    @media (max-width: 1024px) {
-      border-right: none;
-      border-bottom: 1px solid ${colors.layouts.default.enabled.border.primary.cssVar};
-    }
-  `}
-`
-
-export const NextStepsList = styled.ul`
-  ${({ theme: { spacing, radius, colors, typography } }) => `
-    list-style: none;
-    padding: 0;
-    display: flex;
-    gap: ${spacing.xs.cssVar};
-    margin: ${spacing['2xl'].cssVar} 0 0;
-
-    .logo {
-      height: 18px;
-    }
-
-    a {
-      color: ${colors.layouts.default.enabled.onSurface.primary.cssVar};
-      font-size: ${typography.fontSize.text.md.cssVar};
-      border-radius: ${radius.md.cssVar};
-      background: ${colors.layouts.default.enabled.surface.secondary.cssVar};
-      display: flex;
-      padding: ${spacing.xs.cssVar} ${spacing.sm.cssVar};
-      align-items: center;
-      gap: ${spacing.xs.cssVar};
-      text-decoration: none;
-      transition: box-shadow 0.3s;
-
-      &:hover {
-        background: ${colors.layouts.default.hover.surface.secondary.cssVar};
-      }
-
-      .button-icon {
-        height: 18px;
-        width: 18px;
-      }
-    }
-
-    @media (max-width: 1024px) {
-      margin-top: ${spacing.md.cssVar};
-      flex-wrap: wrap;
-      justify-content: center;
-
-      li {
-        flex: 1 1 calc(50% - ${spacing.xs.cssVar});
-      }
-
-      a {
-        width: 100%;
-        justify-content: center;
-        box-sizing: border-box;
-      }
-    }
-  `}
-`
-
-export const Spacer = styled.section`
-  ${({ theme: { spacing, colors } }) => `
-    height: ${spacing['6xl'].cssVar};
-    border-top: 1px solid ${colors.layouts.default.enabled.border.primary.cssVar};
-
-    @media (max-width: 1024px) {
-      height: ${spacing['3xl'].cssVar};
-    }
-  `}
-`
-
-export const Ticks = styled.div`
-  ${({ theme: { colors } }) => `
+export const Header = styled.header`
+  ${({ theme: { spacing } }) => `
     position: relative;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: ${spacing.sm.cssVar};
     width: 100%;
+  `}
+`
 
-    &::before,
-    &::after {
-      content: '';
-      position: absolute;
-      top: -4.5px;
-      border: 5px solid transparent;
-    }
+export const HeaderControls = styled.div`
+  ${({ theme: { spacing } }) => `
+    display: flex;
+    align-items: center;
+    gap: ${spacing.xs.cssVar};
+  `}
+`
 
-    &::before {
-      left: 0;
-      border-left-color: ${colors.layouts.default.enabled.border.primary.cssVar};
-    }
+export const TutorialLink = styled(Link)`
+  ${({ theme: { colors, radius, spacing, typography } }) => `
+    display: inline-flex;
+    align-items: center;
+    padding: ${spacing.xs.cssVar} ${spacing.md.cssVar};
+    border-radius: ${radius.full.cssVar};
+    background: ${colors.layouts.default.enabled.onSurface.primary.cssVar};
+    color: ${colors.layouts.default.enabled.surface.primary.cssVar};
+    font-family: inherit;
+    font-size: ${typography.fontSize.text.sm.cssVar};
+    font-weight: 800;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    transition: opacity 0.2s;
 
-    &::after {
-      right: 0;
-      border-right-color: ${colors.layouts.default.enabled.border.primary.cssVar};
-    }
+    &:hover { opacity: 0.9; }
+  `}
+`
+
+export const Content = styled.div`
+  ${({ theme: { spacing } }) => `
+    position: relative;
+    z-index: 1;
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: ${spacing.sm.cssVar};
+  `}
+`
+
+export const Title = styled.h1`
+  ${({ theme: { colors } }) => `
+    margin: 0;
+    font-family: inherit;
+    font-weight: 900;
+    font-size: clamp(3rem, 18cqi, 6rem);
+    letter-spacing: -0.03em;
+    line-height: 1;
+    color: ${colors.layouts.default.enabled.onSurface.primary.cssVar};
+    text-shadow: 0.15rem 0.25rem 0 rgba(0, 0, 0, 0.12);
+    animation: ${floatTitle.getName()} 3s ease-in-out infinite;
+  `}
+`
+
+export const Tagline = styled.p`
+  ${({ theme: { colors, typography } }) => `
+    margin: 0;
+    font-size: clamp(0.95rem, 3.5cqi, ${typography.fontSize.text.lg.cssVar});
+    line-height: 1.45;
+    color: ${colors.layouts.default.enabled.onSurface.secondary.cssVar};
+  `}
+`
+
+export const HeroImage = styled.img`
+  max-width: 85%;
+  /* Sized in dvh (a deliberate exception to the rem-only rule) so it can never
+     force a page scroll: bigger in portrait/phone, smaller in landscape/desktop. */
+  max-height: 44dvh;
+  width: auto;
+  height: auto;
+  filter: brightness(1.32) saturate(1.08) drop-shadow(0 0.9rem 1.5rem rgba(0, 0, 0, 0.15));
+  animation: ${floatHero.getName()} 4s ease-in-out infinite;
+
+  @media (orientation: landscape) {
+    max-height: 40dvh;
+  }
+`
+
+export const Footer = styled.footer`
+  ${({ theme: { spacing } }) => `
+    position: relative;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    padding: ${spacing.sm.cssVar} 0 calc(${spacing.xl.cssVar} + ${spacing.xl.cssVar});
+  `}
+`
+
+export const PlayButton = styled(Link)`
+  ${({ theme: { colors, radius, spacing } }) => `
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: ${spacing.md.cssVar} ${spacing.xl.cssVar};
+    border-radius: ${radius.full.cssVar};
+    background: ${colors.layouts.default.enabled.onSurface.primary.cssVar};
+    color: ${colors.layouts.default.enabled.surface.primary.cssVar};
+    font-family: inherit;
+    font-size: clamp(1.1rem, 5cqi, 1.6rem);
+    font-weight: 900;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: transform 0.15s;
+    animation: ${pulseGlow.getName()} 2.4s infinite;
+
+    &:hover { transform: translateY(-0.125rem); }
+    &:active { transform: translateY(0.0625rem); }
   `}
 `

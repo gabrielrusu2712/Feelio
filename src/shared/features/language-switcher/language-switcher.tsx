@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next'
+import { SwitcherButton } from '@/shared/features/language-switcher/language-switcher.styled'
 
 const Languages = [
   { code: 'en', label: '🇬🇧 English' },
@@ -17,9 +18,9 @@ const LanguageSwitcher = () => {
   }
 
   return (
-    <button type="button" onClick={handleSwitch}>
+    <SwitcherButton type="button" onClick={handleSwitch}>
       {nextLang.label}
-    </button>
+    </SwitcherButton>
   )
 }
 
