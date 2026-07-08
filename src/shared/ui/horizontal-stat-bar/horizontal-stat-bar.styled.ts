@@ -68,7 +68,7 @@ export const Sky = styled.div<{ $fill: number }>`
 `
 
 // Tile width = $scale × bar length (cqi); height keeps the texture aspect ($ratio %).
-// The extra 0.9 shrinks the vibe cloud tile a touch on phone/portrait only (the
+// The extra factor shrinks the vibe cloud tile on phone/portrait only (the
 // desktop vertical bar is a separate component and stays untouched).
 export const SkyTexture = styled.div<{ $texture: string; $ratio: number; $scale: number }>`
   ${({ $texture, $ratio, $scale }) => css`
