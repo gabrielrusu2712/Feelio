@@ -79,7 +79,9 @@ export const SkyTexture = styled.div<{ $texture: string; $ratio: number; $scale:
     background-image: url(${$texture});
     background-repeat: repeat;
     background-size: var(--sky-tile-w) var(--sky-tile-h);
-    animation: ${cloudDrift} 28s linear infinite;
+    animation: ${cloudDrift} 55s linear infinite;
+    opacity: 0.7;
+    filter: brightness(0.7) blur(0.6px);
   `}
 `
 

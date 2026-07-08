@@ -21,7 +21,6 @@ import {
   Row,
 } from '@/shared/features/settings-overlay/settings-overlay.styled'
 
-// Fixed backdrop blur strength (px).
 const BACKDROP_BLUR = 3
 const THEME_MODES: ThemeMode[] = ['auto', 'light', 'dark']
 
