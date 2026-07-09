@@ -23,7 +23,7 @@ const objective: MapObjective = {
   category: 'culture',
   desc: { ro: '', en: '' },
   stars: 20,
-  image: '/neutral.png',
+  image: '/assets/character/neutral.png',
 }
 
 describe('map slice', () => {

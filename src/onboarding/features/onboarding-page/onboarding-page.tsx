@@ -50,6 +50,7 @@ const OnboardingPage = () => {
           {TUTORIAL_SLIDES.map((slide, index) => (
             <TutorialSlide
               key={slide.key}
+              active={index === activeIndex}
               title={t(slide.titleKey, { defaultValue: slide.key })}
               description={t(slide.descriptionKey, { defaultValue: '' })}
               image={{

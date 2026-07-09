@@ -4,6 +4,11 @@ export const Ring = styled.div<{ $progress: number }>`
   ${({ theme: { colors }, $progress }) => `
     /* Scales with the character area's own container, within bounds. */
     --ring-size: clamp(3.5rem, 9cqi, 5.5rem);
+    /* The completed arc is the prominent color, the remaining track the muted
+       one. In dark mode these resolve inverted (near-black fill on a near-white
+       track), which reads as *empty*, so the two are swapped below. */
+    --ring-fill: ${colors.layouts.brand.enabled.onSurface.primary.cssVar};
+    --ring-track: ${colors.layouts.default.enabled.border.tertiary.cssVar};
     position: relative;
     width: var(--ring-size);
     height: var(--ring-size);
@@ -11,9 +16,14 @@ export const Ring = styled.div<{ $progress: number }>`
     display: grid;
     place-items: center;
     background: conic-gradient(
-      ${colors.layouts.brand.enabled.onSurface.primary.cssVar} ${$progress}%,
-      ${colors.layouts.default.enabled.border.tertiary.cssVar} ${$progress}% 100%
+      var(--ring-fill) ${$progress}%,
+      var(--ring-track) ${$progress}% 100%
     );
+
+    [data-color-mode='dark'] & {
+      --ring-fill: ${colors.layouts.default.enabled.border.tertiary.cssVar};
+      --ring-track: ${colors.layouts.brand.enabled.onSurface.primary.cssVar};
+    }
   `}
 `
 

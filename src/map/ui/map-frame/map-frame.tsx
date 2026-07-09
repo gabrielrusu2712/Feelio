@@ -13,7 +13,7 @@ const MapFrame = (props: MapFrameProps) => {
     <MapFrameRoot data-no-dnd="true">
       <MapContainer ref={containerRef} aria-label="Interactive map" />
       <GpsButton type="button" aria-label={gpsAriaLabel} onClick={onCenterUser}>
-        <GpsIcon src="/nivel.png" alt={gpsAriaLabel} />
+        <GpsIcon src="/assets/map/nivel.png" alt={gpsAriaLabel} />
       </GpsButton>
     </MapFrameRoot>
   )

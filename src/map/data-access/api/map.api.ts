@@ -22,7 +22,7 @@ export const fetchLocations = async (): Promise<MapObjective[]> => {
       category: data.category ?? 'all',
       desc: data.desc ?? { ro: '', en: '' },
       stars: parseInt(data.stars, 10) || 10,
-      image: data.image ?? '/neutral.png',
+      image: data.image ?? '/assets/character/neutral.png',
     })
   })
 

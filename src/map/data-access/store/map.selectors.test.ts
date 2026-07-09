@@ -21,7 +21,7 @@ const makeObjective = (
   category,
   desc: { ro: '', en: '' },
   stars: 10,
-  image: '/neutral.png',
+  image: '/assets/character/neutral.png',
 })
 
 const objectives: MapObjective[] = [
