@@ -1,3 +1,4 @@
+import SettingsButton from '@/shared/ui/settings-button/settings-button'
 import {
   BoardItem,
   BoardList,
@@ -6,6 +7,7 @@ import {
   ItemChevron,
   ItemIcon,
   ItemLabel,
+  TitleRow,
 } from '@/shared/ui/home-nav-menu/home-nav-menu.styled'
 
 interface HomeNavMenuItem {
@@ -18,17 +20,21 @@ interface HomeNavMenuProps {
   title: string
   items: HomeNavMenuItem[]
   onSelect: (key: string) => void
+  onOpenSettings: () => void
 }
 
 // Dumb: the big "pick a destination" board that fills the landscape-home
 // content panel, forcing the user to choose where to go. The parent owns the
 // items, labels and navigation.
 const HomeNavMenu = (props: HomeNavMenuProps) => {
-  const { title, items, onSelect } = props
+  const { title, items, onSelect, onOpenSettings } = props
 
   return (
     <BoardRoot>
-      <BoardTitle>{title}</BoardTitle>
+      <TitleRow>
+        <BoardTitle>{title}</BoardTitle>
+        <SettingsButton onClick={onOpenSettings} />
+      </TitleRow>
 
       <BoardList role="menu">
         {items.map((item) => (

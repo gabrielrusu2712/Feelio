@@ -3,6 +3,7 @@ import { CONTENT_VIEWS } from '@/shared/data-access/constants/content-views'
 import type { ActiveView } from '@/shared/data-access/constants/content-views'
 import PageMenu from '@/shared/ui/page-menu/page-menu'
 import HomeNavMenu from '@/shared/ui/home-nav-menu/home-nav-menu'
+import SettingsButton from '@/shared/ui/settings-button/settings-button'
 import DiaryPage from '@/diary/features/diary-page/diary-page'
 import MapPage from '@/map/features/map-page/map-page'
 import AlbumPage from '@/album/features/album-page/album-page'
@@ -20,6 +21,7 @@ import {
 interface ContentPanelProps {
   active: ActiveView
   onSelect: (target: ActiveView) => void
+  onOpenSettings: () => void
 }
 
 // Landscape content panel. On Home it becomes a big navigation board filling
@@ -27,7 +29,7 @@ interface ContentPanelProps {
 // shows that view behind the compact "…" menu, which also offers Home so the
 // board stays reachable.
 const ContentPanel = (props: ContentPanelProps) => {
-  const { active, onSelect } = props
+  const { active, onSelect, onOpenSettings } = props
   const { t } = useTranslation()
 
   const destinations = CONTENT_VIEWS.map((entry) => ({
@@ -43,6 +45,7 @@ const ContentPanel = (props: ContentPanelProps) => {
           title={t('shell.menu.title')}
           items={destinations}
           onSelect={(key) => onSelect(key as ActiveView)}
+          onOpenSettings={onOpenSettings}
         />
       </ContentRoot>
     )
@@ -61,6 +64,7 @@ const ContentPanel = (props: ContentPanelProps) => {
           ariaLabel={t('shell.menu.open')}
         />
         <HeaderTitle>{activeLabel}</HeaderTitle>
+        <SettingsButton onClick={onOpenSettings} />
       </ContentHeader>
 
       <ContentBody

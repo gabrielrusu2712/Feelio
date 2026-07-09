@@ -21,14 +21,16 @@ const AppLayout = () => {
   const active = viewForPath(location.pathname)
   const onSelect = (target: ActiveView) => navigate(pathForView(target))
 
+  const onOpenSettings = () => setSettingsOpen(true)
+
   return (
     <Shell>
-      <TopBar onOpenSettings={() => setSettingsOpen(true)} />
+      <TopBar />
 
       {mode === 'desktop' ? (
-        <DesktopShell active={active} onSelect={onSelect} />
+        <DesktopShell active={active} onSelect={onSelect} onOpenSettings={onOpenSettings} />
       ) : (
-        <MobileShell active={active} onSelect={onSelect} />
+        <MobileShell active={active} onSelect={onSelect} onOpenSettings={onOpenSettings} />
       )}
 
       {settingsOpen && <SettingsOverlay onClose={() => setSettingsOpen(false)} />}

@@ -27,6 +27,7 @@ const CharacterSprite = (props: CharacterSpriteProps) => {
         preload="auto"
         disablePictureInPicture
         aria-label={label}
+        data-skip-click-sound
         onClick={onActivate}
         onError={() => setVideoFailed(true)}
       >
@@ -35,7 +36,15 @@ const CharacterSprite = (props: CharacterSpriteProps) => {
     )
   }
 
-  return <Sprite src={imageSrc} alt={label} draggable={false} onClick={onActivate} />
+  return (
+    <Sprite
+      src={imageSrc}
+      alt={label}
+      draggable={false}
+      data-skip-click-sound
+      onClick={onActivate}
+    />
+  )
 }
 
 export default CharacterSprite

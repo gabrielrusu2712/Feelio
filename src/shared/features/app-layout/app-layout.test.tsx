@@ -21,11 +21,16 @@ const storeWithUser = () => {
 
 // jsdom matchMedia is mocked to landscape (matches: false) in test setup → desktop.
 describe('AppLayout', () => {
-  it('shows the username and day counter in the fixed top bar', () => {
+  it('shows the day counter in the fixed top bar', () => {
+    renderWithProviders(<AppLayout />, { store: storeWithUser(), route: '/home' })
+
+    expect(screen.getByText('Day 3')).toBeInTheDocument()
+  })
+
+  it('shows the username beside the character', () => {
     renderWithProviders(<AppLayout />, { store: storeWithUser(), route: '/home' })
 
     expect(screen.getByText('ana')).toBeInTheDocument()
-    expect(screen.getByText('Day 3')).toBeInTheDocument()
   })
 
   it('renders the big destination board on Home (landscape)', () => {

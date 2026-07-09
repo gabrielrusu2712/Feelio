@@ -1,5 +1,5 @@
 import LandingPage from '@/landing/ui/landing-page/landing-page'
-import OnboardingPage from '@/onboarding/ui/onboarding-page/onboarding-page'
+import OnboardingPage from '@/onboarding/features/onboarding-page/onboarding-page'
 import AuthPage from '@/auth/features/auth-page/auth-page'
 import AppLayout from '@/shared/features/app-layout/app-layout'
 import { Navigate, Route, Routes } from 'react-router'

@@ -17,6 +17,12 @@ export const BoardRoot = styled.div`
   `}
 `
 
+export const TitleRow = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+`
+
 export const BoardTitle = styled.h2`
   ${({ theme: { colors } }) => `
     margin: 0;

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { RefObject } from 'react'
 import {
   BASE_SPEED,
@@ -47,7 +47,6 @@ interface UseGameLoopResult {
   // True when the play area is taller than the 2:1 design (portrait panel): the
   // canvas fills the whole area instead of fitting a fixed 2:1 window.
   fill: boolean
-  setVerticalInput: (direction: 'up' | 'down', pressed: boolean) => void
 }
 
 // The designed aspect ratio (2:1). A panel at least this wide keeps the fixed
@@ -269,15 +268,5 @@ export const useGameLoop = (args: UseGameLoopArgs): UseGameLoopResult => {
     }
   }, [canvasRef, areaRef])
 
-  const setVerticalInput = useCallback((direction: 'up' | 'down', pressed: boolean) => {
-    if (direction === 'up') {
-      keysRef.current.ArrowUp = pressed
-      if (pressed) keysRef.current.ArrowDown = false
-    } else {
-      keysRef.current.ArrowDown = pressed
-      if (pressed) keysRef.current.ArrowUp = false
-    }
-  }, [])
-
-  return { hud, fill, setVerticalInput }
+  return { hud, fill }
 }

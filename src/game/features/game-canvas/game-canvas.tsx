@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next'
 import { useGameLoop } from '@/game/data-access/hooks/use-game-loop'
 import type { GameResult } from '@/game/data-access/constants/game.constants'
 import GameHud from '@/game/ui/game-hud/game-hud'
-import MobileControls from '@/game/ui/mobile-controls/mobile-controls'
 import { Canvas, CanvasArea, CanvasRoot } from '@/game/features/game-canvas/game-canvas.styled'
 
 interface GameCanvasProps {
@@ -11,15 +10,14 @@ interface GameCanvasProps {
 }
 
 // Keyboard (arrow up/down) and touch-drag are wired inside useGameLoop directly
-// on the canvas element; MobileControls is an explicit on-screen alternative
-// for devices where a drag gesture over the play area is awkward.
+// on the canvas element.
 const GameCanvas = (props: GameCanvasProps) => {
   const { onGameOver } = props
   const { t } = useTranslation()
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const areaRef = useRef<HTMLDivElement>(null)
 
-  const { hud, fill, setVerticalInput } = useGameLoop({ canvasRef, areaRef, onGameOver })
+  const { hud, fill } = useGameLoop({ canvasRef, areaRef, onGameOver })
 
   return (
     <CanvasRoot>
@@ -33,11 +31,6 @@ const GameCanvas = (props: GameCanvasProps) => {
       <CanvasArea ref={areaRef}>
         <Canvas ref={canvasRef} $fill={fill} role="img" aria-label={t('game.canvasLabel')} />
       </CanvasArea>
-      <MobileControls
-        upLabel={t('game.controlUp')}
-        downLabel={t('game.controlDown')}
-        onPress={setVerticalInput}
-      />
     </CanvasRoot>
   )
 }

@@ -8,6 +8,7 @@ import {
 } from '@/shared/data-access/store/character-action.slice'
 import { selectStats } from '@/user/data-access/store'
 import { STAT_TARGETS } from '@/user/data-access/store/user.constants'
+import { playCharacterActionSound } from '@/shared/data-access/assets/character-sounds'
 import {
   ACTION_ASSETS,
   MOOD_IMAGES,
@@ -16,7 +17,7 @@ import {
 import { getCharacterMood } from '@/shared/data-access/utils/character-mood'
 import CharacterSprite from '@/shared/ui/character-sprite/character-sprite'
 
-const ACTION_RESET_MS = 2000
+const ACTION_RESET_MS = 3000
 
 // Smart: the bear's mood comes from the user's stats; an action (tap-to-pet, or
 // a stat increment from another panel) plays a short pose, then auto-clears.
@@ -30,6 +31,7 @@ const CharacterCompanion = () => {
   // on each new trigger. Dispatching (not local setState) keeps this effect-safe.
   useEffect(() => {
     if (!characterAction) return
+    playCharacterActionSound(characterAction.action)
     const timer = setTimeout(() => dispatch(clearCharacterAction()), ACTION_RESET_MS)
     return () => clearTimeout(timer)
   }, [characterAction, dispatch])

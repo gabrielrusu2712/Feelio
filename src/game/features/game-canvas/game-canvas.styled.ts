@@ -7,9 +7,9 @@ export const CanvasRoot = styled.div`
   min-height: 0;
 `
 
-// Claims the space between the HUD and the mobile controls, and centers the
-// canvas inside it. The canvas must NOT be a flex child itself — flex-grow in a
-// column would stretch its height and break the fixed aspect ratio.
+// Claims the remaining space below the HUD and centers the canvas inside it.
+// The canvas must NOT be a flex child itself — flex-grow in a column would
+// stretch its height and break the fixed aspect ratio.
 export const CanvasArea = styled.div`
   flex: 1;
   min-height: 0;

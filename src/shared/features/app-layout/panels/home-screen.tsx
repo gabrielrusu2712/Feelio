@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router'
 import { STAT_TARGETS } from '@/user/data-access/store/user.constants'
 import { useStatControls } from '@/shared/data-access/hooks/use-stat-controls'
 import HorizontalStatBar from '@/shared/ui/horizontal-stat-bar/horizontal-stat-bar'
-import CharacterCompanion from '@/shared/features/character/character-companion'
+import CharacterStage from '@/shared/features/character/character-stage'
 import {
   STAT_BARS,
   STAT_FILL_TEXTURES,
@@ -28,7 +28,7 @@ const HomeScreen = () => {
   return (
     <HomeRoot>
       <CharacterArea>
-        <CharacterCompanion />
+        <CharacterStage />
       </CharacterArea>
 
       <BarsArea>

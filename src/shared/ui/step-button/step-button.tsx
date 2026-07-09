@@ -15,7 +15,13 @@ const StepButton = (props: StepButtonProps) => {
   const { label, disabled = false, onClick, children } = props
 
   return (
-    <StepRoot type="button" aria-label={label} disabled={disabled} onClick={onClick}>
+    <StepRoot
+      type="button"
+      aria-label={label}
+      disabled={disabled}
+      data-skip-click-sound
+      onClick={onClick}
+    >
       {children}
     </StepRoot>
   )

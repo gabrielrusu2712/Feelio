@@ -2,8 +2,8 @@ import styled from 'styled-components'
 
 export const Ring = styled.div<{ $progress: number }>`
   ${({ theme: { colors }, $progress }) => `
-    /* Scales with the shell width (the top-bar query container), within bounds. */
-    --ring-size: clamp(1.75rem, 4.5cqi, 2.75rem);
+    /* Scales with the character area's own container, within bounds. */
+    --ring-size: clamp(3.5rem, 9cqi, 5.5rem);
     position: relative;
     width: var(--ring-size);
     height: var(--ring-size);
@@ -26,7 +26,7 @@ export const RingInner = styled.span`
     place-items: center;
     background: ${colors.layouts.default.enabled.surface.primary.cssVar};
     color: ${colors.layouts.default.enabled.onSurface.primary.cssVar};
-    font-size: clamp(0.6rem, 2.2cqi, 0.875rem);
+    font-size: clamp(1.2rem, 4.4cqi, 1.75rem);
     font-weight: 700;
   `}
 `

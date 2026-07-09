@@ -35,10 +35,11 @@ const PANEL_FLEX: Record<PanelKey, string> = {
 interface DesktopShellProps {
   active: ActiveView
   onSelect: (target: ActiveView) => void
+  onOpenSettings: () => void
 }
 
 const DesktopShell = (props: DesktopShellProps) => {
-  const { active, onSelect } = props
+  const { active, onSelect, onOpenSettings } = props
   const { desktopOrder, reorderDesktop } = usePanelOrder()
   const [activeKey, setActiveKey] = useState<PanelKey | null>(null)
 
@@ -65,7 +66,7 @@ const DesktopShell = (props: DesktopShellProps) => {
   const renderPanel = (key: PanelKey) => {
     if (key === 'character') return <CharacterPanel />
     if (key === 'bars') return <ProgressBarsPanel />
-    return <ContentPanel active={active} onSelect={onSelect} />
+    return <ContentPanel active={active} onSelect={onSelect} onOpenSettings={onOpenSettings} />
   }
 
   return (

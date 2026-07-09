@@ -7,6 +7,7 @@ import { PersistGate } from 'redux-persist/integration/react'
 import { persistor, store } from '@/core/store'
 import { useAuthListener } from '@/auth/data-access/hooks/use-auth-listener'
 import Splash from '@/shared/ui/splash/splash'
+import ClickSoundProvider from '@/shared/features/click-sound-provider/click-sound-provider'
 
 const AppContent = () => {
   useAuthListener()
@@ -23,7 +24,9 @@ const App = () => {
         <ThemeProvider>
           <GlobalStyle />
           <PersistGate loading={<Splash />} persistor={persistor}>
-            <AppContent />
+            <ClickSoundProvider>
+              <AppContent />
+            </ClickSoundProvider>
           </PersistGate>
         </ThemeProvider>
       </Provider>

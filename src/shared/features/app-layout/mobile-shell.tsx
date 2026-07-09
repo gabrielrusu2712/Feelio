@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import PageMenu from '@/shared/ui/page-menu/page-menu'
+import SettingsButton from '@/shared/ui/settings-button/settings-button'
 import { CONTENT_VIEWS } from '@/shared/data-access/constants/content-views'
 import type { ActiveView } from '@/shared/data-access/constants/content-views'
 import HomeScreen from '@/shared/features/app-layout/panels/home-screen'
@@ -21,13 +22,14 @@ import {
 interface MobileShellProps {
   active: ActiveView
   onSelect: (target: ActiveView) => void
+  onOpenSettings: () => void
 }
 
 // Portrait is one panel: the "…" menu (Home + content views) swaps the full
 // page via the route. Home shows the bear over horizontal bars; the rest are
 // placeholders.
 const MobileShell = (props: MobileShellProps) => {
-  const { active, onSelect } = props
+  const { active, onSelect, onOpenSettings } = props
   const { t } = useTranslation()
 
   const items = [
@@ -49,6 +51,7 @@ const MobileShell = (props: MobileShellProps) => {
           ariaLabel={t('shell.menu.open')}
         />
         <HeaderTitle>{activeLabel}</HeaderTitle>
+        <SettingsButton onClick={onOpenSettings} />
       </MobileHeader>
 
       <MobileBody
