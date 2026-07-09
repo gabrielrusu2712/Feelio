@@ -36,3 +36,5 @@ test-results
 # Firebase admin key for one-off migrations
 scripts/serviceAccount.json
 CLAUDE.md
+.vercel
+.env*
