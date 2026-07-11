@@ -1,29 +1,36 @@
 import styled from 'styled-components'
 
-export const ContentRoot = styled.section`
-  ${({ theme: { colors, radius } }) => `
+export const ContentRoot = styled.section<{ $expanded?: boolean }>`
+  ${({ theme: { colors, radius }, $expanded }) => `
     height: 100%;
     display: flex;
     flex-direction: column;
     min-height: 0;
-    border-radius: ${radius.lg.cssVar};
+    /* Fullscreen game: drop the rounded frame so it fills edge-to-edge. */
+    border-radius: ${$expanded ? '0' : radius.lg.cssVar};
     background: ${colors.layouts.default.enabled.surface.secondary.cssVar};
-    border: 1px solid ${colors.layouts.default.enabled.border.tertiary.cssVar};
+    border: ${$expanded ? '0' : '1px'} solid ${colors.layouts.default.enabled.border.tertiary.cssVar};
     overflow: hidden;
+    transition: border-radius 0.4s ease;
   `}
 `
 
-export const ContentHeader = styled.div`
-  ${({ theme: { colors, spacing } }) => `
+export const ContentHeader = styled.div<{ $hidden?: boolean }>`
+  ${({ theme: { colors, spacing }, $hidden }) => `
     display: flex;
     align-items: center;
     gap: ${spacing.xs.cssVar};
     flex-wrap: wrap;
-    padding: ${spacing.sm.cssVar};
+    overflow: hidden;
+    /* Collapse the header away when the game is fullscreen. */
+    max-height: ${$hidden ? '0' : '6rem'};
+    padding: ${$hidden ? `0 ${spacing.sm.cssVar}` : spacing.sm.cssVar};
+    opacity: ${$hidden ? 0 : 1};
     /* Keep the header (and its "…" dropdown) above the map in the body. */
     position: relative;
     z-index: 1;
-    border-bottom: 1px solid ${colors.layouts.default.enabled.border.tertiary.cssVar};
+    border-bottom: ${$hidden ? '0' : '1px'} solid ${colors.layouts.default.enabled.border.tertiary.cssVar};
+    transition: max-height 0.4s ease, opacity 0.3s ease, padding 0.4s ease;
   `}
 `
 

@@ -3,12 +3,18 @@ import { useAppSelector } from '@/core/store'
 import { selectTotalDays } from '@/user/data-access/store'
 import { Bar, DayCounter } from '@/shared/features/top-bar/top-bar.styled'
 
-const TopBar = () => {
+interface TopBarProps {
+  /** Collapse the bar away (used when the game goes fullscreen). */
+  hidden?: boolean
+}
+
+const TopBar = (props: TopBarProps) => {
+  const { hidden = false } = props
   const { t } = useTranslation()
   const totalDays = useAppSelector(selectTotalDays)
 
   return (
-    <Bar>
+    <Bar $hidden={hidden}>
       <DayCounter>{t('shell.topbar.day', { day: totalDays })}</DayCounter>
     </Bar>
   )

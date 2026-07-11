@@ -8,12 +8,16 @@ import { GAME_COST_STARS, GamePhase } from '@/game/data-access/constants/game.co
 import type { GamePhaseType, GameResult } from '@/game/data-access/constants/game.constants'
 import GameStartScreen from '@/game/ui/game-start-screen/game-start-screen'
 import GameCanvas from '@/game/features/game-canvas/game-canvas'
-import GameOverScreen from '@/game/ui/game-over-screen/game-over-screen'
 import { GamePageRoot } from '@/game/features/game-page/game-page.styled'
 
-const INITIAL_RESULT: GameResult = { score: 0, stars: 0 }
+interface GamePageProps {
+  /** Fullscreen state + toggle, wired only in the landscape shell (undefined on mobile). */
+  expanded?: boolean
+  onToggleExpand?: () => void
+}
 
-const GamePage = () => {
+const GamePage = (props: GamePageProps) => {
+  const { expanded = false, onToggleExpand } = props
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
 
@@ -22,7 +26,6 @@ const GamePage = () => {
 
   const [phase, setPhase] = useState<GamePhaseType>(GamePhase.START)
   const [sessionId, setSessionId] = useState(0)
-  const [result, setResult] = useState<GameResult>(INITIAL_RESULT)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
   const [pending, setPending] = useState(false)
 
@@ -46,21 +49,18 @@ const GamePage = () => {
     })()
   }, [dispatch, uid, pending, t])
 
+  // On game over, award the run's stars and go straight back to the start menu
+  // (no separate "play again" screen — it just sent you here anyway).
   const handleGameOver = useCallback(
     (session: GameResult) => {
-      setResult(session)
-      setPhase(GamePhase.OVER)
+      setErrorMessage(null)
+      setPhase(GamePhase.START)
       if (uid && session.stars > 0) {
         void dispatch(awardSessionStarsThunk({ uid, stars: session.stars }))
       }
     },
     [dispatch, uid],
   )
-
-  const handlePlayAgain = useCallback(() => {
-    setErrorMessage(null)
-    setPhase(GamePhase.START)
-  }, [])
 
   return (
     // data-no-dnd: the game's own drag-to-steer would otherwise also trigger the
@@ -79,19 +79,13 @@ const GamePage = () => {
           }
           pending={pending}
           onPlay={handlePlay}
+          onToggleFullscreen={onToggleExpand}
+          isFullscreen={expanded}
+          fullscreenLabel={t('game.fullscreen')}
+          exitFullscreenLabel={t('game.exitFullscreen')}
         />
-      ) : phase === GamePhase.PLAYING ? (
-        <GameCanvas key={sessionId} onGameOver={handleGameOver} />
       ) : (
-        <GameOverScreen
-          title={t('game.overTitle')}
-          score={result.score}
-          stars={result.stars}
-          scoreLabel={t('game.labelScore')}
-          starsLabel={t('game.labelStars')}
-          playAgainLabel={t('game.playAgain')}
-          onPlayAgain={handlePlayAgain}
-        />
+        <GameCanvas key={sessionId} onGameOver={handleGameOver} fullscreen={expanded} />
       )}
     </GamePageRoot>
   )

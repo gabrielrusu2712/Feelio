@@ -22,6 +22,9 @@ interface ContentPanelProps {
   active: ActiveView
   onSelect: (target: ActiveView) => void
   onOpenSettings: () => void
+  /** Fullscreen game: hide this panel's chrome and let the game fill everything. */
+  expanded: boolean
+  onToggleExpand: () => void
 }
 
 // Landscape content panel. On Home it becomes a big navigation board filling
@@ -29,7 +32,7 @@ interface ContentPanelProps {
 // shows that view behind the compact "…" menu, which also offers Home so the
 // board stays reachable.
 const ContentPanel = (props: ContentPanelProps) => {
-  const { active, onSelect, onOpenSettings } = props
+  const { active, onSelect, onOpenSettings, expanded, onToggleExpand } = props
   const { t } = useTranslation()
 
   const destinations = CONTENT_VIEWS.map((entry) => ({
@@ -55,8 +58,8 @@ const ContentPanel = (props: ContentPanelProps) => {
   const activeLabel = menuItems.find((item) => item.key === active)?.label ?? ''
 
   return (
-    <ContentRoot>
-      <ContentHeader>
+    <ContentRoot $expanded={expanded}>
+      <ContentHeader $hidden={expanded}>
         <PageMenu
           items={menuItems}
           active={active}
@@ -91,7 +94,7 @@ const ContentPanel = (props: ContentPanelProps) => {
         ) : active === 'conversation' ? (
           <ChatPage />
         ) : active === 'game' ? (
-          <GamePage />
+          <GamePage expanded={expanded} onToggleExpand={onToggleExpand} />
         ) : (
           t('shell.content.placeholder', { view: activeLabel })
         )}

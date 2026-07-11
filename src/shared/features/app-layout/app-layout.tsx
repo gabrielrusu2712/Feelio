@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router'
 import { useLayoutMode } from '@/shared/data-access/hooks/use-layout-mode'
 import TopBar from '@/shared/features/top-bar/top-bar'
@@ -23,12 +23,39 @@ const AppLayout = () => {
 
   const onOpenSettings = () => setSettingsOpen(true)
 
+  // Fullscreen game: only offered in the landscape (desktop) shell, on the game
+  // view. The content panel grows to fill the whole shell and the other panels +
+  // top bar collapse away. `fullscreen` is DERIVED (not reset via an effect) so
+  // navigating off the game or rotating to portrait drops back to the normal
+  // layout automatically, without a forbidden in-effect setState.
+  const [expanded, setExpanded] = useState(false)
+  const canExpand = mode === 'desktop' && active === 'game'
+  const fullscreen = canExpand && expanded
+
+  // Escape leaves fullscreen (the in-game toggle only lives on the start screen).
+  useEffect(() => {
+    if (!fullscreen) return undefined
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setExpanded(false)
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [fullscreen])
+
+  const onToggleExpand = () => setExpanded((value) => !value)
+
   return (
     <Shell>
-      <TopBar />
+      <TopBar hidden={fullscreen} />
 
       {mode === 'desktop' ? (
-        <DesktopShell active={active} onSelect={onSelect} onOpenSettings={onOpenSettings} />
+        <DesktopShell
+          active={active}
+          onSelect={onSelect}
+          onOpenSettings={onOpenSettings}
+          expanded={fullscreen}
+          onToggleExpand={onToggleExpand}
+        />
       ) : (
         <MobileShell active={active} onSelect={onSelect} onOpenSettings={onOpenSettings} />
       )}

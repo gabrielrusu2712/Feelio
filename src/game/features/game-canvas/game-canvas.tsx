@@ -7,17 +7,19 @@ import { Canvas, CanvasArea, CanvasRoot } from '@/game/features/game-canvas/game
 
 interface GameCanvasProps {
   onGameOver: (result: GameResult) => void
+  /** Fill the whole area (fullscreen) rather than the fixed 2:1 window. */
+  fullscreen?: boolean
 }
 
 // Keyboard (arrow up/down) and touch-drag are wired inside useGameLoop directly
 // on the canvas element.
 const GameCanvas = (props: GameCanvasProps) => {
-  const { onGameOver } = props
+  const { onGameOver, fullscreen = false } = props
   const { t } = useTranslation()
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const areaRef = useRef<HTMLDivElement>(null)
 
-  const { hud, fill } = useGameLoop({ canvasRef, areaRef, onGameOver })
+  const { hud, fill } = useGameLoop({ canvasRef, areaRef, onGameOver, forceFill: fullscreen })
 
   return (
     <CanvasRoot>

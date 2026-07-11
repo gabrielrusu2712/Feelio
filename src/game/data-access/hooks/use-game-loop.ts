@@ -40,6 +40,10 @@ interface UseGameLoopArgs {
   canvasRef: RefObject<HTMLCanvasElement | null>
   areaRef: RefObject<HTMLDivElement | null>
   onGameOver: (result: GameResult) => void
+  /** Always fill the play area (ignore the 2:1 window) — used for the fullscreen
+   * game, so it covers the whole screen and renders at the screen's resolution
+   * instead of a small 2:1 canvas being upscaled (which looked blurry). */
+  forceFill?: boolean
 }
 
 interface UseGameLoopResult {
@@ -74,7 +78,7 @@ const createObstacle = (canvasWidth: number, canvasHeight: number): Obstacle => 
 // events (star collected, obstacle passed, hit taken), matching the source's
 // own updateHUD() call sites.
 export const useGameLoop = (args: UseGameLoopArgs): UseGameLoopResult => {
-  const { canvasRef, areaRef, onGameOver } = args
+  const { canvasRef, areaRef, onGameOver, forceFill = false } = args
 
   const [hud, setHud] = useState<GameHudState>({
     lives: STARTING_LIVES,
@@ -88,6 +92,11 @@ export const useGameLoop = (args: UseGameLoopArgs): UseGameLoopResult => {
   useEffect(() => {
     onGameOverRef.current = onGameOver
   }, [onGameOver])
+  // Read live inside the resize handler without restarting the loop.
+  const forceFillRef = useRef(forceFill)
+  useEffect(() => {
+    forceFillRef.current = forceFill
+  }, [forceFill])
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -111,7 +120,10 @@ export const useGameLoop = (args: UseGameLoopArgs): UseGameLoopResult => {
       const area = areaRef.current
       const areaWidth = area?.clientWidth ?? 0
       const areaHeight = area?.clientHeight ?? 0
-      const shouldFill = areaWidth > 0 && areaHeight > 0 && areaWidth / areaHeight < DESIGN_ASPECT
+      const shouldFill =
+        areaWidth > 0 &&
+        areaHeight > 0 &&
+        (forceFillRef.current || areaWidth / areaHeight < DESIGN_ASPECT)
 
       logicalWidth = shouldFill ? Math.round(areaWidth) : GAME_CANVAS.width
       logicalHeight = shouldFill ? Math.round(areaHeight) : GAME_CANVAS.height

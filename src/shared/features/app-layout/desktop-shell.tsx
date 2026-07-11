@@ -36,10 +36,13 @@ interface DesktopShellProps {
   active: ActiveView
   onSelect: (target: ActiveView) => void
   onOpenSettings: () => void
+  /** Fullscreen game: content panel fills the shell, the others collapse away. */
+  expanded: boolean
+  onToggleExpand: () => void
 }
 
 const DesktopShell = (props: DesktopShellProps) => {
-  const { active, onSelect, onOpenSettings } = props
+  const { active, onSelect, onOpenSettings, expanded, onToggleExpand } = props
   const { desktopOrder, reorderDesktop } = usePanelOrder()
   const [activeKey, setActiveKey] = useState<PanelKey | null>(null)
 
@@ -66,11 +69,19 @@ const DesktopShell = (props: DesktopShellProps) => {
   const renderPanel = (key: PanelKey) => {
     if (key === 'character') return <CharacterPanel />
     if (key === 'bars') return <ProgressBarsPanel />
-    return <ContentPanel active={active} onSelect={onSelect} onOpenSettings={onOpenSettings} />
+    return (
+      <ContentPanel
+        active={active}
+        onSelect={onSelect}
+        onOpenSettings={onOpenSettings}
+        expanded={expanded}
+        onToggleExpand={onToggleExpand}
+      />
+    )
   }
 
   return (
-    <DesktopRow>
+    <DesktopRow $expanded={expanded}>
       <DndContext
         sensors={sensors}
         collisionDetection={closestCenter}
@@ -80,7 +91,13 @@ const DesktopShell = (props: DesktopShellProps) => {
       >
         <SortableContext items={desktopOrder} strategy={horizontalListSortingStrategy}>
           {desktopOrder.map((key) => (
-            <SortablePanel key={key} id={key} flex={PANEL_FLEX[key]} elevated={key === 'bars'}>
+            <SortablePanel
+              key={key}
+              id={key}
+              flex={PANEL_FLEX[key]}
+              elevated={key === 'bars'}
+              collapsed={expanded && key !== 'content'}
+            >
               {renderPanel(key)}
             </SortablePanel>
           ))}

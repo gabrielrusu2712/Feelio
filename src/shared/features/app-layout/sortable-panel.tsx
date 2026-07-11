@@ -9,6 +9,8 @@ interface SortablePanelProps {
   flex: string
   /** Lift this panel above the top bar so overflowing content (the vibe balloon) isn't clipped. */
   elevated?: boolean
+  /** Collapse this panel away (animated) — used so a fullscreen panel's siblings vanish. */
+  collapsed?: boolean
   children: ReactNode
 }
 
@@ -30,7 +32,7 @@ const isFormControl = (target: EventTarget | null): boolean => {
 // The entire panel surface is draggable (listeners spread on the frame). A small
 // movement threshold on the sensor keeps clicks/taps on panel content working.
 const SortablePanel = (props: SortablePanelProps) => {
-  const { id, flex, elevated, children } = props
+  const { id, flex, elevated, collapsed, children } = props
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id,
   })
@@ -48,6 +50,7 @@ const SortablePanel = (props: SortablePanelProps) => {
       $flex={flex}
       $dragging={isDragging}
       $elevated={elevated}
+      $collapsed={collapsed}
       style={{ transform: CSS.Transform.toString(transform), transition }}
       {...attributes}
       {...listeners}
