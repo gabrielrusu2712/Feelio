@@ -1,4 +1,6 @@
 import { useTranslation } from 'react-i18next'
+import { useAppSelector } from '@/core/store'
+import { selectIsAuthenticated } from '@/auth/data-access/store'
 import LanguageSwitcher from '@/shared/features/language-switcher/language-switcher'
 import ThemeToggle from '@/shared/features/theme-toggle/theme-toggle'
 import {
@@ -44,6 +46,9 @@ const DESKTOP_CLOUDS = [
 
 const LandingPage = () => {
   const { t } = useTranslation()
+  // Signed-in visitors still see the landing page; their CTA enters the app
+  // instead of routing to the auth form.
+  const isAuthenticated = useAppSelector(selectIsAuthenticated)
 
   return (
     <Shell>
@@ -92,7 +97,9 @@ const LandingPage = () => {
       </Content>
 
       <Footer>
-        <PlayButton to="/auth">{t('landing.cta')}</PlayButton>
+        <PlayButton to={isAuthenticated ? '/home' : '/auth'}>
+          {isAuthenticated ? t('landing.enter') : t('landing.cta')}
+        </PlayButton>
       </Footer>
     </Shell>
   )

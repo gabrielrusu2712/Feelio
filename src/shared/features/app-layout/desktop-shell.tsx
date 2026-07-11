@@ -80,7 +80,7 @@ const DesktopShell = (props: DesktopShellProps) => {
       >
         <SortableContext items={desktopOrder} strategy={horizontalListSortingStrategy}>
           {desktopOrder.map((key) => (
-            <SortablePanel key={key} id={key} flex={PANEL_FLEX[key]}>
+            <SortablePanel key={key} id={key} flex={PANEL_FLEX[key]} elevated={key === 'bars'}>
               {renderPanel(key)}
             </SortablePanel>
           ))}

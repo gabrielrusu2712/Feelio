@@ -39,9 +39,10 @@ export const useLeafletMap = (
 
   // Mount map once
   useEffect(() => {
-    if (!containerRef.current || mapRef.current) return
+    const container = containerRef.current
+    if (!container || mapRef.current) return
 
-    const map = L.map(containerRef.current, { zoomControl: false }).setView(
+    const map = L.map(container, { zoomControl: false }).setView(
       DEFAULT_MAP_CENTER,
       DEFAULT_MAP_ZOOM,
     )
@@ -53,6 +54,12 @@ export const useLeafletMap = (
     // The map mounts inside a panel that may still be animating; recompute its
     // size once the layout settles.
     const invalidateTimer = setTimeout(() => map.invalidateSize(), 300)
+
+    // Keep the map correctly sized whenever its panel changes size (layout
+    // settle, panel reorder, orientation) — a stale size mis-projects the very
+    // first marker click, which is what made a popup take two clicks to open.
+    const resizeObserver = new ResizeObserver(() => map.invalidateSize())
+    resizeObserver.observe(container)
 
     // Geolocation
     if (navigator.geolocation) {
@@ -74,6 +81,7 @@ export const useLeafletMap = (
 
     return () => {
       clearTimeout(invalidateTimer)
+      resizeObserver.disconnect()
       map.remove()
       mapRef.current = null
       markerLayerRef.current = null
@@ -136,6 +144,10 @@ export const useLeafletMap = (
       info.append(heading, paragraph, checkinBtn)
       popupContent.append(img, info)
 
+      // Default auto-pan gently brings the popup into view on click. This is
+      // safe now that selecting a location no longer rebuilds the markers (see
+      // selectFilteredObjectives) — that rebuild, not the pan, was what
+      // previously required a second click.
       marker.bindPopup(popupContent, { maxWidth: 250, className: 'feelio-map-popup' })
       marker.on('popupopen', () => onSelectRef.current(obj))
     })

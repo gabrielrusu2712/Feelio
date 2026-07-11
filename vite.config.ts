@@ -11,7 +11,7 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'jsdom',
-    setupFiles: './src/test/setup.ts',
+    setupFiles: './test/setup.ts',
     include: ['src/**/*.test.{ts,tsx}'],
     // Heavy page-render tests (e.g. wellbeing's sky-climb) can exceed the 5s
     // default when the whole suite runs on a slow/loaded machine. Give real
@@ -37,7 +37,7 @@ export default defineConfig({
         'src/**/*.test.{ts,tsx}',
         'src/**/*.styled.ts',
         'src/**/*.d.ts',
-        'src/test/**',
+        'test/**',
         'src/main.tsx',
       ],
     },

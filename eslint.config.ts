@@ -66,7 +66,7 @@ export default defineConfig(
 
   // Test files & e2e are not HMR boundaries — the react-refresh rule does not apply.
   {
-    files: ['**/*.test.{ts,tsx}', 'src/test/**/*.{ts,tsx}', 'e2e/**/*.ts'],
+    files: ['**/*.test.{ts,tsx}', 'test/**/*.{ts,tsx}', 'e2e/**/*.ts'],
     rules: {
       'react-refresh/only-export-components': 'off',
     },

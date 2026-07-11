@@ -57,7 +57,11 @@ export const StyledTextarea = styled.textarea`
       border-color: ${colors.layouts.default.enabled.onSurface.primary.cssVar};
     }
     &::placeholder {
-      color: ${colors.layouts.default.enabled.onSurface.placeholder.cssVar};
+      /* Secondary (not the placeholder token) — on this brand-tinted surface the
+         placeholder grey is near-invisible in dark mode; secondary keeps good
+         contrast in both themes. */
+      color: ${colors.layouts.default.enabled.onSurface.secondary.cssVar};
+      opacity: 0.85;
     }
   `}
 `

@@ -81,6 +81,7 @@ const VerticalStatBar = (props: VerticalStatBarProps) => {
         <RidingIcon
           $fill={fill}
           $scale={iconScale}
+          $inset={!onNavigate}
           src={icon}
           alt=""
           aria-hidden="true"

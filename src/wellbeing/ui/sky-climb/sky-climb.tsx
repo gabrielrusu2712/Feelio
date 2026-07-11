@@ -53,6 +53,9 @@ const SkyClimb = (props: SkyClimbProps) => {
 
   const trackRef = useRef<HTMLDivElement>(null)
   const [bearPos, setBearPos] = useState<{ x: number; y: number } | null>(null)
+  // Instant scroll the first time a climb is shown (positions you at the bear on
+  // open); smooth afterwards so completing a level glides the view up with it.
+  const firstScrollRef = useRef(true)
 
   // Measure the target cloud's on-screen box (getBoundingClientRect includes the
   // zig-zag translateX + active scale, which offsetLeft would miss) and place the
@@ -71,6 +74,15 @@ const SkyClimb = (props: SkyClimbProps) => {
       setBearPos({ x, y })
     }
     measure()
+
+    // Bring the bear's cloud into view when the climb opens or the bear moves up.
+    const activeNode = track.querySelector<HTMLElement>(`[data-level="${bearLevel}"]`)
+    activeNode?.scrollIntoView({
+      block: 'center',
+      behavior: firstScrollRef.current ? 'auto' : 'smooth',
+    })
+    firstScrollRef.current = false
+
     const observer = new ResizeObserver(measure)
     observer.observe(track)
     return () => observer.disconnect()

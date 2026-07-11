@@ -86,14 +86,18 @@ export const SkyTexture = styled.div<{ $texture: string; $ratio: number; $scale:
 `
 
 // Icon riding the leading edge of the fill; $scale lets one stat read larger.
-export const RidingIcon = styled.img<{ $fill: number; $scale: number }>`
-  ${({ $fill, $scale }) => `
+// $inset keeps the whole icon inside the track (its centre travels between
+// half-an-icon from each end) so at 0%/100% it doesn't spill over the adjacent
+// +/- buttons. The vibe bar has no buttons, so it rides the true edge instead.
+export const RidingIcon = styled.img<{ $fill: number; $scale: number; $inset?: boolean }>`
+  ${({ $fill, $scale, $inset }) => `
+    --icon: clamp(1.1rem, 7cqi, 1.9rem);
     position: absolute;
-    left: ${$fill}%;
+    left: ${$inset ? `calc(var(--icon) / 2 + (100% - var(--icon)) * ${$fill} / 100)` : `${$fill}%`};
     top: 50%;
     transform: translate(-50%, -50%) scale(${$scale});
-    width: clamp(1.1rem, 7cqi, 1.9rem);
-    height: clamp(1.1rem, 7cqi, 1.9rem);
+    width: var(--icon);
+    height: var(--icon);
     object-fit: contain;
     pointer-events: none;
     transition: left 0.4s ease;

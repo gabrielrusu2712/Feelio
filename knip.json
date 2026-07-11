@@ -1,5 +1,6 @@
 {
   "paths": {
+    "@/test/*": ["test/*"],
     "@/*": ["src/*"]
   },
   "ignoreDependencies": ["postinstall-postinstall", "firebase-admin"],

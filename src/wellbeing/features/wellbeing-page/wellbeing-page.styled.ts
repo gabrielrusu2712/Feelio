@@ -5,6 +5,10 @@ export const PageRoot = styled.div`
   flex-direction: column;
   height: 100%;
   overflow: hidden;
+  /* Contain the sky-climb's internal stacking (the bear sits at z-index 2 over
+     its clouds) so it can't leak up and paint over the shell header and its
+     "…" navigation dropdown. */
+  isolation: isolate;
 `
 
 // The category menu is kept deliberately short — a single compact row (capped at

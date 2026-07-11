@@ -19,9 +19,16 @@ export const StepRoot = styled.button`
     line-height: 1;
     cursor: pointer;
     transition: background 0.15s, opacity 0.15s;
+    /* No grey flash on tap, and don't let a tap leave the button looking
+       "stuck" selected on mobile. */
+    -webkit-tap-highlight-color: transparent;
 
-    &:hover:not(:disabled) {
-      background: ${colors.layouts.default.enabled.surface.tertiary.cssVar};
+    /* Hover only on devices that actually have a hover pointer — on touch the
+       :hover state sticks after the finger lifts until you tap elsewhere. */
+    @media (hover: hover) {
+      &:hover:not(:disabled) {
+        background: ${colors.layouts.default.enabled.surface.tertiary.cssVar};
+      }
     }
 
     &:disabled {

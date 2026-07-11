@@ -78,4 +78,14 @@ describe('map selectors', () => {
 
     expect(result.map((o) => o.id)).toEqual(['park'])
   })
+
+  // Regression: selecting a location (dispatched on popupopen) must not produce
+  // a new filtered array, or the map would rebuild every marker and destroy the
+  // just-opened popup — the "click twice to open" bug.
+  it('returns a stable reference when only selectedLocation changes', () => {
+    const before = selectFilteredObjectives(stateWith({}))
+    const after = selectFilteredObjectives(stateWith({ selectedLocation: objectives[0] }))
+
+    expect(after).toBe(before)
+  })
 })

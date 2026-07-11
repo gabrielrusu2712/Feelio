@@ -21,10 +21,12 @@
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
 
-    /* Path aliases */
+    /* Path aliases. `@/test/*` is listed first (more specific) so the shared
+       test helpers can live outside src while keeping their `@/test/...` imports. */
     "paths": {
+      "@/test/*": ["./test/*"],
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src"]
+  "include": ["src", "test"]
 }
