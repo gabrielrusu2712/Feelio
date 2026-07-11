@@ -21,7 +21,10 @@ export const ContentHeader = styled.div<{ $hidden?: boolean }>`
     align-items: center;
     gap: ${spacing.xs.cssVar};
     flex-wrap: wrap;
-    overflow: hidden;
+    /* Only clip while collapsing (fullscreen). When visible, overflow must stay
+       visible so the "…" navigation dropdown can spill below the header instead
+       of being clipped (which made it look like it rendered behind the game). */
+    overflow: ${$hidden ? 'hidden' : 'visible'};
     /* Collapse the header away when the game is fullscreen. */
     max-height: ${$hidden ? '0' : '6rem'};
     padding: ${$hidden ? `0 ${spacing.sm.cssVar}` : spacing.sm.cssVar};

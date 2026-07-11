@@ -1,7 +1,6 @@
 export const GamePhase = {
   START: 'start',
   PLAYING: 'playing',
-  OVER: 'over',
 } as const
 
 export type GamePhaseType = (typeof GamePhase)[keyof typeof GamePhase]
