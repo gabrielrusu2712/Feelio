@@ -63,7 +63,10 @@ const GamePage = () => {
   }, [])
 
   return (
-    <GamePageRoot>
+    // data-no-dnd: the game's own drag-to-steer would otherwise also trigger the
+    // panel-reorder drag. Like the map, this marks the whole game view off-limits
+    // to the panel sortable sensor (see smart-pointer-sensor.ts).
+    <GamePageRoot data-no-dnd="true">
       {phase === GamePhase.START ? (
         <GameStartScreen
           title={t('game.title')}

@@ -100,17 +100,31 @@ export const useGameLoop = (args: UseGameLoopArgs): UseGameLoopResult => {
     // window (letterboxed to fit); a tall/portrait area fills the whole panel,
     // giving a taller play field — obstacle/star/rocket sizes stay fixed pixels,
     // only the background scales to cover.
+    // Logical (CSS-pixel) play-field the gameplay math uses. The canvas backing
+    // store is this times the device pixel ratio, so on high-DPR phones the art
+    // is rendered at full density instead of upscaled from too few pixels (the
+    // "pixelated"/blurry look).
+    let logicalWidth: number = GAME_CANVAS.width
+    let logicalHeight: number = GAME_CANVAS.height
+
     const applySize = () => {
       const area = areaRef.current
       const areaWidth = area?.clientWidth ?? 0
       const areaHeight = area?.clientHeight ?? 0
       const shouldFill = areaWidth > 0 && areaHeight > 0 && areaWidth / areaHeight < DESIGN_ASPECT
 
-      const nextWidth = shouldFill ? Math.round(areaWidth) : GAME_CANVAS.width
-      const nextHeight = shouldFill ? Math.round(areaHeight) : GAME_CANVAS.height
+      logicalWidth = shouldFill ? Math.round(areaWidth) : GAME_CANVAS.width
+      logicalHeight = shouldFill ? Math.round(areaHeight) : GAME_CANVAS.height
+
+      const dpr = window.devicePixelRatio || 1
+      const backingWidth = Math.round(logicalWidth * dpr)
+      const backingHeight = Math.round(logicalHeight * dpr)
       // Setting width/height clears the canvas; only touch it on a real change.
-      if (canvas.width !== nextWidth) canvas.width = nextWidth
-      if (canvas.height !== nextHeight) canvas.height = nextHeight
+      if (canvas.width !== backingWidth) canvas.width = backingWidth
+      if (canvas.height !== backingHeight) canvas.height = backingHeight
+      // Writing width/height resets the context transform; scale it so every
+      // draw call keeps using logical coordinates at full device density.
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
       setFill(shouldFill)
     }
     applySize()
@@ -142,14 +156,14 @@ export const useGameLoop = (args: UseGameLoopArgs): UseGameLoopResult => {
       bgX -= BG_SCROLL_SPEED
 
       if (keysRef.current.ArrowUp)
-        player.y = clamp(player.y - player.speed, 0, canvas.height - player.h)
+        player.y = clamp(player.y - player.speed, 0, logicalHeight - player.h)
       if (keysRef.current.ArrowDown)
-        player.y = clamp(player.y + player.speed, 0, canvas.height - player.h)
+        player.y = clamp(player.y + player.speed, 0, logicalHeight - player.h)
 
       if (invincibility > 0) invincibility -= 1
 
       if (Math.random() < SPAWN_CHANCE) {
-        obstacles.push(createObstacle(canvas.width, canvas.height))
+        obstacles.push(createObstacle(logicalWidth, logicalHeight))
       }
 
       obstacles = obstacles.filter((obstacle) => {
@@ -187,18 +201,18 @@ export const useGameLoop = (args: UseGameLoopArgs): UseGameLoopResult => {
     }
 
     const draw = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
+      ctx.clearRect(0, 0, logicalWidth, logicalHeight)
 
       // Scroll the background as a horizontal tile scaled to cover the full
       // height, keeping the texture's own aspect ratio (zoomed in on tall panels
       // rather than stretched). Black (cleared) fallback until the image loads.
       if (spaceBgImage.complete && spaceBgImage.naturalHeight > 0) {
-        const scale = canvas.height / spaceBgImage.naturalHeight
+        const scale = logicalHeight / spaceBgImage.naturalHeight
         const tileWidth = spaceBgImage.naturalWidth * scale
         if (tileWidth > 0) {
           bgX %= tileWidth // keep bounded and seamless; negative → (-tileWidth, 0]
-          for (let x = bgX; x < canvas.width; x += tileWidth) {
-            ctx.drawImage(spaceBgImage, x, 0, tileWidth, canvas.height)
+          for (let x = bgX; x < logicalWidth; x += tileWidth) {
+            ctx.drawImage(spaceBgImage, x, 0, tileWidth, logicalHeight)
           }
         }
       }
@@ -231,29 +245,35 @@ export const useGameLoop = (args: UseGameLoopArgs): UseGameLoopResult => {
     window.addEventListener('keydown', handleKeyDown)
     window.addEventListener('keyup', handleKeyUp)
 
+    // Drag to steer, on both touch and mouse (Pointer Events unify them). The
+    // rocket moves by the VERTICAL drag delta — it tracks the finger/cursor's
+    // up/down movement rather than jumping to it. Screen pixels are converted to
+    // logical units via the canvas's on-screen height so the motion is 1:1
+    // whether the canvas is letterboxed (desktop) or full-bleed (portrait).
     let dragging = false
-    let lastTouchX = 0
-    const handleTouchStart = (event: TouchEvent) => {
-      if (!event.touches.length) return
+    let lastPointerY = 0
+    const handlePointerDown = (event: PointerEvent) => {
       dragging = true
-      lastTouchX = event.touches[0].clientX
+      lastPointerY = event.clientY
+      canvas.setPointerCapture(event.pointerId)
     }
-    // Counterintuitive on purpose (ported from source): dragging right moves the
-    // rocket down, matching how the touch gesture felt in the original build.
-    const handleTouchMove = (event: TouchEvent) => {
-      if (!dragging || !event.touches.length) return
+    const handlePointerMove = (event: PointerEvent) => {
+      if (!dragging) return
       event.preventDefault()
-      const currentX = event.touches[0].clientX
-      player.y = clamp(player.y - (currentX - lastTouchX), 0, canvas.height - player.h)
-      lastTouchX = currentX
+      const rect = canvas.getBoundingClientRect()
+      const scaleY = rect.height > 0 ? logicalHeight / rect.height : 1
+      const deltaY = (event.clientY - lastPointerY) * scaleY
+      player.y = clamp(player.y + deltaY, 0, logicalHeight - player.h)
+      lastPointerY = event.clientY
     }
-    const handleTouchEnd = () => {
+    const handlePointerUp = (event: PointerEvent) => {
       dragging = false
+      if (canvas.hasPointerCapture(event.pointerId)) canvas.releasePointerCapture(event.pointerId)
     }
-    canvas.addEventListener('touchstart', handleTouchStart, { passive: true })
-    canvas.addEventListener('touchmove', handleTouchMove, { passive: false })
-    canvas.addEventListener('touchend', handleTouchEnd, { passive: true })
-    canvas.addEventListener('touchcancel', handleTouchEnd, { passive: true })
+    canvas.addEventListener('pointerdown', handlePointerDown)
+    canvas.addEventListener('pointermove', handlePointerMove)
+    canvas.addEventListener('pointerup', handlePointerUp)
+    canvas.addEventListener('pointercancel', handlePointerUp)
 
     return () => {
       ended = true
@@ -261,10 +281,10 @@ export const useGameLoop = (args: UseGameLoopArgs): UseGameLoopResult => {
       resizeObserver.disconnect()
       window.removeEventListener('keydown', handleKeyDown)
       window.removeEventListener('keyup', handleKeyUp)
-      canvas.removeEventListener('touchstart', handleTouchStart)
-      canvas.removeEventListener('touchmove', handleTouchMove)
-      canvas.removeEventListener('touchend', handleTouchEnd)
-      canvas.removeEventListener('touchcancel', handleTouchEnd)
+      canvas.removeEventListener('pointerdown', handlePointerDown)
+      canvas.removeEventListener('pointermove', handlePointerMove)
+      canvas.removeEventListener('pointerup', handlePointerUp)
+      canvas.removeEventListener('pointercancel', handlePointerUp)
     }
   }, [canvasRef, areaRef])
 
