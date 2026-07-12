@@ -16,7 +16,7 @@ export const Backdrop = styled.div`
 
 export const Dialog = styled.div`
   ${({ theme: { colors, radius, spacing } }) => `
-    width: clamp(280px, 90vw, 420px);
+    width: clamp(280px, 92vw, 440px);
     max-height: 90dvh;
     overflow: auto;
     display: flex;
@@ -38,7 +38,32 @@ export const Header = styled.div`
 
   h2 {
     margin: 0;
+    font-family: inherit;
   }
+`
+
+// A titled group of related controls, visually separated by a hairline.
+export const Section = styled.section`
+  ${({ theme: { colors, radius, spacing } }) => `
+    display: flex;
+    flex-direction: column;
+    gap: ${spacing.md.cssVar};
+    padding: ${spacing.lg.cssVar};
+    border-radius: ${radius.lg.cssVar};
+    border: 1px solid ${colors.layouts.default.enabled.border.tertiary.cssVar};
+    background: ${colors.layouts.default.enabled.surface.secondary.cssVar};
+  `}
+`
+
+export const SectionTitle = styled.h3`
+  ${({ theme: { colors, typography } }) => `
+    margin: 0;
+    font-family: inherit;
+    font-size: ${typography.fontSize.text.xs.cssVar};
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: ${colors.layouts.default.enabled.onSurface.tertiary.cssVar};
+  `}
 `
 
 export const Field = styled.div`
@@ -46,6 +71,30 @@ export const Field = styled.div`
     display: flex;
     flex-direction: column;
     gap: ${spacing.xs.cssVar};
+  `}
+`
+
+export const FieldLabel = styled.span`
+  ${({ theme: { colors, typography } }) => `
+    font-size: ${typography.fontSize.text.sm.cssVar};
+    color: ${colors.layouts.default.enabled.onSurface.secondary.cssVar};
+  `}
+`
+
+// Label on the left, value/control on the right — the account rows.
+export const ValueRow = styled.div`
+  ${({ theme: { spacing } }) => `
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: ${spacing.sm.cssVar};
+
+    strong {
+      font-family: inherit;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
   `}
 `
 
@@ -65,20 +114,30 @@ export const Form = styled.form`
   `}
 `
 
-export const Note = styled.span`
-  ${({ theme: { colors, typography } }) => `
-    font-size: ${typography.fontSize.text.xs.cssVar};
-    color: ${colors.layouts.default.enabled.onSurface.tertiary.cssVar};
-  `}
+export const Note = styled.span<{ $tone?: 'muted' | 'error' | 'success' }>`
+  ${({ theme: { colors, typography }, $tone = 'muted' }) => {
+    const tone = {
+      muted: colors.layouts.default.enabled.onSurface.tertiary.cssVar,
+      error: colors.layouts.brand.enabled.onSurface.primary.cssVar,
+      success: colors.layouts.default.enabled.onSurface.secondary.cssVar,
+    }[$tone]
+    return `
+      font-size: ${typography.fontSize.text.xs.cssVar};
+      color: ${tone};
+    `
+  }}
 `
 
 export const Input = styled.input`
   ${({ theme: { colors, radius, spacing, typography } }) => `
+    flex: 1;
+    min-width: 0;
     padding: ${spacing.xs.cssVar} ${spacing.sm.cssVar};
     border-radius: ${radius.md.cssVar};
     border: 1px solid ${colors.layouts.default.enabled.border.primary.cssVar};
-    background: ${colors.layouts.default.enabled.surface.secondary.cssVar};
+    background: ${colors.layouts.default.enabled.surface.primary.cssVar};
     color: ${colors.layouts.default.enabled.onSurface.primary.cssVar};
+    font-family: inherit;
     font-size: ${typography.fontSize.text.sm.cssVar};
   `}
 `
@@ -88,6 +147,7 @@ export const ChoiceButton = styled.button<{ $active: boolean }>`
     padding: ${spacing.xxs.cssVar} ${spacing.md.cssVar};
     border-radius: ${radius.full.cssVar};
     cursor: pointer;
+    font-family: inherit;
     font-size: ${typography.fontSize.text.sm.cssVar};
     color: ${colors.layouts.default.enabled.onSurface.primary.cssVar};
     border: 1px solid ${
@@ -98,7 +158,7 @@ export const ChoiceButton = styled.button<{ $active: boolean }>`
     background: ${
       $active
         ? colors.layouts.brand.enabled.surface.secondary.cssVar
-        : colors.layouts.default.enabled.surface.secondary.cssVar
+        : colors.layouts.default.enabled.surface.primary.cssVar
     };
   `}
 `
@@ -110,8 +170,33 @@ export const PrimaryButton = styled.button`
     border: 1px solid ${colors.layouts.brand.enabled.border.primary.cssVar};
     background: ${colors.layouts.brand.enabled.surface.secondary.cssVar};
     color: ${colors.layouts.brand.enabled.onSurface.primary.cssVar};
+    font-family: inherit;
     font-size: ${typography.fontSize.text.sm.cssVar};
     cursor: pointer;
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  `}
+`
+
+// Low-emphasis button for secondary actions (Change / Cancel / Logout).
+export const GhostButton = styled.button`
+  ${({ theme: { colors, radius, spacing, typography } }) => `
+    padding: ${spacing.xxs.cssVar} ${spacing.md.cssVar};
+    border-radius: ${radius.md.cssVar};
+    border: 1px solid ${colors.layouts.default.enabled.border.primary.cssVar};
+    background: transparent;
+    color: ${colors.layouts.default.enabled.onSurface.primary.cssVar};
+    font-family: inherit;
+    font-size: ${typography.fontSize.text.sm.cssVar};
+    cursor: pointer;
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
   `}
 `
 

@@ -11,6 +11,7 @@ import type { Stats, UserProfile, UserState } from '@/user/data-access/store/use
 
 const initialState: UserState = {
   username: null,
+  lastUsernameChange: null,
   stats: DEFAULT_STATS,
   totalDays: 1,
   xp: 0,
@@ -22,6 +23,7 @@ const initialState: UserState = {
 
 const applyProfile = (state: UserState, profile: UserProfile) => {
   state.username = profile.username
+  state.lastUsernameChange = profile.lastUsernameChange
   state.stats = profile.stats
   state.totalDays = profile.totalDays
   state.xp = profile.xp
@@ -66,6 +68,15 @@ const userSlice = createSlice({
     adjustStars: (state, action: PayloadAction<{ delta: number }>) => {
       state.totalStars = Math.max(0, state.totalStars + action.payload.delta)
     },
+    // Applies a completed rename to state. The Firestore reservation + doc write
+    // happen in changeUsernameThunk; this just reflects the result locally.
+    setUsername: (
+      state,
+      action: PayloadAction<{ username: string; lastUsernameChange: string }>,
+    ) => {
+      state.username = action.payload.username
+      state.lastUsernameChange = action.payload.lastUsernameChange
+    },
     // Cleared on logout so a subsequent login never shows stale data.
     resetUserData: () => initialState,
   },
@@ -85,6 +96,7 @@ const userSlice = createSlice({
   },
 })
 
-export const { setUserData, adjustStat, awardXp, adjustStars, resetUserData } = userSlice.actions
+export const { setUserData, setUsername, adjustStat, awardXp, adjustStars, resetUserData } =
+  userSlice.actions
 
 export default userSlice.reducer

@@ -5,6 +5,7 @@ import userReducer, {
   awardXp,
   resetUserData,
   setUserData,
+  setUsername,
 } from '@/user/data-access/store/user.slice'
 import { loadUserDataThunk } from '@/user/data-access/store/user.thunks'
 import {
@@ -16,6 +17,7 @@ import type { UserProfile, UserState } from '@/user/data-access/store/user.types
 
 const initialState: UserState = {
   username: null,
+  lastUsernameChange: null,
   stats: DEFAULT_STATS,
   totalDays: 1,
   xp: 0,
@@ -27,6 +29,7 @@ const initialState: UserState = {
 
 const profile: UserProfile = {
   username: 'ana',
+  lastUsernameChange: null,
   stats: { sleep: 3, water: 2, food: 1, sport: 0, wellbeing: 4 },
   totalDays: 7,
   xp: 40,
@@ -66,6 +69,18 @@ describe('user slice', () => {
 
     expect(state.status).toBe('error')
     expect(state.error).toBe('user.error.loadFailed')
+  })
+
+  it('applies a rename via setUsername with its timestamp', () => {
+    const changedAt = '2026-07-12T10:00:00.000Z'
+    const populated = userReducer(initialState, setUserData(profile))
+    const state = userReducer(
+      populated,
+      setUsername({ username: 'anaV2', lastUsernameChange: changedAt }),
+    )
+
+    expect(state.username).toBe('anaV2')
+    expect(state.lastUsernameChange).toBe(changedAt)
   })
 
   it('increments a stat by its delta', () => {

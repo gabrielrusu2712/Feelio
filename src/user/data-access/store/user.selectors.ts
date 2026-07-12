@@ -4,6 +4,9 @@ const selectUserState = (state: RootState) => state.user
 
 export const selectUsername = (state: RootState) => selectUserState(state).username
 
+export const selectLastUsernameChange = (state: RootState) =>
+  selectUserState(state).lastUsernameChange
+
 export const selectStats = (state: RootState) => selectUserState(state).stats
 
 export const selectTotalDays = (state: RootState) => selectUserState(state).totalDays

@@ -9,6 +9,7 @@ const storeWithUser = () => {
   store.dispatch(
     setUserData({
       username: 'ana',
+      lastUsernameChange: null,
       stats: { sleep: 4, water: 2, food: 1, sport: 0, wellbeing: 3 },
       totalDays: 3,
       xp: 0,

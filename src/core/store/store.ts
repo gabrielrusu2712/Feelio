@@ -54,7 +54,15 @@ const storage: WebStorage = {
 const userPersistConfig = {
   key: STORAGE_KEYS.USER,
   storage,
-  whitelist: ['username', 'stats', 'totalDays', 'xp', 'playerLevel', 'totalStars'],
+  whitelist: [
+    'username',
+    'lastUsernameChange',
+    'stats',
+    'totalDays',
+    'xp',
+    'playerLevel',
+    'totalStars',
+  ],
 }
 
 const rootReducer = combineReducers({

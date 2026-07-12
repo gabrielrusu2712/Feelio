@@ -1,0 +1,44 @@
+rules_version = '2';
+
+// Feelio Firestore security rules.
+//
+// Two collections matter here:
+//   users/{uid}        – one document per account, owner-only.
+//   usernames/{name}   – uniqueness reservations. The document id is the
+//                        normalized (lowercased) username; its `uid` field says
+//                        who owns it. Uniqueness is real ONLY because these rules
+//                        forbid overwriting a reservation you don't own — the
+//                        client transaction alone can't stop a crafted client.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // A user may only touch their own document (and any subcollection under it,
+    // e.g. loginDays / dailyMoods). Signed-in users can read others' docs so the
+    // app can show usernames, but never write them.
+    match /users/{uid} {
+      allow read: if request.auth != null;
+      allow create, update, delete: if request.auth != null && request.auth.uid == uid;
+
+      match /{document=**} {
+        allow read, write: if request.auth != null && request.auth.uid == uid;
+      }
+    }
+
+    // Username reservations.
+    //  - read: any signed-in user (availability checks).
+    //  - create: only if the new reservation points at your own uid. Because the
+    //    doc id is the username, and create fails if the doc already exists under
+    //    normal writes, the client claims via a transaction that first checks
+    //    existence — so a taken name can't be re-created by someone else.
+    //  - delete: only the current owner may release their reservation.
+    //  - update: never (a rename is delete-old + create-new, not an overwrite).
+    match /usernames/{name} {
+      allow read: if request.auth != null;
+      allow create: if request.auth != null
+                    && request.resource.data.uid == request.auth.uid;
+      allow delete: if request.auth != null
+                    && resource.data.uid == request.auth.uid;
+      allow update: if false;
+    }
+  }
+}

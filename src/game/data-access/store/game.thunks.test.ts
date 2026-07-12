@@ -15,6 +15,7 @@ const seedStars = (store: ReturnType<typeof setupStore>, totalStars: number) => 
   store.dispatch(
     setUserData({
       username: 'ana',
+      lastUsernameChange: null,
       stats: { sleep: 0, water: 0, food: 0, sport: 0, wellbeing: 0 },
       totalDays: 1,
       xp: 0,

@@ -10,6 +10,9 @@ export type UserDataStatus = 'idle' | 'loading' | 'ready' | 'error'
 
 export interface UserState {
   username: string | null
+  // ISO string of the last username change (null = never changed / new account),
+  // read by the settings rename UI to compute the 30-day cooldown.
+  lastUsernameChange: string | null
   stats: Stats
   totalDays: number
   // The "player" economy lives here (this slice IS the shared player state that
@@ -28,6 +31,7 @@ export interface UserState {
 // Firestore Timestamp — the api layer maps those to plain primitives.
 export interface UserProfile {
   username: string
+  lastUsernameChange: string | null
   stats: Stats
   totalDays: number
   xp: number

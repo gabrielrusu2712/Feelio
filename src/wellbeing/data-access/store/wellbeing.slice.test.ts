@@ -42,6 +42,7 @@ const seedUser = (
   store.dispatch(
     setUserData({
       username: 'ana',
+      lastUsernameChange: null,
       stats: { sleep: 0, water: 0, food: 0, sport: 0, wellbeing: 0, ...over.stats },
       totalDays: 1,
       xp: over.xp ?? 0,

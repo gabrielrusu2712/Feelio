@@ -8,7 +8,8 @@ import {
   updatePassword,
 } from 'firebase/auth'
 import { auth } from '@/core/services/firebase'
-import { createUserDocument } from '@/user/data-access/api/user.api'
+import { claimAvailableUsername, createUserDocument } from '@/user/data-access/api/user.api'
+import { seedUsername } from '@/user/data-access/utils/username'
 
 interface Credentials {
   email: string
@@ -45,8 +46,11 @@ export const registerThunk = createAsyncThunk<void, Credentials, { rejectValue: 
         credentials.email,
         credentials.password,
       )
-      const username = credentials.email.split('@')[0]
-      await createUserDocument(credential.user.uid, username)
+      // Derive a base username from the email local-part, then reserve a unique
+      // variant (auto-suffixed if taken) so two accounts never share a name.
+      const base = seedUsername(credentials.email.split('@')[0] ?? '')
+      const { username, usernameLower } = await claimAvailableUsername(credential.user.uid, base)
+      await createUserDocument(credential.user.uid, username, usernameLower)
     } catch (error) {
       return rejectWithValue(toMessage(error))
     }
