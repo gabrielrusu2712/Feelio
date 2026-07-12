@@ -9,6 +9,7 @@ import {
   selectUsername,
 } from '@/user/data-access/store'
 import { daysUntilUsernameChange } from '@/user/data-access/utils/username-cooldown'
+import { useInstallPrompt } from '@/shared/data-access/hooks/use-install-prompt'
 import { useColorMode } from '@/core/providers/theme-provider/color-mode-context'
 import type { ThemeMode } from '@/core/providers/theme-provider/color-mode-context'
 import LanguageSwitcher from '@/shared/features/language-switcher/language-switcher'
@@ -28,6 +29,7 @@ import {
   Row,
   Section,
   SectionTitle,
+  ShareGlyph,
   ValueRow,
 } from '@/shared/features/settings-overlay/settings-overlay.styled'
 
@@ -45,6 +47,7 @@ const SettingsOverlay = (props: SettingsOverlayProps) => {
   const username = useAppSelector(selectUsername)
   const lastUsernameChange = useAppSelector(selectLastUsernameChange)
   const { themeMode, setThemeMode } = useColorMode()
+  const { kind: installKind, promptInstall } = useInstallPrompt()
 
   // Username rename is managed with local state (not the shared auth error) so a
   // rename failure never leaks into other screens.
@@ -252,6 +255,34 @@ const SettingsOverlay = (props: SettingsOverlayProps) => {
             </PrimaryButton>
           </Form>
         </Section>
+
+        {installKind === 'prompt' && (
+          <PrimaryButton type="button" onClick={() => void promptInstall()}>
+            {t('install.title')}
+          </PrimaryButton>
+        )}
+        {installKind === 'ios' && (
+          <Field>
+            <FieldLabel>{t('install.title')}</FieldLabel>
+            <Note>
+              {t('install.iosHintLead')}
+              <ShareGlyph
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={2}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M12 3v12" />
+                <path d="M8 7l4-4 4 4" />
+                <path d="M6 12v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-7" />
+              </ShareGlyph>
+              {t('install.iosHintTail')}
+            </Note>
+          </Field>
+        )}
 
         <GhostButton type="button" onClick={handleLogout}>
           {t('common.logout')}

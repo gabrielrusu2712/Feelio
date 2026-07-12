@@ -200,6 +200,14 @@ export const GhostButton = styled.button`
   `}
 `
 
+// The iOS Share glyph, sized to the surrounding text via em, for the install hint.
+export const ShareGlyph = styled.svg`
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  margin: 0 0.15em;
+`
+
 export const CloseButton = styled.button`
   ${({ theme: { colors, radius } }) => `
     width: 2rem;

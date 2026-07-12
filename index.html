@@ -12,6 +12,19 @@
     <meta name="apple-mobile-web-app-title" content="Feelio" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Feelio</title>
+    <script>
+      // Capture the PWA install event as early as possible. Chrome can dispatch
+      // `beforeinstallprompt` before the React app mounts, and it only fires once,
+      // so we stash it on window and re-announce it for the app to pick up.
+      window.addEventListener('beforeinstallprompt', function (event) {
+        event.preventDefault()
+        window.__feelioBIP = event
+        window.dispatchEvent(new Event('feelio-bip-ready'))
+      })
+      window.addEventListener('appinstalled', function () {
+        window.__feelioBIP = null
+      })
+    </script>
   </head>
   <body>
     <div id="root"></div>

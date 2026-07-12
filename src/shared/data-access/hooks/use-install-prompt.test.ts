@@ -1,16 +1,15 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { act, renderHook } from '@testing-library/react'
+import { renderHook } from '@testing-library/react'
 import { useInstallPrompt } from '@/shared/data-access/hooks/use-install-prompt'
-import { STORAGE_KEYS } from '@/shared/data-access/utils/local-storage'
 
 const setUserAgent = (ua: string) => {
   Object.defineProperty(window.navigator, 'userAgent', { value: ua, configurable: true })
 }
 
-// jsdom's default matchMedia mock reports standalone=false; keep it explicit.
-const mockNotStandalone = () => {
+// jsdom's default matchMedia reports standalone=false; make it explicit/toggleable.
+const mockDisplayMode = (standalone: boolean) => {
   window.matchMedia = vi.fn().mockImplementation((query: string) => ({
-    matches: false,
+    matches: query.includes('standalone') ? standalone : false,
     media: query,
     onchange: null,
     addEventListener: vi.fn(),
@@ -23,8 +22,8 @@ const mockNotStandalone = () => {
 
 describe('useInstallPrompt', () => {
   beforeEach(() => {
-    localStorage.clear()
-    mockNotStandalone()
+    window.__feelioBIP = null
+    mockDisplayMode(false)
   })
   afterEach(() => vi.restoreAllMocks())
 
@@ -50,17 +49,22 @@ describe('useInstallPrompt', () => {
     expect(result.current.kind).toBe('none')
   })
 
-  it('stays hidden once dismissed (persisted flag)', () => {
+  it('offers the install button when an install event was captured', () => {
+    setUserAgent('Mozilla/5.0 (Linux; Android 14) Chrome/120 Mobile Safari/537.36')
+    window.__feelioBIP = {
+      prompt: vi.fn(),
+      userChoice: Promise.resolve({ outcome: 'accepted' }),
+    } as never
+    const { result } = renderHook(() => useInstallPrompt())
+    expect(result.current.kind).toBe('prompt')
+  })
+
+  it('offers nothing when already installed (standalone)', () => {
     setUserAgent(
       'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 Version/17.0 Mobile/15E148 Safari/604.1',
     )
-    const first = renderHook(() => useInstallPrompt())
-    act(() => first.result.current.dismiss())
-    expect(first.result.current.kind).toBe('none')
-
-    // A fresh mount reads the persisted dismissal and offers nothing.
-    const second = renderHook(() => useInstallPrompt())
-    expect(second.result.current.kind).toBe('none')
-    expect(localStorage.getItem(STORAGE_KEYS.INSTALL_DISMISSED)).toBe('true')
+    mockDisplayMode(true)
+    const { result } = renderHook(() => useInstallPrompt())
+    expect(result.current.kind).toBe('none')
   })
 })
