@@ -11,7 +11,9 @@ import prettier from 'eslint-plugin-prettier/recommended'
 export default defineConfig(
   // `functions/` is a separate Node/Cloud-Functions project with its own tsconfig
   // and lint concerns — the app's React/alias rules don't apply there.
-  { ignores: ['dist', 'functions'] },
+  // `public/sw.js` is a hand-written service worker running in the ServiceWorker
+  // global scope (self/caches/clients) — not part of the app's module/lint graph.
+  { ignores: ['dist', 'functions', 'public/sw.js'] },
 
   // React
   {

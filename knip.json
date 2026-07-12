@@ -10,7 +10,8 @@
     "src/core/i18n/types/resources.d.ts",
     "src/env.d.ts",
     "functions/**",
-    "worker/**"
+    "worker/**",
+    "public/sw.js"
   ],
   "ignoreExportsUsedInFile": true
 }

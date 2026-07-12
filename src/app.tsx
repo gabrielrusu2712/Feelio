@@ -8,6 +8,7 @@ import { persistor, store } from '@/core/store'
 import { useAuthListener } from '@/auth/data-access/hooks/use-auth-listener'
 import Splash from '@/shared/ui/splash/splash'
 import ClickSoundProvider from '@/shared/features/click-sound-provider/click-sound-provider'
+import InstallPrompt from '@/shared/features/install-prompt/install-prompt'
 
 const AppContent = () => {
   useAuthListener()
@@ -26,6 +27,7 @@ const App = () => {
           <PersistGate loading={<Splash />} persistor={persistor}>
             <ClickSoundProvider>
               <AppContent />
+              <InstallPrompt />
             </ClickSoundProvider>
           </PersistGate>
         </ThemeProvider>

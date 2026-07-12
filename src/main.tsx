@@ -6,6 +6,7 @@ import '@/core/theme/tokens/css/light.css'
 import '@/core/theme/tokens/css/dark.css'
 import App from '@/app'
 import { BrowserRouter } from 'react-router'
+import { registerServiceWorker } from '@/core/pwa/register-service-worker'
 
 const rootElement = document.getElementById('root')!
 rootElement.setAttribute('data-mounted', '1')
@@ -17,3 +18,5 @@ createRoot(rootElement).render(
     </BrowserRouter>
   </StrictMode>,
 )
+
+registerServiceWorker()

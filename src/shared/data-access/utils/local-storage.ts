@@ -10,6 +10,8 @@ export const STORAGE_KEYS = {
   PANEL_ORDER: 'feelio_panel_order',
   /** Map→album hand-off: a pending location check-in awaiting a photo upload. */
   PENDING_CLAIM: 'feelio_pending_location_claim',
+  /** Set once the user dismisses (or completes) the "install this app" banner. */
+  INSTALL_DISMISSED: 'feelio_install_dismissed',
 } as const
 
 export type StorageKey = (typeof STORAGE_KEYS)[keyof typeof STORAGE_KEYS]
